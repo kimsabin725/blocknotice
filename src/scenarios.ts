@@ -20,6 +20,8 @@ import { bigintReplacer, bigintReviver, type Institution } from "./institution.j
 const PORT = Number(process.env.SCENARIO_PORT ?? 8611);
 const RPC = process.env.SCENARIO_RPC ?? `http://127.0.0.1:${PORT}`;
 const CHAIN_ID = 31337;
+// anvil's first three deterministic accounts. These are the publicly known dev keys every Foundry
+// user has; they only ever touch a throwaway local chain and hold nothing anywhere else.
 const DEPLOYER = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80" as Hex;
 const REQUESTER = "0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d" as Hex;
 const STRANGER = "0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a" as Hex;
