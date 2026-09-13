@@ -269,3 +269,21 @@ describe("serialisation is injective", () => {
     expect(Number.isInteger(report.institutionNetworkCalls)).toBe(true);
   });
 });
+
+describe("commitment salts are never reused", () => {
+  it("two decisions in the same case carry independent salts and nonces", async () => {
+    const { inst, requestId } = await runCase({ inputs: "review" });     // DEFER, so a second decision follows
+    await inst.decide(requestId, INPUTS.screening);
+    const b = inst.bundle(requestId);
+    expect(b.decisions.length).toBeGreaterThanOrEqual(2);
+
+    const reasons = b.decisions.map((_, i) => inst.openReason(requestId, i));
+    const salts = reasons.map(r => r.salt);
+    expect(new Set(salts).size).toBe(salts.length);                       // reason salts differ
+
+    const nonces = b.decisions.map(d => d.record.recordNonce);
+    expect(new Set(nonces).size).toBe(nonces.length);                     // record nonces differ
+    const ids = b.decisions.map(d => d.record.decisionId);
+    expect(new Set(ids).size).toBe(ids.length);                           // decision ids differ
+  });
+});

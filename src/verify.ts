@@ -163,13 +163,23 @@ async function verifyBundleInner(b: ReceiptBundle, opts: VerifyOptions = {}): Pr
       : bad("policy.declared", "declared policy does not hash to the policyHash in the decision"));
     checks.push(inputsMatch ? ok("policy.inputs", "supplied inputs match the committed input snapshot")
       : bad("policy.inputs", "supplied inputs do not match the committed snapshot"));
-    if (declared && inputsMatch && b.publicPolicy.version === POLICY_VERSION && b.publicPolicy.source === POLICY_SOURCE) {
+    // Be exact about what re-execution means here. This verifier does not interpret the policy text
+    // it was handed; it runs its own compiled-in implementation. That is only meaningful if the
+    // declared source is byte-identical to the one this build carries, so say so as its own check.
+    const sameSource = b.publicPolicy.version === POLICY_VERSION && b.publicPolicy.source === POLICY_SOURCE;
+    checks.push(sameSource
+      ? ok("policy.sourceIdentity", "the declared policy text is byte-identical to the implementation this verifier runs")
+      : { id: "policy.sourceIdentity", status: "OUT_OF_SCOPE",
+          detail: "the declared policy text differs from this build's implementation — it is not interpreted, so re-execution is not attempted" });
+
+    if (declared && inputsMatch && sameSource) {
       const re = runPolicy({ amount: b.requestEnvelope.amount, destination: b.requestEnvelope.destination }, inputs);
       checks.push(re.outcome === last.outcome
-        ? ok("policy.rerun", `re-executing the declared policy on the declared inputs reproduces ${Outcome[last.outcome]}`)
+        ? ok("policy.rerun", `this build's implementation of ${POLICY_VERSION}, run on the declared inputs, reproduces ${Outcome[last.outcome]}`)
         : bad("policy.rerun", `re-execution gives ${Outcome[re.outcome]} but the record says ${Outcome[last.outcome]}`));
     } else {
-      checks.push({ id: "policy.rerun", status: "OUT_OF_SCOPE", detail: "policy source not available locally; only declaration is checked" });
+      checks.push({ id: "policy.rerun", status: "OUT_OF_SCOPE",
+        detail: "not re-executed: the declared policy is not the implementation this build carries, so only the declaration is checked" });
     }
   } else {
     checks.push({ id: "policy.rerun", status: "OUT_OF_SCOPE", detail: "no public policy/inputs in bundle — truthfulness of private inputs is out of scope" });

@@ -39,7 +39,7 @@ forge build
 
 npm run demo               # 16개 장면 재현 + 결과 화면(out/report.html) 생성 ★
 npm run scenarios          # 장면만 재현 (out/scenarios.json 도 함께 씀)
-npm run test:all           # 단위 테스트 (컨트랙트 31개 + TS 45개)
+npm run test:all           # 단위 테스트 (컨트랙트 31개 + TS 46개)
 npm run check:deployment   # 공개 테스트넷 배포를 체인에서 되읽어 대조 (.env 불필요)
 
 npm run issue -- --case screening    # 합성 거절 1건 발행 → out/bundle-screening.json
@@ -208,7 +208,7 @@ npm run verify -- out/bundle-screening.json
 |---|---|---|
 | 시나리오 (`npm run scenarios`) | **16** | 공격 11 + 정직 5. 실제 체인에서 예측과 실제 판정 대조 |
 | Solidity 단위 테스트 | **31** | 전체 재구축 레퍼런스 트리와 대조하는 퍼즈 포함 |
-| TypeScript 테스트 | **45** | 통합 테스트는 로컬 체인에 배포 후 **이벤트만으로** 로그를 재구성 |
+| TypeScript 테스트 | **46** | 통합 테스트는 로컬 체인에 배포 후 **이벤트만으로** 로그를 재구성 |
 
 **공격 11개 전부 탐지, 정직한 장면 5개 중 오탐 0건.**
 오탐 0이 탐지 11만큼 중요합니다 — 정직한 기관을 위반으로 찍는 도구는 아무도 안 씁니다.
@@ -326,7 +326,14 @@ BlockNotice는 **피결정자가 보유하는 쪽**의 기록을 다룹니다. �
 
 ---
 
-## 13. 만든 사람
+## 13. 데모
+
+5분 발표 대본은 [`DEMO.md`](DEMO.md)에 있습니다. 무엇을 말하고 무엇을 화면에 띄울지,
+그리고 **말하지 않으면 안 되는 문장**(로컬 가속과 공개 증거의 구분)을 함께 적어 뒀습니다.
+
+---
+
+## 14. 만든 사람
 
 Idea and committed by **SBK**.
 
