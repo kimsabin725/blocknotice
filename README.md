@@ -117,10 +117,15 @@ BlockNotice는 **피결정자가 보유하는 쪽**의 기록을 다룹니다.
 
 | | |
 |---|---|
-| 컨트랙트 | [`0x6841393c82c984edbc6eca822dab7028cc6f9a94`](https://sepolia.etherscan.io/address/0x6841393c82c984edbc6eca822dab7028cc6f9a94) |
-| 서비스 등록 tx | [`0x177a7eee…d5c212d9`](https://sepolia.etherscan.io/tx/0x177a7eee37b3f4b8570fbcce4e4458649d01c42d24dafeced4c394f9d5c212d9) |
-| serviceId | `demo-exchange` (`0x64656d6f2d65786368616e6765…`) |
-| Hoodi 미러 | 예정 (같은 컨트랙트, 아래 참조) |
+| 네트워크 | 컨트랙트 | 서비스 등록 tx |
+|---|---|---|
+| **Sepolia** (11155111) | [`0x6841393c82c984edbc6eca822dab7028cc6f9a94`](https://sepolia.etherscan.io/address/0x6841393c82c984edbc6eca822dab7028cc6f9a94) | [`0x177a7eee…d5c212d9`](https://sepolia.etherscan.io/tx/0x177a7eee37b3f4b8570fbcce4e4458649d01c42d24dafeced4c394f9d5c212d9) |
+| **Hoodi** (560048) | [`0xa9d34bb52d8015159a44ee1f0f9838b3c228792a`](https://hoodi.etherscan.io/address/0xa9d34bb52d8015159a44ee1f0f9838b3c228792a) | [`0xbbc7c129…bc68137c`](https://hoodi.etherscan.io/tx/0xbbc7c129265168a4d5e12ebb2ff06dcbb1651664c5e31cc9e026d5e3bc68137c) |
+
+serviceId는 양쪽 모두 `demo-exchange`(`0x64656d6f2d65786368616e6765…`)이고, 런타임 바이트코드도 동일한 7,924바이트입니다.
+
+**두 체인의 프로필 해시는 서로 다릅니다** — 해시에 chainId와 컨트랙트 주소가 들어가기 때문입니다.
+한쪽 체인에서 받은 영수증을 다른 쪽에 들고 가면 `ProfileMismatch`로 떨어집니다. 의도된 격리입니다.
 
 기록은 `deployments.json`에 있고, 검증기는 **이 파일이 아니라 체인에서 읽은 등록 정보**를 신뢰 기준점으로 씁니다.
 
@@ -149,9 +154,8 @@ Arbitrum Sepolia가 아니라 Sepolia를 쓰는 이유: 이 프로토콜의 판�
 그래서 검증기는 `--min-confirmations`로 **확정된 앵커만** 판정에 씁니다.
 
 > **Sepolia는 2026-09-30 종료 예정입니다.** 심사 기간에는 살아 있지만 여유가 없어,
-> 같은 컨트랙트를 Hoodi(chainId 560048)에도 올립니다. `npm run deploy -- hoodi`가 같은 기록 파일에
-> 네트워크별로 추가하고, 위 확인 명령이 양쪽을 모두 검사합니다. 어느 쪽도 정본이 아닙니다 —
-> 검증기는 영수증의 프로파일이 지목한 체인을 읽습니다.
+> 그래서 같은 컨트랙트를 Hoodi(chainId 560048)에도 올려 두었습니다(위 표). 어느 쪽도 정본이
+> 아닙니다 — 검증기는 영수증의 프로파일이 지목한 체인을 읽습니다.
 
 ## 만든 사람
 

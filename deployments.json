@@ -13,5 +13,20 @@
     "challengeResponseBlocks": 30,
     "explorer": "https://sepolia.etherscan.io/address/0x6841393c82c984edbc6eca822dab7028cc6f9a94",
     "deployedAt": "2026-09-13T03:10:37.710Z"
+  },
+  "hoodi": {
+    "network": "hoodi",
+    "chainId": 560048,
+    "contract": "0xa9d34bb52d8015159a44ee1f0f9838b3c228792a",
+    "deployTxBlock": 3613207,
+    "registerTx": "0xbbc7c129265168a4d5e12ebb2ff06dcbb1651664c5e31cc9e026d5e3bc68137c",
+    "serviceId": "0x64656d6f2d65786368616e676500000000000000000000000000000000000000",
+    "institutionSigner": "0xdD688d53860Ac5e6B62005179b6CDc19a5eb93b8",
+    "profileHash": "0xc083fae003808418539f0b46166f3566c1f3ce900d98c32784d65c2b231c735d",
+    "requestRecordDueBlocks": 5,
+    "decisionRecordDueBlocks": 20,
+    "challengeResponseBlocks": 30,
+    "explorer": "https://hoodi.etherscan.io/address/0xa9d34bb52d8015159a44ee1f0f9838b3c228792a",
+    "deployedAt": "2026-09-13T03:20:03.317Z"
   }
 }
