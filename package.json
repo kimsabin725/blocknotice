@@ -10,7 +10,8 @@
     "build:contracts": "forge build",
     "test:contracts": "forge test",
     "test:all": "forge test && vitest run",
-    "deploy": "tsx src/deploy.ts"
+    "deploy": "tsx src/deploy.ts",
+    "check:deployment": "tsx src/check-deployment.ts"
   },
   "keywords": [],
   "author": "",

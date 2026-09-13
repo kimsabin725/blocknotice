@@ -6,7 +6,7 @@ BlockNotice는 승인·거절·보류 판단의 서명 영수증을 요청자에
 
 > 설계·구현 진행 중인 해커톤 프로젝트입니다(TRUST404 트랙 3). 성능·고객 도입이 완료됐다는 보고가 아닙니다.
 
-## 지금 되는 것 (2026-09-13, 1~2일차)
+## 지금 되는 것 (2026-09-13)
 
 ```bash
 npm install
@@ -15,14 +15,14 @@ forge build
 
 npm run issue -- --case screening        # 합성 거절 1건 발행 → out/bundle-screening.json
 npm run verify -- out/bundle-screening.json
-npm run test:all                         # 컨트랙트 28개 + TS 39개
+npm run test:all                         # 컨트랙트 28개 + TS 41개
 ```
 
 `npm run test:all`은 로컬 체인(anvil)을 띄워 컨트랙트를 배포하고, 로그를 **이벤트만으로 다시 세워**
 컨트랙트가 보고한 루트와 일치하는지까지 확인합니다.
 
 `issue`는 기관 시뮬레이터가 정책을 실행해 DENY/DEFER/ALLOW 영수증을 만들고, 요청자가 받는 묶음을 파일로 씁니다.
-`verify`는 그 파일과(2일차부터는 공개 로그 루트와)만으로 판정합니다 — 기관 서버 접속 0회.
+`verify`는 그 파일과 공개 로그 루트만으로 판정합니다 — 기관 서버 접속 0회.
 
 판정은 통과/실패로 뭉치지 않고 다섯으로 나옵니다:
 
@@ -41,7 +41,7 @@ npm run test:all                         # 컨트랙트 28개 + TS 39개
 확인하는 것
 1. **기록 무결성** — 보유한 영수증의 서명과 공개 커밋이 일치하는가.
 2. **접수 책임** — 기관이 서명한 접수 약속의 기록 기한이 지켜졌는가.
-3. **독립 제출** — 영수증을 못 받아도 요청자가 자기 제출 사실을 공개 경로에 남길 수 있는가(2일차 컨트랙트).
+3. **독립 제출** — 영수증을 못 받아도 요청자가 자기 제출 사실을 공개 경로에 남길 수 있는가.
 
 확인하지 못하는 것
 1. **비공개 사유의 진실성** — 커밋은 교체를 탐지할 뿐, 내용이 참인지는 모릅니다.
@@ -94,23 +94,57 @@ BlockNotice는 **피결정자가 보유하는 쪽**의 기록을 다룹니다.
 
 ## 진행
 
-- [x] 1일차 — 스키마·EIP-712 서명·커밋·HPKE 고정, 기관 시뮬레이터, 정책 fixture, 독립 검증기 CLI, 테스트 32개
-- [x] 2일차 — `appendBatch` 컨트랙트(온체인 루트 계산·포함증명), 이벤트만으로 트리 독립 재구성
-- [x] 3일차(선행) — `challengeAccepted` / `postNotice` / `respond` / `finalize` 구현·테스트 완료.
-      남은 것은 **공개 테스트넷 배포 증적**뿐입니다.
-- [ ] 4일차 — 필수 공격·정상 사례 전체, 한 명령 재현
-- [ ] 5일차 — 얇은 화면, ACK
-- [ ] 6일차 — README·위협 모델·영상
+- [x] 스키마·EIP-712 서명·커밋·HPKE 고정, 기관 시뮬레이터, 정책 fixture, 독립 검증기 CLI
+- [x] `appendBatch` 컨트랙트(온체인 루트 계산·포함증명), 이벤트만으로 트리 독립 재구성
+- [x] `challengeAccepted` / `postNotice` / `respond` / `finalize` 구현·테스트
+- [x] **공개 테스트넷 배포·서비스 등록 완료** (아래 배포 절)
+- [ ] 필수 공격·정상 사례 전체, 한 명령 재현
+- [ ] 얇은 화면, ACK
+- [ ] 위협 모델 문서, 상태기계 그림, 데모 영상
 
 ## 배포 (Ethereum Sepolia, chainId 11155111)
 
+이 저장소의 컨트랙트는 공개 테스트넷에 실제로 올라가 있습니다.
+
+| | |
+|---|---|
+| 컨트랙트 | [`0xa9d34bb52d8015159a44ee1f0f9838b3c228792a`](https://sepolia.etherscan.io/address/0xa9d34bb52d8015159a44ee1f0f9838b3c228792a) |
+| 서비스 등록 tx | [`0x655b616d4d1cb72b28ce0f63b32c22f5b98e8dce7f2854556a68c1c5e86faef0`](https://sepolia.etherscan.io/tx/0x655b616d4d1cb72b28ce0f63b32c22f5b98e8dce7f2854556a68c1c5e86faef0) |
+| 블록 | 11693054 |
+| serviceId | `demo-exchange` (`0x64656d6f2d65786368616e6765…`) |
+| 배포 비용 | 0.002825 ETH (등록 tx 205,922 gas) |
+
+기록은 `deployments.json`에 있고, 검증기는 **이 파일이 아니라 체인에서 읽은 등록 정보**를 신뢰 기준점으로 씁니다.
+
+### 우리 말을 믿지 말고 직접 확인하세요
+
 ```bash
-cp .env.example .env      # DEPLOYER_KEY 채우기
-npm run deploy -- sepolia # 배포 + demo-exchange 서비스 등록 → deployments.json
+npm run check:deployment     # .env 없이도 공개 RPC로 동작합니다
 ```
+
+체인에서 chainId·런타임 바이트코드·서비스 등록 여부·기관 서명자·프로필 해시를 다시 읽어
+`deployments.json`과 대조하고, 하나라도 어긋나면 0이 아닌 코드로 종료합니다.
+
+### 로컬 시연과 공개 증거는 다릅니다
+
+기한 경과·무응답 확정처럼 **블록이 흘러야 보이는 것**은 로컬 체인(anvil)에서 블록을 당겨 시연합니다.
+공개 테스트넷에는 실제로 일어난 것만 있습니다. 가속한 로컬 결과를 공개망에서 기다린 것처럼
+제시하지 않으며, 데모 영상에서도 둘을 구분해 표시합니다.
+
+### 왜 Sepolia인가
 
 Arbitrum Sepolia가 아니라 Sepolia를 쓰는 이유: 이 프로토콜의 판정은 전부 **블록 번호 기한**이고
 (`respond` 마감 경계 테스트 포함), Arbitrum의 `block.number`는 L1 블록 번호의 근사치라 그 경계가
 흔들립니다. 또 배치 크기별 append 가스를 정직하게 보고하려면 L1 calldata 비용이 섞이지 않아야 합니다.
 
-AI 도구(Claude Code)를 사용해 구현 중이며, 최종 제출 시 주요 AI 생성 부분을 이 문단에 명시합니다.
+판정은 블록 순서 하나에 걸려 있어 인접 블록 재조직에 뒤집힐 수 있습니다. 컨트랙트는 이걸 막지 못합니다.
+그래서 검증기는 `--min-confirmations`로 **확정된 앵커만** 판정에 씁니다.
+
+> **Sepolia는 2026-09-30 종료 예정입니다.** 심사 기간에는 살아 있지만 여유가 없어,
+> 같은 컨트랙트를 Hoodi에도 올려 링크를 나란히 둘 계획입니다.
+
+## 만든 사람
+
+Idea and committed by **SBK**.
+Of course, special thanks to Claude and Anthropic — 구현은 Claude Code(Claude Opus 5)와 함께 했고,
+최종 제출 시 주요 AI 생성 부분을 이 절에 구체적으로 명시합니다.

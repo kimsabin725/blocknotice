@@ -38,7 +38,7 @@ async function main() {
   console.log(`${net.explorer}/address/${address}`);
 
   // Register the demo service under the profile the receipts will be issued with.
-  const institutionSigner = (process.env.INSTITUTION_ADDRESS as Hex | undefined) ?? base.account.address;
+  const institutionSigner = (process.env.INSTITUTION_ADDRESS as Hex | undefined) || base.account.address;
   const profile: ProtocolProfile = {
     ...DEMO_PROFILE, chainId: net.chain.id, verifyingContract: address,
     serviceId: bytes32FromString("demo-exchange"), institutionKeyId: institutionKeyId(institutionSigner as any),
