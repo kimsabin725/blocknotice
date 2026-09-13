@@ -349,7 +349,7 @@ BlockNotice는 **피결정자가 보유하는 쪽**의 기록을 다룹니다. �
 
 ## 14. 만든 사람
 
-Idea and committed by **SBK**.
+Idea and committed by **SBK**. 검토·피드백 [@tnwjd023-boop](https://github.com/tnwjd023-boop).
 
 Of course, special thanks to Claude and Anthropic — 구현은 Claude Code(Claude Opus 5)와 함께 했습니다.
 컨트랙트·검증기·시나리오 하니스의 코드 작성에 AI를 사용했고, 설계 판단과 위협 모델,
