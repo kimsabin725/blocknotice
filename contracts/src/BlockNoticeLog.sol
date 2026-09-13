@@ -30,6 +30,8 @@ contract BlockNoticeLog {
         bytes32 profileHash; // pins the deadlines/rules the receipts were issued under
         bytes32 treeId; // keccak256(serviceId); mirrors the off-chain tree id
         uint64 challengeResponseBlocks; // window to answer a challenge (part of profileHash)
+        uint64 requestRecordBlocks; // REQ leaf must be recorded within this many blocks of the cited anchor
+        uint64 decisionRecordBlocks; // DEC leaf likewise (part of profileHash)
         uint64 size; // current leaf count
         bytes32 root; // current root
         bool exists;
@@ -74,7 +76,7 @@ contract BlockNoticeLog {
         "Request(uint16 schemaVersion,bytes32 serviceId,bytes32 requestId,bytes32 nonce,address requesterKey,bytes32 responseEncryptionKeyHash,bytes32 requestCommitment,uint64 expiresAtBlock)"
     );
     bytes32 private constant _ACCEPTED_TYPEHASH = keccak256(
-        "AcceptedReceipt(bytes32 requestId,bytes32 signedRequestDigest,bytes32 serviceId,bytes32 institutionKeyId,bytes32 protocolProfileHash,uint64 acceptedAtClaimed,bytes32 referenceAnchorId,uint64 requestRecordDueBlock,uint64 decisionRecordDueBlock)"
+        "AcceptedReceipt(bytes32 requestId,bytes32 signedRequestDigest,bytes32 serviceId,bytes32 institutionKeyId,bytes32 protocolProfileHash,uint64 acceptedAtClaimed,bytes32 referenceAnchorId,uint64 requestRecordDueBlock,uint64 decisionRecordDueBlock,address requesterKey)"
     );
 
     uint256 private immutable _deployChainId;
@@ -101,6 +103,7 @@ contract BlockNoticeLog {
         bytes32 referenceAnchorId;
         uint64 requestRecordDueBlock;
         uint64 decisionRecordDueBlock;
+        address requesterKey; // the party this receipt was issued to; only they may challenge it
     }
 
     // --------------------------------------------------------------------- //
@@ -113,6 +116,8 @@ contract BlockNoticeLog {
         bytes32 profileHash,
         bytes32 treeId,
         uint64 challengeResponseBlocks,
+        uint64 requestRecordBlocks,
+        uint64 decisionRecordBlocks,
         bytes32 emptyRoot
     );
     event Appended(bytes32 indexed serviceId, uint64 startIndex, bytes32[] leaves, bytes32 newRoot, uint64 newSize);
@@ -140,6 +145,9 @@ contract BlockNoticeLog {
     error RequestExpired();
     error NoticeAlreadyPosted();
     error NotYetDue();
+    error NotRequester();
+    error UnknownAnchor();
+    error DeadlineNotDerived();
     error ChallengeExists();
     error NoSuchChallenge();
     error ChallengeClosed();
@@ -171,7 +179,9 @@ contract BlockNoticeLog {
         bytes32 serviceId,
         address signer,
         bytes32 profileHash,
-        uint64 challengeResponseBlocks
+        uint64 challengeResponseBlocks,
+        uint64 requestRecordBlocks,
+        uint64 decisionRecordBlocks
     ) external {
         Service storage s = _services[serviceId];
         if (s.exists) revert AlreadyRegistered();
@@ -180,11 +190,14 @@ contract BlockNoticeLog {
         s.signer = signer;
         s.profileHash = profileHash;
         s.challengeResponseBlocks = challengeResponseBlocks;
+        s.requestRecordBlocks = requestRecordBlocks;
+        s.decisionRecordBlocks = decisionRecordBlocks;
         s.treeId = keccak256(abi.encodePacked(serviceId));
         s.root = _zeros[DEPTH];
         _knownRoots[serviceId][s.root] = RootInfo({size: 0, blockNumber: uint64(block.number)});
         emit ServiceRegistered(
-            serviceId, msg.sender, signer, profileHash, s.treeId, challengeResponseBlocks, s.root
+            serviceId, msg.sender, signer, profileHash, s.treeId, challengeResponseBlocks,
+            requestRecordBlocks, decisionRecordBlocks, s.root
         );
     }
 
@@ -280,6 +293,22 @@ contract BlockNoticeLog {
         if (a.protocolProfileHash != s.profileHash) revert ProfileMismatch();
         bytes32 acceptedDigest = _hashTypedData(_structHashAccepted(a));
         if (_recover(acceptedDigest, institutionSig) != s.signer) revert BadSignature();
+
+        // Only the party the receipt names may demand evidence for it. A copy of someone else's
+        // receipt is not standing: without this, anyone who ever saw a bundle could open challenges.
+        if (msg.sender != a.requesterKey) revert NotRequester();
+
+        // The deadline is not whatever the institution's local clock said at signing time. It is
+        // derived from a block this chain actually observed: the anchor the receipt cites. An
+        // institution cannot buy itself time by back-dating its own clock, and cannot cite an
+        // anchor that does not exist.
+        RootInfo memory anchor = _knownRoots[a.serviceId][a.referenceAnchorId];
+        if (anchor.blockNumber == 0) revert UnknownAnchor();
+        if (
+            a.requestRecordDueBlock != anchor.blockNumber + s.requestRecordBlocks
+                || a.decisionRecordDueBlock != anchor.blockNumber + s.decisionRecordBlocks
+        ) revert DeadlineNotDerived();
+
         if (block.number <= a.decisionRecordDueBlock) revert NotYetDue();
 
         challengeId = keccak256(abi.encode(a.serviceId, acceptedDigest));
@@ -434,7 +463,8 @@ contract BlockNoticeLog {
                 uint256(a.acceptedAtClaimed),
                 a.referenceAnchorId,
                 uint256(a.requestRecordDueBlock),
-                uint256(a.decisionRecordDueBlock)
+                uint256(a.decisionRecordDueBlock),
+                a.requesterKey
             )
         );
     }

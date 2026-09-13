@@ -1,11 +1,17 @@
 {
-  "network": "sepolia",
-  "chainId": 11155111,
-  "contract": "0xa9d34bb52d8015159a44ee1f0f9838b3c228792a",
-  "deployTxBlock": 11693054,
-  "serviceId": "0x64656d6f2d65786368616e676500000000000000000000000000000000000000",
-  "institutionSigner": "0xdD688d53860Ac5e6B62005179b6CDc19a5eb93b8",
-  "profileHash": "0x248e08690f68c9e8d58447a39a5767a33e3b6bb0a991b60af8b5bf3a3f0c7c75",
-  "explorer": "https://sepolia.etherscan.io/address/0xa9d34bb52d8015159a44ee1f0f9838b3c228792a",
-  "deployedAt": "2026-09-13T02:41:38.659Z"
+  "sepolia": {
+    "network": "sepolia",
+    "chainId": 11155111,
+    "contract": "0x6841393c82c984edbc6eca822dab7028cc6f9a94",
+    "deployTxBlock": 11693195,
+    "registerTx": "0x177a7eee37b3f4b8570fbcce4e4458649d01c42d24dafeced4c394f9d5c212d9",
+    "serviceId": "0x64656d6f2d65786368616e676500000000000000000000000000000000000000",
+    "institutionSigner": "0xdD688d53860Ac5e6B62005179b6CDc19a5eb93b8",
+    "profileHash": "0x34f127c381fba9ababbe7eb36be8eb7aea2d0c3199152c5f71c30d909766f702",
+    "requestRecordDueBlocks": 5,
+    "decisionRecordDueBlocks": 20,
+    "challengeResponseBlocks": 30,
+    "explorer": "https://sepolia.etherscan.io/address/0x6841393c82c984edbc6eca822dab7028cc6f9a94",
+    "deployedAt": "2026-09-13T03:10:37.710Z"
+  }
 }

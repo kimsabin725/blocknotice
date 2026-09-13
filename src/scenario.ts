@@ -1,5 +1,6 @@
 // Wires a full case end to end: request → acceptance → decision → bundle. Used by the CLI and tests.
 import { writeFileSync, mkdirSync } from "node:fs";
+import type { Hex } from "viem";
 import { dirname } from "node:path";
 import { Institution, localClock, bigintReplacer, type Knobs } from "./institution.js";
 import { Requester } from "./requester.js";
@@ -22,12 +23,18 @@ export interface RunOptions {
   body?: Partial<RequestEnvelope>; inputs?: keyof typeof INPUTS; knobs?: Knobs; decide?: boolean; ack?: boolean;
   /** Anchoring against a real chain needs the chain's block height and the deployed log address. */
   profile?: Omit<ProtocolProfile, "institutionKeyId">; clock?: Clock;
+  /** Fix the requester key when the challenge path needs that address to send the transaction. */
+  requesterPk?: Hex;
+  /** Runs after the institution exists but before it accepts, so the caller can register the
+   *  service on chain and let the institution observe the anchor its deadlines derive from. */
+  onReady?: (inst: Institution) => Promise<void>;
 }
 
 export async function runCase(o: RunOptions = {}) {
   const clock = o.clock ?? localClock();
   const inst = await Institution.create(o.profile ?? DEMO_PROFILE, newSigner(), clock);
-  const req = await Requester.create(newSigner());
+  const req = await Requester.create(newSigner(o.requesterPk));
+  if (o.onReady) await o.onReady(inst);
   const body: Omit<RequestEnvelope, "salt"> = {
     requestType: "WITHDRAWAL", asset: "USDT", amount: "500",
     destination: o.inputs === "screening" ? SANCTIONED : "0xabc0000000000000000000000000000000000001",

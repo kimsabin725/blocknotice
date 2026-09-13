@@ -2,13 +2,19 @@
 // Usage: npm run deploy -- sepolia     (needs .env: SEPOLIA_RPC_URL, DEPLOYER_KEY)
 import { writeFileSync, existsSync, readFileSync } from "node:fs";
 import { defineChain, formatEther, type Hex } from "viem";
-import { sepolia } from "viem/chains";
+import { sepolia, hoodi } from "viem/chains";
 import { connect, deployLog, registerService } from "./chain.js";
 import { profileHash, institutionKeyId, bytes32FromString } from "./encode.js";
 import { DEMO_PROFILE } from "./profile.js";
 import type { ProtocolProfile } from "./types.js";
 
-const NETWORKS = { sepolia: { chain: sepolia, rpcEnv: "SEPOLIA_RPC_URL", explorer: "https://sepolia.etherscan.io" } } as const;
+// Sepolia is scheduled to shut down on 2026-09-30, so the same contract also goes to Hoodi and the
+// README carries both links. Neither is treated as canonical: the verifier reads whichever chain a
+// receipt's profile names.
+const NETWORKS = {
+  sepolia: { chain: sepolia, rpcEnv: "SEPOLIA_RPC_URL", explorer: "https://sepolia.etherscan.io" },
+  hoodi: { chain: hoodi, rpcEnv: "HOODI_RPC_URL", explorer: "https://hoodi.etherscan.io" },
+} as const;
 
 function loadEnv() {
   if (!existsSync(".env")) return;
@@ -44,16 +50,27 @@ async function main() {
     serviceId: bytes32FromString("demo-exchange"), institutionKeyId: institutionKeyId(institutionSigner as any),
   };
   const c = { ...base, address };
-  const r = await registerService(c, profile.serviceId, institutionSigner as any, profileHash(profile), profile.challengeResponseBlocks);
+  const r = await registerService(
+    c, profile.serviceId, institutionSigner as any, profileHash(profile),
+    profile.challengeResponseBlocks, profile.requestRecordDueBlocks, profile.decisionRecordDueBlocks,
+  );
   console.log(`service registered in ${r.transactionHash}`);
 
   const record = {
     network: name, chainId: net.chain.id, contract: address, deployTxBlock: Number(r.blockNumber),
+    registerTx: r.transactionHash,
     serviceId: profile.serviceId, institutionSigner, profileHash: profileHash(profile),
+    requestRecordDueBlocks: profile.requestRecordDueBlocks,
+    decisionRecordDueBlocks: profile.decisionRecordDueBlocks,
+    challengeResponseBlocks: profile.challengeResponseBlocks,
     explorer: `${net.explorer}/address/${address}`, deployedAt: new Date().toISOString(),
   };
-  writeFileSync("deployments.json", JSON.stringify(record, null, 2) + "\n");
-  console.log("wrote deployments.json");
+  // Keyed by network so a mirror deployment never overwrites the first one.
+  const all = existsSync("deployments.json") ? JSON.parse(readFileSync("deployments.json", "utf8")) : {};
+  const merged = all.network ? { [all.network]: all } : all; // migrate the single-network shape
+  merged[name] = record;
+  writeFileSync("deployments.json", JSON.stringify(merged, null, 2) + "\n");
+  console.log(`wrote deployments.json (${Object.keys(merged).join(", ")})`);
 }
 
 main().catch(e => { console.error(String(e.message ?? e)); process.exit(1); });

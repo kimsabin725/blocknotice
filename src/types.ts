@@ -50,6 +50,7 @@ export interface AcceptedReceipt {
   referenceAnchorId: Hex;         // bytes32 id of the on-chain anchor observed at acceptance (0x0 before day 2)
   requestRecordDueBlock: bigint;
   decisionRecordDueBlock: bigint;
+  requesterKey: Address;          // the party the receipt was issued to; only they may challenge it
 }
 
 export interface DecisionRecord {
@@ -135,6 +136,7 @@ export const EIP712_TYPES = {
     { name: "referenceAnchorId", type: "bytes32" },
     { name: "requestRecordDueBlock", type: "uint64" },
     { name: "decisionRecordDueBlock", type: "uint64" },
+    { name: "requesterKey", type: "address" },
   ],
   DecisionRecord: [
     { name: "requestId", type: "bytes32" },

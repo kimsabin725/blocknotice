@@ -15,6 +15,11 @@ export const localClock = (start = 100n): Clock & { advance: (n: bigint) => void
 
 export interface Knobs { skipRequestLeaf?: boolean; skipDecisionLeaf?: boolean; }
 
+/** The public anchor a receipt's deadlines are counted from. The institution observes it; it does
+ *  not get to choose the number. On chain the contract re-derives the same arithmetic and rejects
+ *  any receipt whose deadlines do not match, so a local clock cannot buy extra time. */
+export interface AnchorRef { id: Hex; block: bigint; }
+
 interface Case {
   request: Request; requesterSignature: Hex; envelope: RequestEnvelope; requesterHpkePub: Hex;
   accepted: AcceptedReceipt; acceptedSignature: Hex; requestLeafIndex?: number;
@@ -26,6 +31,9 @@ export class Institution {
   readonly tree: IncrementalTree;
   readonly cases = new Map<Hex, Case>();
   private nonces = new Set<string>();
+  /** Last anchor this institution observed on the public log. Deadlines are derived from it. */
+  anchor: AnchorRef = { id: ZERO32, block: 0n };
+  observeAnchor(id: Hex, block: bigint) { this.anchor = { id, block }; }
   private constructor(readonly profile: ProtocolProfile, readonly signer: PrivateKeyAccount, readonly hpke: HpkeKeyPair, readonly clock: Clock) {
     this.tree = new IncrementalTree(keccak256(profile.serviceId));
   }
@@ -49,11 +57,15 @@ export class Institution {
     if (keccak256(requesterHpkePub) !== request.responseEncryptionKeyHash) throw new Error("response key mismatch");
     this.nonces.add(nonceKey);
 
-    const blk = this.clock.block();
+    // Deadlines count from the observed anchor block, not from this institution's own clock.
+    const anchor = this.anchor.id === ZERO32 ? { id: ZERO32, block: this.clock.block() } : this.anchor;
     const accepted: AcceptedReceipt = {
       requestId: request.requestId, signedRequestDigest: requestDigest(p, request), serviceId: p.serviceId,
       institutionKeyId: p.institutionKeyId, protocolProfileHash: profileHash(p), acceptedAtClaimed: this.clock.now(),
-      referenceAnchorId: ZERO32, requestRecordDueBlock: blk + BigInt(p.requestRecordDueBlocks), decisionRecordDueBlock: blk + BigInt(p.decisionRecordDueBlocks),
+      referenceAnchorId: anchor.id,
+      requestRecordDueBlock: anchor.block + BigInt(p.requestRecordDueBlocks),
+      decisionRecordDueBlock: anchor.block + BigInt(p.decisionRecordDueBlocks),
+      requesterKey: request.requesterKey,
     };
     const acceptedSignature = await signTyped(this.signer, p, "AcceptedReceipt", accepted);
     const c: Case = { request, requesterSignature, envelope, requesterHpkePub, accepted, acceptedSignature, decisions: [] };

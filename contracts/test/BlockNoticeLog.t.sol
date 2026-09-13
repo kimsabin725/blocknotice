@@ -75,13 +75,18 @@ contract BlockNoticeLogTest is Test {
     address operator = address(0xF00);
 
     bytes32[] all; // mirror of every leaf appended, in order
+    bytes32 genesisRoot; // the empty root, anchored at registration — a deadline source far in the past
+
+    uint64 constant REQ_BLOCKS = 10;
+    uint64 constant DEC_BLOCKS = 20;
 
     function setUp() public {
         bnl = new BlockNoticeLog();
         inst = vm.addr(instKey);
         requester = vm.addr(reqKey);
         vm.prank(operator);
-        bnl.registerService(SERVICE, inst, PROFILE, RESPONSE_BLOCKS);
+        bnl.registerService(SERVICE, inst, PROFILE, RESPONSE_BLOCKS, REQ_BLOCKS, DEC_BLOCKS);
+        genesisRoot = bnl.getService(SERVICE).root;
         vm.roll(1000);
     }
 
@@ -121,7 +126,10 @@ contract BlockNoticeLogTest is Test {
         });
     }
 
-    function _accepted(uint64 decisionDue) internal view returns (BlockNoticeLog.AcceptedReceipt memory) {
+    /// Deadlines are derived from the block the cited anchor landed in, never from a number the
+    /// institution picked. `anchorRoot` must be a root this contract actually recorded.
+    function _accepted(bytes32 anchorRoot) internal view returns (BlockNoticeLog.AcceptedReceipt memory) {
+        uint64 anchorBlock = bnl.rootInfo(SERVICE, anchorRoot).blockNumber;
         return BlockNoticeLog.AcceptedReceipt({
             requestId: keccak256("req-1"),
             signedRequestDigest: keccak256("reqdigest"),
@@ -129,15 +137,17 @@ contract BlockNoticeLogTest is Test {
             institutionKeyId: keccak256(abi.encode(inst)),
             protocolProfileHash: PROFILE,
             acceptedAtClaimed: 1_700_000_000,
-            referenceAnchorId: bytes32(0),
-            requestRecordDueBlock: decisionDue - 10,
-            decisionRecordDueBlock: decisionDue
+            referenceAnchorId: anchorRoot,
+            requestRecordDueBlock: anchorBlock + REQ_BLOCKS,
+            decisionRecordDueBlock: anchorBlock + DEC_BLOCKS,
+            requesterKey: requester
         });
     }
 
-    function _openChallenge(uint64 decisionDue) internal returns (bytes32 id) {
-        BlockNoticeLog.AcceptedReceipt memory a = _accepted(decisionDue);
+    function _openChallenge(bytes32 anchorRoot) internal returns (bytes32 id) {
+        BlockNoticeLog.AcceptedReceipt memory a = _accepted(anchorRoot);
         bytes memory sig = _sign(instKey, bnl.hashAcceptedReceipt(a));
+        vm.prank(requester);
         id = bnl.challengeAccepted(a, sig);
     }
 
@@ -183,8 +193,7 @@ contract BlockNoticeLogTest is Test {
         assertTrue(bnl.getService(SERVICE).root != oldRoot, "root moved on");
         assertEq(bnl.rootInfo(SERVICE, oldRoot).size, 1, "old root still known");
 
-        uint64 due = uint64(block.number) - 1;
-        bytes32 id = _openChallenge(due);
+        bytes32 id = _openChallenge(genesisRoot);
         bnl.respond(id, all[0], 0, oldRoot, sib);
         assertEq(uint8(bnl.getChallenge(id).state), uint8(BlockNoticeLog.ChallengeState.ANSWERED));
     }
@@ -205,7 +214,7 @@ contract BlockNoticeLogTest is Test {
 
     function test_cannotRegisterTwice() public {
         vm.expectRevert(BlockNoticeLog.AlreadyRegistered.selector);
-        bnl.registerService(SERVICE, inst, PROFILE, RESPONSE_BLOCKS);
+        bnl.registerService(SERVICE, inst, PROFILE, RESPONSE_BLOCKS, REQ_BLOCKS, DEC_BLOCKS);
     }
 
     // ---------------- public notice ----------------
@@ -246,21 +255,52 @@ contract BlockNoticeLogTest is Test {
     // ---------------- challenge ----------------
 
     function test_challengeRequiresPassedDeadline() public {
-        BlockNoticeLog.AcceptedReceipt memory a = _accepted(uint64(block.number) + 5);
+        _append(_one(_leaf(1))); // a fresh anchor: its deadline is still in the future
+        BlockNoticeLog.AcceptedReceipt memory a = _accepted(bnl.getService(SERVICE).root);
         bytes memory sig = _sign(instKey, bnl.hashAcceptedReceipt(a));
+        vm.prank(requester);
         vm.expectRevert(BlockNoticeLog.NotYetDue.selector);
         bnl.challengeAccepted(a, sig);
     }
 
+    /// Standing: holding a copy of someone else's receipt is not a right to demand evidence for it.
+    function test_challengeRejectsStranger() public {
+        BlockNoticeLog.AcceptedReceipt memory a = _accepted(genesisRoot);
+        bytes memory sig = _sign(instKey, bnl.hashAcceptedReceipt(a));
+        vm.prank(address(0xDEAD));
+        vm.expectRevert(BlockNoticeLog.NotRequester.selector);
+        bnl.challengeAccepted(a, sig);
+    }
+
+    /// The institution cannot buy time by signing a later deadline than the anchor implies.
+    function test_challengeRejectsSelfDatedDeadline() public {
+        BlockNoticeLog.AcceptedReceipt memory a = _accepted(genesisRoot);
+        a.decisionRecordDueBlock += 5_000; // "our clock said we had longer"
+        bytes memory sig = _sign(instKey, bnl.hashAcceptedReceipt(a));
+        vm.prank(requester);
+        vm.expectRevert(BlockNoticeLog.DeadlineNotDerived.selector);
+        bnl.challengeAccepted(a, sig);
+    }
+
+    /// Nor by citing an anchor this chain never saw.
+    function test_challengeRejectsUnknownAnchor() public {
+        BlockNoticeLog.AcceptedReceipt memory a = _accepted(genesisRoot);
+        a.referenceAnchorId = keccak256("an anchor that was never posted");
+        bytes memory sig = _sign(instKey, bnl.hashAcceptedReceipt(a));
+        vm.prank(requester);
+        vm.expectRevert(BlockNoticeLog.UnknownAnchor.selector);
+        bnl.challengeAccepted(a, sig);
+    }
+
     function test_challengeRequiresInstitutionSignature() public {
-        BlockNoticeLog.AcceptedReceipt memory a = _accepted(uint64(block.number) - 1);
+        BlockNoticeLog.AcceptedReceipt memory a = _accepted(genesisRoot);
         bytes memory sig = _sign(reqKey, bnl.hashAcceptedReceipt(a)); // requester cannot fabricate one
         vm.expectRevert(BlockNoticeLog.BadSignature.selector);
         bnl.challengeAccepted(a, sig);
     }
 
     function test_challengeRequiresRegisteredProfile() public {
-        BlockNoticeLog.AcceptedReceipt memory a = _accepted(uint64(block.number) - 1);
+        BlockNoticeLog.AcceptedReceipt memory a = _accepted(genesisRoot);
         a.protocolProfileHash = keccak256("other-profile");
         bytes memory sig = _sign(instKey, bnl.hashAcceptedReceipt(a));
         vm.expectRevert(BlockNoticeLog.ProfileMismatch.selector);
@@ -268,10 +308,10 @@ contract BlockNoticeLogTest is Test {
     }
 
     function test_challengeCannotBeOpenedTwice() public {
-        uint64 due = uint64(block.number) - 1;
-        _openChallenge(due);
-        BlockNoticeLog.AcceptedReceipt memory a = _accepted(due);
+        _openChallenge(genesisRoot);
+        BlockNoticeLog.AcceptedReceipt memory a = _accepted(genesisRoot);
         bytes memory sig = _sign(instKey, bnl.hashAcceptedReceipt(a));
+        vm.prank(requester);
         vm.expectRevert(BlockNoticeLog.ChallengeExists.selector);
         bnl.challengeAccepted(a, sig);
     }
@@ -283,7 +323,7 @@ contract BlockNoticeLogTest is Test {
         _append(_one(_leaf(2)));
         sib = RefTree.proof(all, 1);
         root = bnl.getService(SERVICE).root;
-        id = _openChallenge(uint64(block.number) - 1);
+        id = _openChallenge(genesisRoot);
     }
 
     function test_respondHappyPath() public {
@@ -296,8 +336,8 @@ contract BlockNoticeLogTest is Test {
 
     /// Answering late closes the challenge but must NOT erase the fact that recording was late.
     function test_lateAnchorIsFlagged() public {
-        uint64 due = uint64(block.number) - 1; // deadline already passed before anything was anchored
-        bytes32 id = _openChallenge(due);
+        // deadline derived from the genesis anchor, long passed before anything was recorded
+        bytes32 id = _openChallenge(genesisRoot);
         _append(_one(_leaf(7)));
         bytes32[] memory sib = RefTree.proof(all, 0);
         bytes32 root = bnl.getService(SERVICE).root;

@@ -40,8 +40,14 @@ const write = async (c: ChainCtx, functionName: string, args: unknown[]) => {
   return c.pub.waitForTransactionReceipt({ hash });
 };
 
-export const registerService = (c: ChainCtx, serviceId: Hex, signer: Address, profileHash: Hex, challengeResponseBlocks: number) =>
-  write(c, "registerService", [serviceId, signer, profileHash, BigInt(challengeResponseBlocks)]);
+export const registerService = (
+  c: ChainCtx, serviceId: Hex, signer: Address, profileHash: Hex,
+  challengeResponseBlocks: number, requestRecordBlocks: number, decisionRecordBlocks: number,
+) =>
+  write(c, "registerService", [
+    serviceId, signer, profileHash,
+    BigInt(challengeResponseBlocks), BigInt(requestRecordBlocks), BigInt(decisionRecordBlocks),
+  ]);
 
 export const appendBatch = (c: ChainCtx, serviceId: Hex, leaves: Hex[]) => write(c, "appendBatch", [serviceId, leaves]);
 export const postNotice = (c: ChainCtx, request: unknown, sig: Hex) => write(c, "postNotice", [request, sig]);

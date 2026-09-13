@@ -15,7 +15,7 @@ forge build
 
 npm run issue -- --case screening        # 합성 거절 1건 발행 → out/bundle-screening.json
 npm run verify -- out/bundle-screening.json
-npm run test:all                         # 컨트랙트 28개 + TS 41개
+npm run test:all                         # 컨트랙트 31개 + TS 43개
 ```
 
 `npm run test:all`은 로컬 체인(anvil)을 띄워 컨트랙트를 배포하고, 로그를 **이벤트만으로 다시 세워**
@@ -59,12 +59,21 @@ npm run test:all                         # 컨트랙트 28개 + TS 41개
 | `registerService` | 기관 로그 등록. 마감 프로필 해시를 고정 |
 | `appendBatch` | 리프 해시를 순서대로 추가, 루트 재계산 (운영자만) |
 | `postNotice` | 영수증을 못 받은 요청자의 **중립** 공개 제출 — 위반 주장이 아님 |
-| `challengeAccepted` | **기관이 서명한** 접수 영수증의 기한이 지났을 때만 증빙 요구 개시 |
+| `challengeAccepted` | **기관이 서명한** 접수 영수증의 기한이 지났을 때만 증빙 요구 개시. **영수증이 지목한 요청자만** 열 수 있고, 기한은 **영수증이 인용한 앵커 블록에서 역산**한 값과 정확히 일치해야 함 |
 | `respond` | 포함증명으로 응답. 늦게 기록된 경우 `late` 플래그가 남음 |
 | `finalize` | 기한 내 무응답을 온체인 `UNANSWERED`로 확정 |
 
 `challengeAccepted`는 기관 자신의 서명을 요구하므로 **없던 의무를 날조할 수 없고**, `postNotice`는
 기관 서명이 없으므로 **위반으로 집계되지 않습니다**. 이 둘의 분리가 이 프로토콜의 핵심입니다.
+
+두 가지를 더 막습니다.
+
+- **기한은 기관의 시계가 아니라 체인이 본 블록에서 나옵니다.** 영수증은 자기가 관측한 앵커를 인용하고,
+  컨트랙트는 `그 앵커가 실제로 올라간 블록 + 등록된 간격`을 다시 계산해 영수증의 기한과 대조합니다.
+  어긋나면 `DeadlineNotDerived`, 없는 앵커를 인용하면 `UnknownAnchor`입니다.
+  기관이 자기 시계를 뒤로 돌려 시간을 벌 수 없습니다.
+- **영수증 사본은 자격이 아닙니다.** 영수증에 이름이 적힌 요청자만 챌린지를 열 수 있습니다(`NotRequester`).
+  번들을 한 번 본 사람이 남의 사건으로 기관을 두드릴 수 없습니다.
 
 ## 구조
 
@@ -108,11 +117,10 @@ BlockNotice는 **피결정자가 보유하는 쪽**의 기록을 다룹니다.
 
 | | |
 |---|---|
-| 컨트랙트 | [`0xa9d34bb52d8015159a44ee1f0f9838b3c228792a`](https://sepolia.etherscan.io/address/0xa9d34bb52d8015159a44ee1f0f9838b3c228792a) |
-| 서비스 등록 tx | [`0x655b616d4d1cb72b28ce0f63b32c22f5b98e8dce7f2854556a68c1c5e86faef0`](https://sepolia.etherscan.io/tx/0x655b616d4d1cb72b28ce0f63b32c22f5b98e8dce7f2854556a68c1c5e86faef0) |
-| 블록 | 11693054 |
+| 컨트랙트 | [`0x6841393c82c984edbc6eca822dab7028cc6f9a94`](https://sepolia.etherscan.io/address/0x6841393c82c984edbc6eca822dab7028cc6f9a94) |
+| 서비스 등록 tx | [`0x177a7eee…d5c212d9`](https://sepolia.etherscan.io/tx/0x177a7eee37b3f4b8570fbcce4e4458649d01c42d24dafeced4c394f9d5c212d9) |
 | serviceId | `demo-exchange` (`0x64656d6f2d65786368616e6765…`) |
-| 배포 비용 | 0.002825 ETH (등록 tx 205,922 gas) |
+| Hoodi 미러 | 예정 (같은 컨트랙트, 아래 참조) |
 
 기록은 `deployments.json`에 있고, 검증기는 **이 파일이 아니라 체인에서 읽은 등록 정보**를 신뢰 기준점으로 씁니다.
 
@@ -122,8 +130,8 @@ BlockNotice는 **피결정자가 보유하는 쪽**의 기록을 다룹니다.
 npm run check:deployment     # .env 없이도 공개 RPC로 동작합니다
 ```
 
-체인에서 chainId·런타임 바이트코드·서비스 등록 여부·기관 서명자·프로필 해시를 다시 읽어
-`deployments.json`과 대조하고, 하나라도 어긋나면 0이 아닌 코드로 종료합니다.
+`deployments.json`에 적힌 **모든 네트워크**에 대해 chainId·런타임 바이트코드·서비스 등록 여부·
+기관 서명자·프로필 해시를 체인에서 다시 읽어 대조하고, 하나라도 어긋나면 0이 아닌 코드로 종료합니다.
 
 ### 로컬 시연과 공개 증거는 다릅니다
 
@@ -141,7 +149,9 @@ Arbitrum Sepolia가 아니라 Sepolia를 쓰는 이유: 이 프로토콜의 판�
 그래서 검증기는 `--min-confirmations`로 **확정된 앵커만** 판정에 씁니다.
 
 > **Sepolia는 2026-09-30 종료 예정입니다.** 심사 기간에는 살아 있지만 여유가 없어,
-> 같은 컨트랙트를 Hoodi에도 올려 링크를 나란히 둘 계획입니다.
+> 같은 컨트랙트를 Hoodi(chainId 560048)에도 올립니다. `npm run deploy -- hoodi`가 같은 기록 파일에
+> 네트워크별로 추가하고, 위 확인 명령이 양쪽을 모두 검사합니다. 어느 쪽도 정본이 아닙니다 —
+> 검증기는 영수증의 프로파일이 지목한 체인을 읽습니다.
 
 ## 만든 사람
 

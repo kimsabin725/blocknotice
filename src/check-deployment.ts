@@ -3,7 +3,7 @@
 // Usage: npm run check:deployment
 import { existsSync, readFileSync } from "node:fs";
 import { createPublicClient, http, formatEther, type Address, type Hex } from "viem";
-import { sepolia } from "viem/chains";
+import { sepolia, hoodi } from "viem/chains";
 import { LOG_ABI } from "./chain.js";
 
 function loadEnv() {
@@ -24,10 +24,23 @@ function check(label: string, pass: boolean, detail: string) {
 async function main() {
   loadEnv();
   if (!existsSync("deployments.json")) throw new Error("deployments.json missing — run `npm run deploy -- sepolia` first");
-  const d = JSON.parse(readFileSync("deployments.json", "utf8"));
-  const rpc = process.env.SEPOLIA_RPC_URL ?? "https://ethereum-sepolia-rpc.publicnode.com";
-  const pub = createPublicClient({ chain: sepolia, transport: http(rpc) });
+  const all = JSON.parse(readFileSync("deployments.json", "utf8"));
+  const entries: any[] = all.network ? [all] : Object.values(all);
+  for (const entry of entries) await checkOne(entry);
+}
 
+async function checkOne(d: any) {
+  const name: string = d.network;
+  const CHAINS: Record<string, { chain: typeof sepolia; fallbackRpc: string; rpcEnv: string }> = {
+    sepolia: { chain: sepolia, fallbackRpc: "https://ethereum-sepolia-rpc.publicnode.com", rpcEnv: "SEPOLIA_RPC_URL" },
+    hoodi: { chain: hoodi as any, fallbackRpc: "https://ethereum-hoodi-rpc.publicnode.com", rpcEnv: "HOODI_RPC_URL" },
+  };
+  const net = CHAINS[name];
+  if (!net) throw new Error(`no chain config for network ${name}`);
+  const rpc = process.env[net.rpcEnv] || net.fallbackRpc;
+  const pub = createPublicClient({ chain: net.chain, transport: http(rpc) });
+
+  console.log(`\n=== ${name} ===`);
   console.log(`deployments.json says: ${d.contract} on chainId ${d.chainId}`);
   console.log(`re-reading from ${new URL(rpc).host}\n`);
 
@@ -45,9 +58,10 @@ async function main() {
   const bal = await pub.getBalance({ address: s.operator as Address });
   console.log(`  [info] operator ${s.operator}, balance ${formatEther(bal)} ETH`);
 
-  console.log(`\n${failures === 0 ? "OK — the chain agrees with deployments.json." : `${failures} check(s) FAILED.`}`);
+  console.log(`${failures === 0 ? "OK — the chain agrees with deployments.json." : `${failures} check(s) FAILED so far.`}`);
   console.log(`explorer: ${d.explorer}`);
-  process.exit(failures === 0 ? 0 : 1);
 }
 
-main().catch(e => { console.error(String(e.message ?? e)); process.exit(1); });
+main()
+  .then(() => process.exit(failures === 0 ? 0 : 1))
+  .catch(e => { console.error(String(e.message ?? e)); process.exit(1); });
