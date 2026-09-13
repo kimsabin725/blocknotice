@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>BlockNotice — TRUST404 피치덱</title>
+<style>
+@page { size: 297mm 167mm; margin: 0; }
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:#17171a;
+  font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif;
+  word-break:keep-all;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.s{width:297mm;height:167mm;padding:16mm 20mm 14mm;page-break-after:always;position:relative;
+  display:flex;flex-direction:column;overflow:hidden}
+.s:last-child{page-break-after:auto}
+.k{font-size:11pt;letter-spacing:.14em;color:#8a8a86;font-weight:700;margin:0 0 6mm}
+h1{font-size:34pt;line-height:1.15;margin:0 0 6mm;letter-spacing:-.02em}
+h2{font-size:26pt;line-height:1.2;margin:0 0 7mm;letter-spacing:-.02em}
+p{font-size:14pt;line-height:1.6;margin:0 0 4mm}
+.big{font-size:17pt;line-height:1.55}
+.dim{color:#6f6f6a}
+.n{position:absolute;right:14mm;bottom:8mm;font-size:9pt;color:#b0b0ac}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:12mm;flex:1}
+.cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8mm;flex:1}
+.box{border:1.2pt solid #e2e2de;border-radius:4mm;padding:7mm 8mm}
+.box h3{font-size:14pt;margin:0 0 3mm}
+.box p,.box li{font-size:12.5pt;line-height:1.5}
+ul{margin:0;padding-left:5mm}li{margin-bottom:2.5mm;font-size:13.5pt;line-height:1.5}
+table{width:100%;border-collapse:collapse;font-size:12pt}
+td,th{border-bottom:1pt solid #e2e2de;padding:3.2mm 3.5mm;text-align:left;vertical-align:top}
+th{font-size:10.5pt;color:#8a8a86;letter-spacing:.06em;font-weight:700}
+.box p.num,.num{font-size:52pt;font-weight:800;letter-spacing:-.03em;line-height:1;margin:0}
+.num.g{color:#13734a}.num.r{color:#b3261e}
+.lbl{font-size:12pt;color:#6f6f6a;margin-top:2mm}
+.ok{color:#13734a;font-weight:700}.no{color:#b3261e;font-weight:700}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;background:#f3f3f0;padding:.1em .35em;border-radius:2pt}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:10.5pt;line-height:1.5;background:#f7f7f4;border-radius:3mm;padding:6mm 7mm;white-space:pre}
+.tag{display:inline-block;font-size:10pt;padding:1mm 3mm;border-radius:10mm;border:1pt solid #d8d8d3;color:#6f6f6a;margin-right:2mm}
+.foot{margin-top:auto;font-size:10.5pt;color:#8a8a86}
+.hl{background:linear-gradient(transparent 55%,#fff1a8 55%)}
+.quote{border-left:3pt solid #17171a;padding-left:6mm;font-size:16pt;line-height:1.55;margin:4mm 0 6mm}
+</style></head><body>
+
+<!-- 1 표지 -->
+<section class="s">
+  <p class="k">TRUST404 · TRACK 3 · BEFORE EXECUTION</p>
+  <h1>BlockNotice</h1>
+  <p class="big"><span class="hl">거절된 출금은 트랜잭션이 되지 않습니다.</span><br>그래서 기록이 기관 쪽에만 남습니다.</p>
+  <p class="big dim" style="margin-top:6mm">오프체인 출금 판단의 서명 영수증을 요청자에게 돌려주고,<br>기관이 서명한 약속이 지켜졌는지를 <b>기관 서버 없이</b> 확인합니다.</p>
+  <p class="foot">저장소: github.com/kimsabin725/blocknotice · 모든 수치는 <code>npm run demo</code> 한 명령으로 재현됩니다</p>
+  <span class="n">1</span>
+</section>
+
+<!-- 2 문제 -->
+<section class="s">
+  <p class="k">문제 정의</p>
+  <h2>승인은 체인에 남고, 거절은 아무 데도 안 남는다</h2>
+  <div class="cols">
+    <div>
+      <p>출금이 <b>승인</b>되면 트랜잭션이 남습니다. 누구나 봅니다.</p>
+      <p>출금이 <b>거절·보류</b>되면 기관의 내부 DB 말고는 어디에도 안 남습니다.</p>
+      <p>나중에 기관이 <b>「그런 요청 없었다」</b>거나 <b>「사유는 이랬다」</b>고 말을 바꾸면, 이용자에게는 반박할 근거가 없습니다.</p>
+      <p class="dim">가상자산이용자보호법은 기록·통지 의무를 만들었지만, <b>그 기록이 지켜졌는지 제3자가 확인할 형식</b>은 비어 있습니다.</p>
+    </div>
+    <div class="box">
+      <h3>실행 전(before execution)에 일어나는 보안 문제</h3>
+      <p>체인에 실행 결과가 남기 전, 「누가 언제 무엇을 판단했는가」가 한쪽에만 있습니다.</p>
+      <p>이건 암호학 문제가 아니라 <b>증거 비대칭</b> 문제입니다. 기관은 다 알고, 이용자는 아무것도 증명 못 합니다.</p>
+      <p style="margin-bottom:0"><b>BlockNotice가 하는 일</b>: 그 비대칭을 서명 영수증 + 공개 커밋으로 대칭에 가깝게 만듭니다.</p>
+    </div>
+  </div>
+  <span class="n">2</span>
+</section>
+
+<!-- 3 범위 -->
+<section class="s">
+  <p class="k">누구를 위한 것인가 — 먼저 좁힙니다</p>
+  <h2>1차 장면은 기관 커스터디입니다</h2>
+  <div class="cols3">
+    <div class="box"><h3 class="ok">닿는 사람</h3>
+      <p>기관 고객. 이미 외부 지갑·HSM으로 서명하고, 커스터디 계약에 SLA가 있어 <b>증빙을 계약으로 요구할 힘</b>이 있습니다.</p>
+      <p style="margin-bottom:0">출금 주소에 서명할 수 있는 외부 지갑 보유자.</p></div>
+    <div class="box"><h3 style="color:#8a6100">조건부</h3>
+      <p style="margin-bottom:0">거래소 앱 내부 이용자는 passkey가 <b>거래소 밖</b>(단말·OS)에 있을 때만. 거래소가 키를 대신 보관하면 보증은 전부 무효입니다.</p></div>
+    <div class="box"><h3 class="no">안 닿는 사람</h3>
+      <p><b>국내 거래소 이용자 대부분.</b> 커스터디얼이라 키가 없습니다.</p>
+      <p style="margin-bottom:0">이들에게 닿으려면 <b>거래소 밖 키가 먼저</b>입니다. 그 전엔 남는 경로가 소송뿐입니다.</p></div>
+  </div>
+  <p class="foot">이걸 첫 장에 두는 이유 — 「모든 이용자를 위한 것」이라고 말하면 가장 먼저 무너지는 곳이 여기입니다.</p>
+  <span class="n">3</span>
+</section>
+
+<!-- 4 위협 모델 -->
+<section class="s">
+  <p class="k">위협 모델</p>
+  <h2>누가, 무엇을 가지고, 무엇을 시도하는가</h2>
+  <table>
+    <tr><th>행위자</th><th>가진 능력</th><th>시도할 수 있는 공격</th></tr>
+    <tr><td><b>기관(결정자)</b></td><td>로그 서명키, 앵커키, DB, 서버, 멤풀 관찰</td><td>기록 누락·삭제·수정·백데이트 / 사유 사후 교체 / 영수증 보류 / <b>기한 자가 연장</b> / 늦은 응답으로 지각 은폐</td></tr>
+    <tr><td><b>요청자</b></td><td>자기 키, 받은 영수증</td><td>없던 의무 날조 / <b>남의 영수증으로 기관 괴롭히기</b> / 조작된 묶음으로 허위 고발</td></tr>
+    <tr><td><b>제3자</b></td><td>자기 도메인·자기 키</td><td>통째로 위조한 묶음을 진짜처럼 제시</td></tr>
+    <tr><td><b>외부 관찰자</b></td><td>로그·앵커·공개 제출 열람</td><td>대상·금액·주소 식별 (실패) / 건수 추정 (부분 성공)</td></tr>
+  </table>
+  <p class="foot"><b>비가정</b>: 로그키·앵커키 동시 유출, 체인 재구성, 요청자 = 결정자, 그리고 <b>오프체인 전달 자체의 증명</b>(존재하지 않습니다).</p>
+  <span class="n">4</span>
+</section>
+
+<!-- 5 구조 -->
+<section class="s">
+  <p class="k">어떻게</p>
+  <h2>서명 영수증 + 컨트랙트가 직접 계산하는 공개 로그</h2>
+  <div class="cols">
+    <div class="mono">요청자 ──서명 요청(EIP-712)+HPKE 봉투──▶ 기관
+        ◀── AcceptedReceipt ──────────────
+            (기록 기한 + 요청자 바인딩,   REQ 리프 기록
+             기관 서명)
+        ◀── DecisionRecord ──────────────
+            (암호화 전달, 기관 서명)       DEC 리프 기록
+
+공개 로그  : append-only 머클 트리(깊이 32)
+            루트는 제출받지 않고 컨트랙트가 계산
+검증기     : 파일 + 공개 로그 루트만으로 판정
+            기관 접속 0회 (실측)</div>
+    <div>
+      <ul>
+        <li><b>루트를 제출받지 않습니다.</b> 리프를 받아 컨트랙트가 계산합니다. 기관이 자기가 만들지 않은 트리의 루트를 올릴 수 없습니다.</li>
+        <li><b>기한은 기관의 시계가 아니라 체인이 본 블록에서.</b> 영수증이 인용한 앵커의 실제 블록 + 등록된 간격을 컨트랙트가 다시 계산해 대조합니다.</li>
+        <li><b>영수증 사본은 자격이 아닙니다.</b> 이름이 적힌 요청자만 챌린지를 열 수 있고, 그 바인딩에 기관이 서명합니다.</li>
+        <li>컨트랙트는 <b>해시만</b> 저장합니다. 요청 내용·통지문·사유를 모릅니다.</li>
+      </ul>
+    </div>
+  </div>
+  <span class="n">5</span>
+</section>
+
+<!-- 6 보증/비보증 -->
+<section class="s">
+  <p class="k">보증하는 것 / 보증하지 않는 것</p>
+  <h2>「모르겠다」와 「위반이다」를 섞지 않습니다</h2>
+  <div class="cols">
+    <div class="box"><h3 class="ok">보증합니다</h3><ul>
+      <li><b>기록 무결성</b> — 영수증 서명과 공개 커밋의 일치. 사후 교체 탐지.</li>
+      <li><b>접수 책임</b> — 서명한 기록 기한이 지켜졌는가.</li>
+      <li><b>독립 제출</b> — 영수증 없이도 공개 경로에 제출 사실을 남김.</li>
+      <li><b>기관 접속 0회</b> — 검증 중 나간 HTTP 호출을 <b>세어서</b> 보고. 상수가 아니라 실측.</li></ul></div>
+    <div class="box"><h3 class="no">보증하지 않습니다</h3><ul>
+      <li><b>비공개 사유의 진실성</b> — 커밋은 교체를 탐지할 뿐.</li>
+      <li><b>기관이 아무에게도 안 알린 판단</b> — 존재를 발견 못 함.</li>
+      <li><b>오프체인 전달</b> — 어떤 컨트랙트도 증명 못 함. 영수증 없는 공개 제출은 <b>중립 기록</b>.</li>
+      <li><b>완전성</b> — 각자 자기 항목만. 전체는 근사.</li>
+      <li><b>법적 강제력</b> — 체인은 의무를 만들지 않음.</li></ul></div>
+  </div>
+  <p class="foot">판정 5분류: CONFIRMED · NOT_DUE · OBLIGATION_UNMET · UNVERIFIABLE · OUT_OF_SCOPE — 「아직」과 「모름」은 위반이 아닙니다.</p>
+  <span class="n">6</span>
+</section>
+
+<!-- 7 검증 결과 -->
+<section class="s">
+  <p class="k">검증 결과 — 전부 <code>npm run demo</code> 한 명령으로 재현</p>
+  <h2>공격 11개 전부 탐지, 정상 5개 오탐 0</h2>
+  <div class="cols3" style="flex:0 0 auto;margin-bottom:8mm">
+    <div class="box"><p class="num g">11/11</p><p class="lbl">공격 탐지</p></div>
+    <div class="box"><p class="num g">0</p><p class="lbl">오탐 (정상을 위반으로)</p></div>
+    <div class="box"><p class="num">93</p><p class="lbl">검사 총계 — Solidity 31 · TS 46 · 시나리오 16</p></div>
+  </div>
+  <div class="cols">
+    <div><p><b>각 장면은 돌기 전에 결론을 선언합니다.</b> 기대값이 검사 항목 id와 상태를 직접 지목하므로, 검증기가 조용해서 통과하는 일이 없습니다.</p>
+      <p class="dim">오탐 0이 탐지 11만큼 중요합니다. 정직한 기관을 위반으로 찍는 도구는 아무도 안 씁니다.</p></div>
+    <div>
+      <p style="margin-bottom:2mm"><span class="tag">공격</span> 접수 누락 · 결정 누락 · 사후 조작 · 가짜 루트 · 통째 위조 · 등록 없음 · 무응답 · 늦은 기록 · <b>남의 영수증</b> · <b>기한 자가 연장</b> · 없는 앵커</p>
+      <p><span class="tag">정상</span> 제때 처리 · 기한 전 · ACK 없음 · ACK 바인딩 · 중립 공개 제출</p>
+    </div>
+  </div>
+  <p class="foot"><b>기한 경과 장면은 로컬 체인에서 블록을 당겨 시연했습니다.</b> 공개 테스트넷에는 실제로 일어난 것만 있습니다. 둘을 섞지 않습니다.</p>
+  <span class="n">7</span>
+</section>
+
+<!-- 8 공개 배포 -->
+<section class="s">
+  <p class="k">공개 증거</p>
+  <h2>우리 말을 믿지 말고 직접 확인하세요</h2>
+  <table style="margin-bottom:7mm">
+    <tr><th>네트워크</th><th>컨트랙트</th><th>비고</th></tr>
+    <tr><td><b>Sepolia</b> (11155111)</td><td><code>0x6841393c82c984edbc6eca822dab7028cc6f9a94</code></td><td>2026-09-30 종료 예정 — 데모데이 다음 날</td></tr>
+    <tr><td><b>Hoodi</b> (560048)</td><td><code>0xa9d34bb52d8015159a44ee1f0f9838b3c228792a</code></td><td>같은 바이트코드 7,924 B. 종료 대비 미러</td></tr>
+  </table>
+  <div class="cols">
+    <div class="box"><h3><code>npm run check:deployment</code></h3>
+      <p style="margin-bottom:0">chainId · 런타임 바이트코드 · 서비스 등록 · 기관 서명자 · 프로필 해시를 <b>공개 RPC에서 다시 읽어</b> 저장소 기록과 대조. 하나라도 어긋나면 0이 아닌 코드로 종료. <b><code>.env</code> 없이</b> 클론만 하면 됩니다.</p></div>
+    <div class="box"><h3>가스 (Foundry 실측)</h3>
+      <p style="margin-bottom:0"><code>appendBatch</code> 64장 1,576,428 · <code>challengeAccepted</code> 평균 104,714 · <code>respond</code> 79,925 · <code>finalize</code> 26,586. 배포 8,325 B.</p></div>
+  </div>
+  <span class="n">8</span>
+</section>
+
+<!-- 9 델타 -->
+<section class="s">
+  <p class="k">무엇이 새로운가 — 정직한 델타</p>
+  <h2>「Arbitrum delayed inbox와 뭐가 다르죠?」</h2>
+  <p class="quote"><b>발명이 아니라 이식입니다.</b> 롤업은 프로토콜이 포함을 강제합니다. 오프체인 결정 서비스에는 그 강제가 없습니다.</p>
+  <div class="cols">
+    <div><ul>
+      <li>포함 여부를 롤업 상태 대신 <b>머클 앵커</b>로 판정합니다.</li>
+      <li>강제가 없는 자리를 <b>「기관이 서명한 기한」 + 「체인이 본 앵커에서의 역산」</b>으로 채웠습니다.</li>
+      <li>CT(RFC 6962)와 달리 여기선 <b>안 올리는 게 이득</b>이라, 안 올린 사실을 요청자가 자기 영수증으로 증명하게 만들었습니다.</li></ul></div>
+    <div class="box"><h3>기술 델타는 하나입니다</h3>
+      <p>나머지 셋 — 2단 사유 공개(약관 번호 평문 + 세부 커밋), 분류표 기반 판정 상한, ACK 내장 — 은 <b>규제 매핑</b>입니다.</p>
+      <p style="margin-bottom:0" class="dim">독창성이 아니라 문제 정의·확장성 쪽에 놓습니다.</p></div>
+  </div>
+  <span class="n">9</span>
+</section>
+
+<!-- 10 한계 -->
+<section class="s">
+  <p class="k">한계 — 우리가 먼저 적습니다</p>
+  <h2>안 되는 것, 안 만든 것</h2>
+  <div class="cols">
+    <ul>
+      <li><b>요청자 = 결정자</b>는 못 잡습니다. 자기 지갑·같은 법인.</li>
+      <li><b>영수증 보류는 못 막습니다.</b> 성실히 앵커하며 영수증만 안 주면 위반 0건. 수수료 세금으로 퇴화할 뿐입니다.</li>
+      <li><b>경제적 강제층(stake·fee)은 설계만.</b> 지금 컨트랙트엔 예치금도 수수료도 없습니다.</li>
+      <li><b>serviceId는 선착순.</b> 남의 영수증 위조는 불가하지만 이름은 뺏깁니다.</li>
+    </ul>
+    <ul>
+      <li><b>앵커키 보유자의 역사 분기</b> — consistency proof 온체인 검증 미구현. 2-of-3 멀티시그 권고.</li>
+      <li><b>에폭 size 증가분</b>이 건수를 흘립니다.</li>
+      <li><b>키 회전 미구현.</b> 요청자 키 분실 = 자기 증거 상실.</li>
+      <li><b>서명된 타임라인은 양날.</b> 기관 방어 증거이자 소송의 원고 증거. 법무팀이 거부할 수 있습니다 — 기술로 못 풉니다.</li>
+    </ul>
+  </div>
+  <p class="foot">인접 블록 재조직으로 판정이 뒤집힐 수 있어 검증기는 확정된 앵커만 씁니다. 컨트랙트는 이걸 막지 못합니다.</p>
+  <span class="n">10</span>
+</section>
+
+<!-- 11 마무리 -->
+<section class="s">
+  <p class="k">정리</p>
+  <h2>93개 검사, 두 체인, 한 명령</h2>
+  <div class="cols">
+    <div><ul>
+      <li>거절된 출금의 <b>증거 비대칭</b>을 서명 영수증 + 공개 커밋으로 줄입니다.</li>
+      <li>공격 11개 탐지, 오탐 0. 전부 <code>npm run demo</code>로 재현.</li>
+      <li>Sepolia · Hoodi 배포, <code>.env</code> 없이 되읽기 검증.</li>
+      <li>보증하지 않는 것과 한계 8개를 먼저 적었습니다.</li></ul></div>
+    <div class="box">
+      <h3>새로 구현한 범위 · AI 사용</h3>
+      <p>이 기간에 새로 구현: 컨트랙트 전체, EIP-712·HPKE 영수증, 머클 로그, 독립 검증기, 시나리오 하니스, 보고 화면.</p>
+      <p style="margin-bottom:0">구현은 Claude Code(Claude Opus 5)와 함께 했습니다. 설계 판단·위협 모델·한계의 취사선택은 사람이 했습니다.</p></div>
+  </div>
+  <p class="foot">github.com/kimsabin725/blocknotice · Idea and committed by SBK. Special thanks to Claude and Anthropic.</p>
+  <span class="n">11</span>
+</section>
+
+</body></html>

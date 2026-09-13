@@ -339,9 +339,10 @@ BlockNotice는 **피결정자가 보유하는 쪽**의 기록을 다룹니다. �
 
 ---
 
-## 13. 데모
+## 13. 데모 · 피치덱
 
-5분 발표 대본은 [`DEMO.md`](DEMO.md)에 있습니다. 무엇을 말하고 무엇을 화면에 띄울지,
+5분 발표 대본은 [`DEMO.md`](DEMO.md)에, 피치덱은 [`deck/BlockNotice_pitch.pdf`](deck/BlockNotice_pitch.pdf)에
+있습니다(원본 `deck/pitch.html`, Brave 헤드리스로 PDF 생성). 무엇을 말하고 무엇을 화면에 띄울지,
 그리고 **말하지 않으면 안 되는 문장**(로컬 가속과 공개 증거의 구분)을 함께 적어 뒀습니다.
 
 ---
