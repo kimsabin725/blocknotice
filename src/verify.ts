@@ -19,7 +19,8 @@ export interface VerifyReport {
   checks: Check[];
   anchorState: "SIGNED_PENDING_ANCHOR" | "ANCHORED" | "MIXED";
   outcome: string;
-  institutionNetworkCalls: 0;
+  /** Measured, not asserted: outbound HTTP calls made while verifying. */
+  institutionNetworkCalls: number;
   summary: { CONFIRMED: number; NOT_DUE: number; OBLIGATION_UNMET: number; UNVERIFIABLE: number; OUT_OF_SCOPE: number };
 }
 
@@ -42,7 +43,22 @@ const ok = (id: string, detail: string): Check => ({ id, status: "CONFIRMED", de
 const bad = (id: string, detail: string): Check => ({ id, status: "OBLIGATION_UNMET", detail });
 const unk = (id: string, detail: string): Check => ({ id, status: "UNVERIFIABLE", detail });
 
+/** Counts every outbound HTTP call made while the verifier runs. `institutionNetworkCalls` used to
+ *  be the constant 0 — a claim, not a measurement. Now the number is observed: if any code path in
+ *  here ever reached for the institution (or anything else), it would show up. */
+async function countingNetwork<T>(fn: () => Promise<T>): Promise<{ value: T; calls: number }> {
+  const original = globalThis.fetch;
+  let calls = 0;
+  globalThis.fetch = ((...args: Parameters<typeof fetch>) => { calls++; return original(...args); }) as typeof fetch;
+  try { return { value: await fn(), calls }; } finally { globalThis.fetch = original; }
+}
+
 export async function verifyBundle(b: ReceiptBundle, opts: VerifyOptions = {}): Promise<VerifyReport> {
+  const { value, calls } = await countingNetwork(() => verifyBundleInner(b, opts));
+  return { ...value, institutionNetworkCalls: calls };
+}
+
+async function verifyBundleInner(b: ReceiptBundle, opts: VerifyOptions = {}): Promise<VerifyReport> {
   const p = b.profile;
   const checks: Check[] = [];
 

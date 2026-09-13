@@ -128,5 +128,16 @@ export class Institution {
   }
 }
 
-export const bigintReplacer = (_k: string, v: unknown) => typeof v === "bigint" ? `${v.toString()}n` : v;
-export const bigintReviver = (_k: string, v: unknown) => typeof v === "string" && /^\d+n$/.test(v) ? BigInt(v.slice(0, -1)) : v;
+// Bigints travel as a tagged object, never as a decorated string. The earlier `"123n"` form was not
+// injective: a legitimate string field whose value happened to be "123n" (an asset name, a memo)
+// came back as a BigInt, which is a way to make an honest institution's bundle read as malformed.
+// An object tag cannot collide with any string the payload may legitimately contain.
+const BIGINT_TAG = "$bigint";
+export const bigintReplacer = function (this: any, k: string, v: unknown) {
+  const raw = this?.[k];
+  return typeof raw === "bigint" ? { [BIGINT_TAG]: raw.toString() } : v;
+};
+export const bigintReviver = (_k: string, v: any) =>
+  v !== null && typeof v === "object" && typeof v[BIGINT_TAG] === "string" && Object.keys(v).length === 1
+    ? BigInt(v[BIGINT_TAG])
+    : v;

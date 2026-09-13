@@ -8,7 +8,7 @@ import { IncrementalTree, verifyInclusion, rootOf, DEPTH } from "../src/merkle.j
 import { leafHash, recordDigest, decisionDigest, requestCommitment } from "../src/encode.js";
 import { LeafType, Outcome } from "../src/types.js";
 import { newSigner, salt32, seal, utf8 } from "../src/crypto.js";
-import { Institution, localClock } from "../src/institution.js";
+import { Institution, localClock, bigintReplacer, bigintReviver } from "../src/institution.js";
 import { Requester } from "../src/requester.js";
 import { DEMO_PROFILE } from "../src/profile.js";
 
@@ -247,5 +247,25 @@ describe("private reason reveal", () => {
     const reason = { ...inst.openReason(requestId, 0), detail: "다른 사유" };
     const { privateReasonCommitment } = await import("../src/encode.js");
     expect(privateReasonCommitment(reason)).not.toBe(bundle.decisions[0].record.privateReasonCommitment);
+  });
+});
+
+describe("serialisation is injective", () => {
+  it("a string that merely looks like a tagged bigint survives a round trip as a string", () => {
+    const payload = { asset: "123n", amount: 500n, memo: "42n", nested: { due: 7n, label: "0n" } };
+    const back = JSON.parse(JSON.stringify(payload, bigintReplacer), bigintReviver);
+    expect(back.asset).toBe("123n");          // still a string, not 123n
+    expect(typeof back.asset).toBe("string");
+    expect(back.memo).toBe("42n");
+    expect(back.nested.label).toBe("0n");
+    expect(back.amount).toBe(500n);           // and real bigints still come back
+    expect(back.nested.due).toBe(7n);
+  });
+
+  it("the verifier reports network calls it actually made, not a hardcoded zero", async () => {
+    const { bundle } = await runCase();
+    const report = await verifyBundle(bundle, {});
+    expect(report.institutionNetworkCalls).toBe(0);   // measured: nothing reached out
+    expect(Number.isInteger(report.institutionNetworkCalls)).toBe(true);
   });
 });

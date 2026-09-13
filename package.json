@@ -11,7 +11,10 @@
     "test:contracts": "forge test",
     "test:all": "forge test && vitest run",
     "deploy": "tsx src/deploy.ts",
-    "check:deployment": "tsx src/check-deployment.ts"
+    "check:deployment": "tsx src/check-deployment.ts",
+    "scenarios": "tsx src/scenarios.ts",
+    "report": "tsx src/report.ts",
+    "demo": "npm run scenarios && npm run report"
   },
   "keywords": [],
   "author": "",
