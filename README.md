@@ -6,14 +6,20 @@ BlockNotice는 승인·거절·보류 판단의 서명 영수증을 요청자에
 
 > 설계·구현 진행 중인 해커톤 프로젝트입니다(TRUST404 트랙 3). 성능·고객 도입이 완료됐다는 보고가 아닙니다.
 
-## 지금 되는 것 (2026-09-13, 1일차)
+## 지금 되는 것 (2026-09-13, 1~2일차)
 
 ```bash
 npm install
+forge install foundry-rs/forge-std --no-git   # 최초 1회
+forge build
+
 npm run issue -- --case screening        # 합성 거절 1건 발행 → out/bundle-screening.json
 npm run verify -- out/bundle-screening.json
-npm test                                 # 32개 케이스
+npm run test:all                         # 컨트랙트 28개 + TS 39개
 ```
+
+`npm run test:all`은 로컬 체인(anvil)을 띄워 컨트랙트를 배포하고, 로그를 **이벤트만으로 다시 세워**
+컨트랙트가 보고한 루트와 일치하는지까지 확인합니다.
 
 `issue`는 기관 시뮬레이터가 정책을 실행해 DENY/DEFER/ALLOW 영수증을 만들고, 요청자가 받는 묶음을 파일로 씁니다.
 `verify`는 그 파일과(2일차부터는 공개 로그 루트와)만으로 판정합니다 — 기관 서버 접속 0회.
@@ -42,6 +48,23 @@ npm test                                 # 32개 케이스
 2. **기관이 아무에게도 알리지 않은 판단** — 존재 자체를 발견하지 못합니다.
 3. **오프체인 전달** — 요청자가 실제로 보냈는지는 어떤 컨트랙트도 증명하지 못합니다. 영수증 없는 공개 제출은
    위반이 아니라 중립 상태(PUBLIC_NOTICE)로 표시합니다.
+
+## 공개 로그 컨트랙트 (`contracts/src/BlockNoticeLog.sol`)
+
+컨트랙트는 **해시만** 저장합니다. 요청 내용도, 통지문도, 비공개 사유도 모릅니다.
+루트는 제출받지 않고 **컨트랙트가 직접 계산**합니다 — 기관이 자기가 만들지 않은 트리의 루트를 올릴 수 없습니다.
+
+| 함수 | 하는 일 |
+|---|---|
+| `registerService` | 기관 로그 등록. 마감 프로필 해시를 고정 |
+| `appendBatch` | 리프 해시를 순서대로 추가, 루트 재계산 (운영자만) |
+| `postNotice` | 영수증을 못 받은 요청자의 **중립** 공개 제출 — 위반 주장이 아님 |
+| `challengeAccepted` | **기관이 서명한** 접수 영수증의 기한이 지났을 때만 증빙 요구 개시 |
+| `respond` | 포함증명으로 응답. 늦게 기록된 경우 `late` 플래그가 남음 |
+| `finalize` | 기한 내 무응답을 온체인 `UNANSWERED`로 확정 |
+
+`challengeAccepted`는 기관 자신의 서명을 요구하므로 **없던 의무를 날조할 수 없고**, `postNotice`는
+기관 서명이 없으므로 **위반으로 집계되지 않습니다**. 이 둘의 분리가 이 프로토콜의 핵심입니다.
 
 ## 구조
 
@@ -72,10 +95,22 @@ BlockNotice는 **피결정자가 보유하는 쪽**의 기록을 다룹니다.
 ## 진행
 
 - [x] 1일차 — 스키마·EIP-712 서명·커밋·HPKE 고정, 기관 시뮬레이터, 정책 fixture, 독립 검증기 CLI, 테스트 32개
-- [ ] 2일차 — `appendBatch` 컨트랙트(온체인 루트 계산·포함증명), 독립 트리 재구성
-- [ ] 3일차 — `challengeAccepted` / `postNotice` / `respond` / `finalize`
+- [x] 2일차 — `appendBatch` 컨트랙트(온체인 루트 계산·포함증명), 이벤트만으로 트리 독립 재구성
+- [x] 3일차(선행) — `challengeAccepted` / `postNotice` / `respond` / `finalize` 구현·테스트 완료.
+      남은 것은 **공개 테스트넷 배포 증적**뿐입니다.
 - [ ] 4일차 — 필수 공격·정상 사례 전체, 한 명령 재현
 - [ ] 5일차 — 얇은 화면, ACK
 - [ ] 6일차 — README·위협 모델·영상
+
+## 배포 (Ethereum Sepolia, chainId 11155111)
+
+```bash
+cp .env.example .env      # DEPLOYER_KEY 채우기
+npm run deploy -- sepolia # 배포 + demo-exchange 서비스 등록 → deployments.json
+```
+
+Arbitrum Sepolia가 아니라 Sepolia를 쓰는 이유: 이 프로토콜의 판정은 전부 **블록 번호 기한**이고
+(`respond` 마감 경계 테스트 포함), Arbitrum의 `block.number`는 L1 블록 번호의 근사치라 그 경계가
+흔들립니다. 또 배치 크기별 append 가스를 정직하게 보고하려면 L1 calldata 비용이 섞이지 않아야 합니다.
 
 AI 도구(Claude Code)를 사용해 구현 중이며, 최종 제출 시 주요 AI 생성 부분을 이 문단에 명시합니다.

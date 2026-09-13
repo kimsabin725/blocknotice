@@ -1,7 +1,7 @@
 // Independent verifier. Takes a receipt bundle (+ optionally public log leaves) and decides what can be
 // established without contacting the institution. Never collapses everything into pass/fail:
 // CONFIRMED / NOT_DUE / OBLIGATION_UNMET / UNVERIFIABLE / OUT_OF_SCOPE.
-import { keccak256, type Hex } from "viem";
+import { keccak256, type Address, type Hex } from "viem";
 import { LeafType, Outcome, type ReceiptBundle, type InclusionProof } from "./types.js";
 import { profileHash, requestDigest, acceptedReceiptDigest, decisionDigest, ackDigest, recordDigest, requestCommitment, inputSnapshotCommitment, policyHash, leafHash, ZERO32 } from "./encode.js";
 import { verifyInclusion } from "./merkle.js";
@@ -27,7 +27,16 @@ export interface VerifyOptions {
   /** Public log state observed independently (day 2: read from chain). Absent => inclusion is UNVERIFIABLE, not failed. */
   publicLog?: { treeId: Hex; root: Hex; size: number };
   currentBlock?: bigint;
+  /**
+   * The registration read from the chain, NOT from the bundle. Without it every signature check below
+   * only establishes "some key signed consistently inside a domain it chose for itself" — a bundle
+   * forged end to end by an attacker satisfies that. With it, the domain, the signer and the deadline
+   * profile are pinned by a public record the institution cannot rewrite.
+   */
+  registry?: { serviceId: Hex; signer: Address; profileHash: Hex; treeId: Hex; chainId: number; verifyingContract: Address };
 }
+
+const eq = (a?: string, b?: string) => (a ?? "").toLowerCase() === (b ?? "").toLowerCase();
 
 const ok = (id: string, detail: string): Check => ({ id, status: "CONFIRMED", detail });
 const bad = (id: string, detail: string): Check => ({ id, status: "OBLIGATION_UNMET", detail });
@@ -36,6 +45,32 @@ const unk = (id: string, detail: string): Check => ({ id, status: "UNVERIFIABLE"
 export async function verifyBundle(b: ReceiptBundle, opts: VerifyOptions = {}): Promise<VerifyReport> {
   const p = b.profile;
   const checks: Check[] = [];
+
+  // 0. Anchor of trust. Everything after this is only as good as the registration it is pinned to.
+  const reg = opts.registry;
+  if (!reg) {
+    checks.push({ id: "registry.binding", status: "UNVERIFIABLE",
+      detail: "no on-chain registration supplied — the domain, signer and deadline profile below are the bundle's own claims" });
+  } else {
+    const mismatches = [
+      !eq(reg.serviceId, p.serviceId) && "serviceId",
+      !eq(reg.signer, b.institutionSigner) && "institutionSigner",
+      !eq(reg.profileHash, profileHash(p)) && "profileHash",
+      reg.chainId !== p.chainId && "chainId",
+      !eq(reg.verifyingContract, p.verifyingContract) && "verifyingContract",
+    ].filter(Boolean) as string[];
+    if (mismatches.length) {
+      // Not an accusation against the institution — this bundle simply is not about the registered
+      // service at all, so nothing here may be reported as a violation by it.
+      checks.push({ id: "registry.binding", status: "OUT_OF_SCOPE",
+        detail: `bundle does not belong to the registered service (${mismatches.join(", ")} differ) — no claim is made about the registered institution` });
+      const summary0 = { CONFIRMED: 0, NOT_DUE: 0, OBLIGATION_UNMET: 0, UNVERIFIABLE: 0, OUT_OF_SCOPE: 1 };
+      return { bundleVersion: b.bundleVersion, requestId: b.request.requestId, institution: b.institutionSigner,
+        requester: b.request.requesterKey, checks, anchorState: "SIGNED_PENDING_ANCHOR", outcome: "OUT_OF_SCOPE",
+        institutionNetworkCalls: 0, summary: summary0 };
+    }
+    checks.push(ok("registry.binding", `bundle is pinned to the registered service, signer ${reg.signer} and deadline profile`));
+  }
 
   // 1. requester signature over the request
   checks.push(await verifyTyped(p, "Request", b.request, b.requesterSignature, b.request.requesterKey)

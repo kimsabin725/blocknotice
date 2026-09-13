@@ -6,7 +6,8 @@ import { Requester } from "./requester.js";
 import { newSigner } from "./crypto.js";
 import { DEMO_PROFILE } from "./profile.js";
 import type { PolicyInputs } from "./policy.js";
-import type { ReceiptBundle, RequestEnvelope } from "./types.js";
+import type { ProtocolProfile, ReceiptBundle, RequestEnvelope } from "./types.js";
+import type { Clock } from "./institution.js";
 
 export const SANCTIONED = "0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef";
 
@@ -17,11 +18,15 @@ export const INPUTS: Record<"clean" | "screening" | "review" | "limit", PolicyIn
   limit:     { sanctionsListVersion: "OFAC-2026-09-01", sanctioned: [SANCTIONED], dailyLimit: "1000", withdrawnToday: "900", riskScore: 10, riskThreshold: 80, reviewBlocks: 40 },
 };
 
-export interface RunOptions { body?: Partial<RequestEnvelope>; inputs?: keyof typeof INPUTS; knobs?: Knobs; decide?: boolean; ack?: boolean; }
+export interface RunOptions {
+  body?: Partial<RequestEnvelope>; inputs?: keyof typeof INPUTS; knobs?: Knobs; decide?: boolean; ack?: boolean;
+  /** Anchoring against a real chain needs the chain's block height and the deployed log address. */
+  profile?: Omit<ProtocolProfile, "institutionKeyId">; clock?: Clock;
+}
 
 export async function runCase(o: RunOptions = {}) {
-  const clock = localClock();
-  const inst = await Institution.create(DEMO_PROFILE, newSigner(), clock);
+  const clock = o.clock ?? localClock();
+  const inst = await Institution.create(o.profile ?? DEMO_PROFILE, newSigner(), clock);
   const req = await Requester.create(newSigner());
   const body: Omit<RequestEnvelope, "salt"> = {
     requestType: "WITHDRAWAL", asset: "USDT", amount: "500",

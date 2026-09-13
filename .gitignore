@@ -3,3 +3,9 @@ dist/
 out/
 *.local.*
 .env
+
+# secrets and build output
+.env
+forge-out/
+contracts/lib/
+cache/

@@ -6,7 +6,11 @@
   "scripts": {
     "test": "vitest run",
     "issue": "tsx src/cli.ts issue",
-    "verify": "tsx src/cli.ts verify"
+    "verify": "tsx src/cli.ts verify",
+    "build:contracts": "forge build",
+    "test:contracts": "forge test",
+    "test:all": "forge test && vitest run",
+    "deploy": "tsx src/deploy.ts"
   },
   "keywords": [],
   "author": "",
