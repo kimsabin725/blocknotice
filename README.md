@@ -3,8 +3,10 @@
 **거절된 출금은 트랜잭션이 되지 않습니다. 그래서 기록이 기관 쪽에만 남습니다.**
 
 승인된 출금은 체인에 남습니다. 거절·보류된 출금은 아무 데도 안 남습니다 — 기관의 내부 DB 말고는.
-BlockNotice는 그 판단의 **서명 영수증을 요청자에게 돌려주고**, 기관이 서명한 접수 약속이
-지켜졌는지를 **기관 서버에 한 번도 접속하지 않고** 확인합니다.
+BlockNotice는 **기관이 서명한 처리 약속을 이용자가 직접 검증하고, 기한 내 증빙하지 않은 사실까지
+공개적으로 확정하는** 프로토콜입니다. 여기서 「처리 약속」은 출금을 승인하겠다는 약속이 아니라
+**기록하고 증빙하겠다는 약속**입니다. 기관이 서버를 끄고 침묵해도, 이용자는 자기 파일과 공개 체인만으로
+검증 절차를 끝까지 진행할 수 있고, 기관이 답하지 않았다는 사실이 온체인 `UNANSWERED`로 남습니다.
 
 > 해커톤 프로젝트입니다(TRUST404 트랙 3). 아래의 모든 수치는 이 저장소에서 재현됩니다.
 > 성능이나 고객 도입이 완료됐다는 보고가 아닙니다.
@@ -37,13 +39,19 @@ npm install
 forge install foundry-rs/forge-std --no-git   # 최초 1회
 forge build
 
-npm run demo               # 16개 장면 재현 + 결과 화면(out/report.html) 생성 ★
+npm run demo               # 18개 장면 재현 + 결과 화면(out/report.html) 생성 ★
 npm run scenarios          # 장면만 재현 (out/scenarios.json 도 함께 씀)
-npm run test:all           # 단위 테스트 (컨트랙트 31개 + TS 46개)
+npm run test:all           # 단위 테스트 (컨트랙트 32개 + TS 46개)
 npm run check:deployment   # 공개 테스트넷 배포를 체인에서 되읽어 대조 (.env 불필요)
 
 npm run issue -- --case screening    # 합성 거절 1건 발행 → out/bundle-screening.json
-npm run verify -- out/bundle-screening.json
+npm run verify -- out/bundle-screening.json          # 파일만으로 — 로그 포함 여부는 UNVERIFIABLE
+
+# 기관 없이 끝까지: 시나리오가 남긴 로컬 체인만 살려 두고, 파일 + 공개 RPC 로 검증
+npm run scenarios -- --keep                          # anvil(:8611)과 로그 컨트랙트가 남습니다
+npm run verify -- out/bundle-silent.json --rpc http://127.0.0.1:8611 --contract 0x5fbdb2315678afecb367f032d93f642f64180aa3
+#   → 등록 정보·로그(이벤트로 재구성)·챌린지 판정을 체인에서 읽고, 기관 서버 접속 0회로 판정합니다
+#   공개 테스트넷 영수증이면 --network sepolia|hoodi
 ```
 
 **`npm run demo` 하나가 이 프로젝트의 주장 전부를 검사하고 화면까지 냅니다.** 각 장면은
@@ -155,11 +163,30 @@ npm run verify -- out/bundle-screening.json
 | `appendBatch` | 리프 해시를 순서대로 추가, 루트 재계산 (운영자만) |
 | `postNotice` | 영수증을 못 받은 요청자의 **중립** 공개 제출 — 위반 주장이 아님 |
 | `challengeAccepted` | **기관이 서명한** 접수 영수증의 기한이 지났을 때만 증빙 요구 개시 |
-| `respond` | 포함증명으로 응답. 늦게 기록된 경우 `late` 플래그가 영구히 남음 |
+| `respond` | **이 챌린지의 접수 영수증에 묶인** 결정 리프의 포함증명으로만 응답. 다른 건의 기록이나 REQ 리프로는 닫히지 않음. 늦게 기록된 경우 `late` 플래그가 영구히 남음 |
 | `finalize` | 기한 내 무응답을 온체인 `UNANSWERED`로 확정 |
 
 `challengeAccepted`는 기관 자신의 서명을 요구하므로 **없던 의무를 날조할 수 없고**, `postNotice`는
 기관 서명이 없으므로 **위반으로 집계되지 않습니다**. 이 둘의 분리가 이 프로토콜의 핵심입니다.
+
+### 검토에서 잡힌 구멍 두 개 (2026-09-14)
+
+팀 검토([@tnwjd023-boop](https://github.com/tnwjd023-boop))에서 「이용자가 끝까지 진행하는 증빙 요구」라는
+주장에 구멍 둘이 지적됐고, 둘 다 고쳤습니다. 이전 커밋에는 그대로 있습니다.
+
+1. **`respond`가 아무 리프로나 닫혔습니다.** 같은 로그에 있는 리프면 다른 건의 결정이든 요청자의 REQ 리프든
+   챌린지를 `ANSWERED`로 닫을 수 있었습니다. 이제 DEC 리프는 `H(0x00 ‖ H(2 ‖ acceptedDigest ‖ decisionDigest))`로
+   **접수 영수증 다이제스트를 품고**, `respond`는 결정 다이제스트만 받아 챌린지에 저장된 acceptedDigest로
+   리프를 직접 계산합니다. 다른 건의 기록은 `BadInclusionProof`입니다. (`test_respondRejectsRecordOfAnotherRequest`,
+   `attack.answerWithAnotherRecord`) 호출자 제한은 두지 않았습니다 — 기관이 기록했다는 사실은 로그의 사실이지
+   호출자의 사실이 아니고, 제3자가 대신 증명해 주는 건 문제가 아닙니다.
+2. **검증기가 파일만 보고 「의무 미이행」을 냈습니다.** 번들에 결정이 없고 기한이 지나면 곧바로 위반으로
+   찍었는데, 번들은 결정을 빼고 건네질 수 있습니다. 이제 파일만으로는 `UNVERIFIABLE`이고, 체인에서 읽은
+   챌린지가 `UNANSWERED`일 때만 `OBLIGATION_UNMET`입니다. 체인이 `ANSWERED`인데 번들에 결정이 없으면
+   「불완전한 번들 또는 전달 누락」이지 기록 위반이 아닙니다. (`honest.strippedBundleIsNotAViolation`)
+
+이 연결이 보증하는 건 「이 접수에 대한 결정 기록이 로그에 있다」까지입니다. 결정 내용이 옳다는 것,
+요청자에게 전달됐다는 것은 여전히 오프체인 검증기와 ACK의 몫입니다.
 
 여기에 두 가지를 더 막습니다.
 
@@ -225,7 +252,7 @@ npm run verify -- out/bundle-screening.json
 |---|---|---|
 | `registerService` | 201,580 | 207,251 |
 | `challengeAccepted` | 104,714 | 141,656 |
-| `respond` | 79,925 | 108,539 |
+| `respond` | 80,108 | 111,476 |
 | `finalize` | 26,586 | 28,901 |
 | `postNotice` | 38,881 | 58,750 |
 
@@ -237,10 +264,10 @@ npm run verify -- out/bundle-screening.json
 
 | 네트워크 | 컨트랙트 | 서비스 등록 tx |
 |---|---|---|
-| **Sepolia** (11155111) | [`0x6841393c82c984edbc6eca822dab7028cc6f9a94`](https://sepolia.etherscan.io/address/0x6841393c82c984edbc6eca822dab7028cc6f9a94) | [`0x177a7eee…d5c212d9`](https://sepolia.etherscan.io/tx/0x177a7eee37b3f4b8570fbcce4e4458649d01c42d24dafeced4c394f9d5c212d9) |
-| **Hoodi** (560048) | [`0xa9d34bb52d8015159a44ee1f0f9838b3c228792a`](https://hoodi.etherscan.io/address/0xa9d34bb52d8015159a44ee1f0f9838b3c228792a) | [`0xbbc7c129…bc68137c`](https://hoodi.etherscan.io/tx/0xbbc7c129265168a4d5e12ebb2ff06dcbb1651664c5e31cc9e026d5e3bc68137c) |
+| **Sepolia** (11155111) | [`0xa4d46da2bc8bd6c113e254424be1e78002af5504`](https://sepolia.etherscan.io/address/0xa4d46da2bc8bd6c113e254424be1e78002af5504) | [`0x75e1cea4…63bf93b8`](https://sepolia.etherscan.io/tx/0x75e1cea4be1ca4954cff06eaeadd7f3b2c6a698e1fc1fd061de58d7c63bf93b8) |
+| **Hoodi** (560048) | [`0x6841393c82c984edbc6eca822dab7028cc6f9a94`](https://hoodi.etherscan.io/address/0x6841393c82c984edbc6eca822dab7028cc6f9a94) | [`0x14fc2a2d…926a749e`](https://hoodi.etherscan.io/tx/0x14fc2a2d0ee3e5f0c9e662bc944fa1b860f187a6859c98dd9703ba20926a749e) |
 
-serviceId는 양쪽 모두 `demo-exchange`이고 런타임 바이트코드도 동일한 7,924바이트입니다.
+serviceId는 양쪽 모두 `demo-exchange`이고 런타임 바이트코드도 동일합니다(`npm run check:deployment`가 크기와 해시를 대조합니다). 2026-09-14 `respond` 수정판으로 재배포했고, 이전 주소는 git 이력에 있습니다.
 
 **두 체인의 프로필 해시는 서로 다릅니다** — 해시에 chainId와 컨트랙트 주소가 들어가기 때문입니다.
 한쪽 영수증을 다른 쪽에 들고 가면 `ProfileMismatch`로 떨어집니다. 의도된 격리입니다.
@@ -312,7 +339,7 @@ Arbitrum의 `block.number`는 L1 블록 번호의 근사치라 그 경계가 흔
         ◀── AcceptedReceipt(기록 기한 + 요청자 바인딩, 기관 서명) ──   REQ 리프 기록
         ◀── DecisionRecord(암호화 전달, 기관 서명) ──                  DEC 리프 기록
         ── ACK(선택) ──▶
-공개 로그: 순서 보존 append-only 머클 트리(깊이 32), 리프 = H(0x00‖H(타입‖다이제스트))
+공개 로그: 순서 보존 append-only 머클 트리(깊이 32), 리프 = H(0x00‖H(타입‖다이제스트)), DEC 리프는 H(0x00‖H(2‖접수다이제스트‖결정다이제스트))
 검증기: 파일 + 공개 로그 루트만으로 5분류 출력 — 기관 접속 0회(실측)
 ```
 

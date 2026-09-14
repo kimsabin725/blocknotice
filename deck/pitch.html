@@ -153,11 +153,11 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 <!-- 7 검증 결과 -->
 <section class="s">
   <p class="k">검증 결과 — 전부 <code>npm run demo</code> 한 명령으로 재현</p>
-  <h2>공격 11개 전부 탐지, 정상 5개 오탐 0</h2>
+  <h2>공격 12개 전부 탐지, 정상 6개 오탐 0</h2>
   <div class="cols3" style="flex:0 0 auto;margin-bottom:8mm">
-    <div class="box"><p class="num g">11/11</p><p class="lbl">공격 탐지</p></div>
+    <div class="box"><p class="num g">12/12</p><p class="lbl">공격 탐지</p></div>
     <div class="box"><p class="num g">0</p><p class="lbl">오탐 (정상을 위반으로)</p></div>
-    <div class="box"><p class="num">93</p><p class="lbl">검사 총계 — Solidity 31 · TS 46 · 시나리오 16</p></div>
+    <div class="box"><p class="num">96</p><p class="lbl">검사 총계 — Solidity 32 · TS 46 · 시나리오 18</p></div>
   </div>
   <div class="cols">
     <div><p><b>각 장면은 돌기 전에 결론을 선언합니다.</b> 기대값이 검사 항목 id와 상태를 직접 지목하므로, 검증기가 조용해서 통과하는 일이 없습니다.</p>
@@ -184,7 +184,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
     <div class="box"><h3><code>npm run check:deployment</code></h3>
       <p style="margin-bottom:0">chainId · 런타임 바이트코드 · 서비스 등록 · 기관 서명자 · 프로필 해시를 <b>공개 RPC에서 다시 읽어</b> 저장소 기록과 대조. 하나라도 어긋나면 0이 아닌 코드로 종료. <b><code>.env</code> 없이</b> 클론만 하면 됩니다.</p></div>
     <div class="box"><h3>가스 (Foundry 실측)</h3>
-      <p style="margin-bottom:0"><code>appendBatch</code> 64장 1,576,428 · <code>challengeAccepted</code> 평균 104,714 · <code>respond</code> 79,925 · <code>finalize</code> 26,586. 배포 8,325 B.</p></div>
+      <p style="margin-bottom:0"><code>appendBatch</code> 64장 1,576,428 · <code>challengeAccepted</code> 평균 104,714 · <code>respond</code> 80,108 · <code>finalize</code> 26,586. 배포 8,325 B.</p></div>
   </div>
   <span class="n">8</span>
 </section>
@@ -231,7 +231,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 <!-- 11 마무리 -->
 <section class="s">
   <p class="k">정리</p>
-  <h2>93개 검사, 두 체인, 한 명령</h2>
+  <h2>96개 검사, 두 체인, 한 명령</h2>
   <div class="cols">
     <div><ul>
       <li>거절된 출금의 <b>증거 비대칭</b>을 서명 영수증 + 공개 커밋으로 줄입니다.</li>

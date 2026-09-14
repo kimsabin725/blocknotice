@@ -2,31 +2,31 @@
   "sepolia": {
     "network": "sepolia",
     "chainId": 11155111,
-    "contract": "0x6841393c82c984edbc6eca822dab7028cc6f9a94",
-    "deployTxBlock": 11693195,
-    "registerTx": "0x177a7eee37b3f4b8570fbcce4e4458649d01c42d24dafeced4c394f9d5c212d9",
+    "contract": "0xa4d46da2bc8bd6c113e254424be1e78002af5504",
+    "deployTxBlock": 11699494,
+    "registerTx": "0x75e1cea4be1ca4954cff06eaeadd7f3b2c6a698e1fc1fd061de58d7c63bf93b8",
     "serviceId": "0x64656d6f2d65786368616e676500000000000000000000000000000000000000",
     "institutionSigner": "0xdD688d53860Ac5e6B62005179b6CDc19a5eb93b8",
-    "profileHash": "0x34f127c381fba9ababbe7eb36be8eb7aea2d0c3199152c5f71c30d909766f702",
+    "profileHash": "0x5c61cef5ad12c70f82ce62adc7993e6b068a10831f3448af933bdb01a41f19ae",
     "requestRecordDueBlocks": 5,
     "decisionRecordDueBlocks": 20,
     "challengeResponseBlocks": 30,
-    "explorer": "https://sepolia.etherscan.io/address/0x6841393c82c984edbc6eca822dab7028cc6f9a94",
-    "deployedAt": "2026-09-13T03:10:37.710Z"
+    "explorer": "https://sepolia.etherscan.io/address/0xa4d46da2bc8bd6c113e254424be1e78002af5504",
+    "deployedAt": "2026-09-14T00:47:14.248Z"
   },
   "hoodi": {
     "network": "hoodi",
     "chainId": 560048,
-    "contract": "0xa9d34bb52d8015159a44ee1f0f9838b3c228792a",
-    "deployTxBlock": 3613207,
-    "registerTx": "0xbbc7c129265168a4d5e12ebb2ff06dcbb1651664c5e31cc9e026d5e3bc68137c",
+    "contract": "0x6841393c82c984edbc6eca822dab7028cc6f9a94",
+    "deployTxBlock": 3618998,
+    "registerTx": "0x14fc2a2d0ee3e5f0c9e662bc944fa1b860f187a6859c98dd9703ba20926a749e",
     "serviceId": "0x64656d6f2d65786368616e676500000000000000000000000000000000000000",
     "institutionSigner": "0xdD688d53860Ac5e6B62005179b6CDc19a5eb93b8",
-    "profileHash": "0xc083fae003808418539f0b46166f3566c1f3ce900d98c32784d65c2b231c735d",
+    "profileHash": "0xd18e1f8d1d9f11f5f35cacdc6b69a06b795477e5713d777b87eee1a55d2a8f7f",
     "requestRecordDueBlocks": 5,
     "decisionRecordDueBlocks": 20,
     "challengeResponseBlocks": 30,
-    "explorer": "https://hoodi.etherscan.io/address/0xa9d34bb52d8015159a44ee1f0f9838b3c228792a",
-    "deployedAt": "2026-09-13T03:20:03.317Z"
+    "explorer": "https://hoodi.etherscan.io/address/0x6841393c82c984edbc6eca822dab7028cc6f9a94",
+    "deployedAt": "2026-09-14T00:47:53.847Z"
   }
 }

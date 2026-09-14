@@ -8,6 +8,7 @@ import { dirname, join } from "node:path";
 import { IncrementalTree } from "./merkle.js";
 import type { InclusionProof } from "./types.js";
 import type { Clock } from "./institution.js";
+import type { ChallengeState, VerifyOptions } from "./verify.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const artifact = JSON.parse(readFileSync(join(here, "..", "forge-out", "BlockNoticeLog.sol", "BlockNoticeLog.json"), "utf8"));
@@ -20,6 +21,10 @@ export const anvilChain = (id: number, url: string): Chain => ({
 });
 
 export interface ChainCtx { pub: PublicClient; wallet: WalletClient; account: PrivateKeyAccount; chain: Chain; address: Address; }
+/** What a verifier needs: a public RPC and the contract address. No key, no institution. */
+export interface ReadCtx { pub: PublicClient; address: Address; }
+export const readonlyCtx = (rpcUrl: string, address: Address): ReadCtx =>
+  ({ pub: createPublicClient({ transport: http(rpcUrl) }), address });
 
 export async function connect(rpcUrl: string, chain: Chain, privateKey: Hex): Promise<Omit<ChainCtx, "address">> {
   const account = privateKeyToAccount(privateKey);
@@ -52,21 +57,51 @@ export const registerService = (
 export const appendBatch = (c: ChainCtx, serviceId: Hex, leaves: Hex[]) => write(c, "appendBatch", [serviceId, leaves]);
 export const postNotice = (c: ChainCtx, request: unknown, sig: Hex) => write(c, "postNotice", [request, sig]);
 export const challengeAccepted = (c: ChainCtx, accepted: unknown, sig: Hex) => write(c, "challengeAccepted", [accepted, sig]);
-export const respond = (c: ChainCtx, id: Hex, leaf: Hex, index: number, root: Hex, siblings: Hex[]) =>
-  write(c, "respond", [id, leaf, BigInt(index), root, siblings]);
+/** Answer with the decision digest; the contract derives the leaf from the challenge's acceptedDigest. */
+export const respond = (c: ChainCtx, id: Hex, decisionDigest: Hex, index: number, root: Hex, siblings: Hex[]) =>
+  write(c, "respond", [id, decisionDigest, BigInt(index), root, siblings]);
 export const finalize = (c: ChainCtx, id: Hex) => write(c, "finalize", [id]);
 
-export const readService = (c: ChainCtx, serviceId: Hex) =>
+export const readService = (c: ReadCtx, serviceId: Hex) =>
   c.pub.readContract({ address: c.address, abi: LOG_ABI, functionName: "getService", args: [serviceId] }) as Promise<any>;
-export const readChallenge = (c: ChainCtx, id: Hex) =>
+export const readChallenge = (c: ReadCtx, id: Hex) =>
   c.pub.readContract({ address: c.address, abi: LOG_ABI, functionName: "getChallenge", args: [id] }) as Promise<any>;
+
+const CHALLENGE_STATES: ChallengeState[] = ["NONE", "OPEN", "ANSWERED", "UNANSWERED"];
+/** The challenge for one acceptance, in the verifier's vocabulary. */
+export async function challengeOf(c: ReadCtx, id: Hex): Promise<NonNullable<VerifyOptions["challenge"]>> {
+  const ch = await readChallenge(c, id);
+  return { state: CHALLENGE_STATES[Number(ch.state)] ?? "NONE", answeredLate: Boolean(ch.answeredLate), responseDueBlock: BigInt(ch.responseDueBlock) };
+}
+
+/**
+ * Everything the verifier takes from the chain for one acceptance, read with nothing but a public
+ * RPC: the registration, the log rebuilt from events, the current height, and the challenge state.
+ * The institution is not consulted and need not exist any more.
+ */
+export async function observe(c: ReadCtx, serviceId: Hex, challengeId: Hex): Promise<{
+  opts: Required<Pick<VerifyOptions, "publicLog" | "registry" | "currentBlock" | "challenge">>;
+  log: Awaited<ReturnType<typeof reconstructLog>>;
+}> {
+  const [svc, log, chainId, currentBlock, challenge] = await Promise.all([
+    readService(c, serviceId), reconstructLog(c, serviceId), c.pub.getChainId(), c.pub.getBlockNumber({ cacheTime: 0 }), challengeOf(c, challengeId),
+  ]);
+  return {
+    opts: {
+      registry: { serviceId, signer: svc.signer as Address, profileHash: svc.profileHash as Hex, treeId: svc.treeId as Hex, chainId, verifyingContract: c.address },
+      publicLog: { treeId: log.treeId, root: log.root, size: log.size },
+      currentBlock, challenge,
+    },
+    log,
+  };
+}
 
 /**
  * Rebuild the whole log from `Appended` events alone — no institution endpoint, no trust in the
  * bundle's own proofs. Returns the reconstructed root next to the root the contract reports, so a
  * mismatch (an event the contract never accepted, or a leaf order that does not replay) is visible.
  */
-export async function reconstructLog(c: ChainCtx, serviceId: Hex, fromBlock: bigint = 0n): Promise<{
+export async function reconstructLog(c: ReadCtx, serviceId: Hex, fromBlock: bigint = 0n): Promise<{
   treeId: Hex; leaves: Hex[]; root: Hex; size: number; onChainRoot: Hex; onChainSize: number; agrees: boolean;
   proofFor: (index: number) => InclusionProof;
 }> {
@@ -114,7 +149,7 @@ export async function chainClock(pub: PublicClient): Promise<SyncedClock> {
   return {
     block: () => b,
     now: () => BigInt(Math.floor(Date.now() / 1000)),
-    sync: async () => { b = await pub.getBlockNumber(); return b; },
+    sync: async () => { b = await pub.getBlockNumber({ cacheTime: 0 }); return b; },
   };
 }
 

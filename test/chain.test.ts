@@ -8,7 +8,7 @@ import { connect, deployLog, registerService, anchorPending, reconstructLog, cha
 import { runCase } from "../src/scenario.js";
 import { signTyped } from "../src/crypto.js";
 import { DEMO_PROFILE } from "../src/profile.js";
-import { profileHash, acceptedReceiptDigest, decisionDigest, recordDigest, leafHash } from "../src/encode.js";
+import { profileHash, acceptedReceiptDigest, decisionDigest, recordDigest, decisionRecordDigest, leafHash } from "../src/encode.js";
 import { LeafType, type ProtocolProfile } from "../src/types.js";
 import { verifyBundle } from "../src/verify.js";
 
@@ -161,11 +161,12 @@ describe("accountability paths", () => {
     const challengeId = keccak256(`0x${serviceId.slice(2)}${acceptedDigest.slice(2)}` as Hex);
 
     const rec = await reconstructLog(c, serviceId);
-    const leaf = leafHash(recordDigest(LeafType.DEC, decisionDigest(inst.profile, bundle.decisions[0].record)));
+    const dd = decisionDigest(inst.profile, bundle.decisions[0].record);
+    const leaf = leafHash(decisionRecordDigest(acceptedDigest, dd));
     const index = rec.leaves.findIndex(l => l.toLowerCase() === leaf.toLowerCase());
     expect(index).toBeGreaterThanOrEqual(0);
     const proof = rec.proofFor(index);
-    await respond(c, challengeId, leaf, index, rec.root, proof.siblings);
+    await respond(c, challengeId, dd, index, rec.root, proof.siblings);
 
     const ch = await readChallenge(c, challengeId);
     expect(ch.state).toBe(2); // ANSWERED

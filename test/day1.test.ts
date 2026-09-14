@@ -5,7 +5,7 @@ import { keccak256, type Hex } from "viem";
 import { runCase, INPUTS, SANCTIONED } from "../src/scenario.js";
 import { verifyBundle } from "../src/verify.js";
 import { IncrementalTree, verifyInclusion, rootOf, DEPTH } from "../src/merkle.js";
-import { leafHash, recordDigest, decisionDigest, requestCommitment } from "../src/encode.js";
+import { leafHash, recordDigest, decisionRecordDigest, decisionDigest, requestCommitment } from "../src/encode.js";
 import { LeafType, Outcome } from "../src/types.js";
 import { newSigner, salt32, seal, utf8 } from "../src/crypto.js";
 import { Institution, localClock, bigintReplacer, bigintReviver } from "../src/institution.js";
@@ -138,7 +138,7 @@ describe("case 6 — log structure", () => {
     expect(verifyInclusion(leaves[3], { ...p, siblings: p.siblings.slice(0, DEPTH - 1) })).toBe(false);
   });
   it("removing or reordering a past leaf changes the root", () => {
-    const leaves = Array.from({ length: 5 }, (_, i) => leafHash(recordDigest(LeafType.DEC, keccak256(`0x0${i + 1}`))));
+    const leaves = Array.from({ length: 5 }, (_, i) => leafHash(decisionRecordDigest(keccak256("0xaa"), keccak256(`0x0${i + 1}`))));
     const root = rootOf(leaves);
     expect(rootOf(leaves.filter((_, i) => i !== 2))).not.toBe(root);
     const swapped = leaves.slice(); [swapped[1], swapped[2]] = [swapped[2], swapped[1]];
@@ -164,13 +164,20 @@ describe("case 6 — log structure", () => {
 });
 
 describe("case 7 (pre-contract part) — acceptance signed, decision never logged", () => {
-  it("missing decision before the deadline is NOT_DUE, after it is OBLIGATION_UNMET", async () => {
-    const { bundle, inst } = await runCase({ inputs: "screening", decide: false });
+  it("missing decision: NOT_DUE before the deadline; after it UNVERIFIABLE on the file alone, OBLIGATION_UNMET only with an on-chain UNANSWERED verdict", async () => {
+    const { bundle } = await runCase({ inputs: "screening", decide: false });
     const due = bundle.acceptedReceipt.decisionRecordDueBlock;
     const early = await verifyBundle(bundle, { currentBlock: due - 1n });
     expect(early.checks.find(c => c.id === "decision.presence")!.status).toBe("NOT_DUE");
+    // a bundle can be handed over with its decision stripped — the file alone never accuses
     const late = await verifyBundle(bundle, { currentBlock: due + 1n });
-    expect(unmet(late)).toContain("decision.presence");
+    expect(late.checks.find(c => c.id === "decision.presence")!.status).toBe("UNVERIFIABLE");
+    expect(unmet(late)).not.toContain("decision.presence");
+    const answered = await verifyBundle(bundle, { currentBlock: due + 1n, challenge: { state: "ANSWERED" } });
+    expect(answered.checks.find(c => c.id === "decision.presence")!.status).toBe("UNVERIFIABLE");
+    const verdict = await verifyBundle(bundle, { currentBlock: due + 1n, challenge: { state: "UNANSWERED" } });
+    expect(unmet(verdict)).toContain("decision.presence");
+    expect(unmet(verdict)).toContain("challenge.verdict");
   });
   it("a decision kept out of the log is UNVERIFIABLE, and its absence from an observed log is unmet", async () => {
     const { bundle, inst } = await runCase({ inputs: "screening", knobs: { skipDecisionLeaf: true } });

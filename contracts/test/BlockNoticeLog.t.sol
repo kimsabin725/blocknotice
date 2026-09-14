@@ -108,6 +108,13 @@ contract BlockNoticeLogTest is Test {
         return keccak256(abi.encodePacked(bytes1(0x00), keccak256(abi.encode("record", i))));
     }
 
+    /// The decision leaf bound to the acceptance every `_openChallenge` in this file challenges.
+    function _boundDecisionLeaf(bytes32 anchorRoot, bytes32 decisionDigest) internal view returns (bytes32) {
+        return bnl.decisionLeaf(bnl.hashAcceptedReceipt(_accepted(anchorRoot)), decisionDigest);
+    }
+
+    bytes32 constant DECISION = keccak256("decision-1");
+
     function _sign(uint256 key, bytes32 digest) internal pure returns (bytes memory) {
         (uint8 v, bytes32 r, bytes32 s) = vm.sign(key, digest);
         return abi.encodePacked(r, s, v);
@@ -185,7 +192,7 @@ contract BlockNoticeLogTest is Test {
 
     /// Past leaves cannot move: a proof made against an old root still verifies after more appends.
     function test_historicalRootStaysValid() public {
-        _append(_one(_leaf(1)));
+        _append(_one(_boundDecisionLeaf(genesisRoot, DECISION)));
         bytes32 oldRoot = bnl.getService(SERVICE).root;
         bytes32[] memory sib = RefTree.proof(all, 0);
         _append(_one(_leaf(2)));
@@ -194,7 +201,7 @@ contract BlockNoticeLogTest is Test {
         assertEq(bnl.rootInfo(SERVICE, oldRoot).size, 1, "old root still known");
 
         bytes32 id = _openChallenge(genesisRoot);
-        bnl.respond(id, all[0], 0, oldRoot, sib);
+        bnl.respond(id, DECISION, 0, oldRoot, sib);
         assertEq(uint8(bnl.getChallenge(id).state), uint8(BlockNoticeLog.ChallengeState.ANSWERED));
     }
 
@@ -320,7 +327,7 @@ contract BlockNoticeLogTest is Test {
 
     function _setupAnswerable() internal returns (bytes32 id, bytes32[] memory sib, bytes32 root) {
         _append(_one(_leaf(1)));
-        _append(_one(_leaf(2)));
+        _append(_one(_boundDecisionLeaf(genesisRoot, DECISION)));
         sib = RefTree.proof(all, 1);
         root = bnl.getService(SERVICE).root;
         id = _openChallenge(genesisRoot);
@@ -328,52 +335,74 @@ contract BlockNoticeLogTest is Test {
 
     function test_respondHappyPath() public {
         (bytes32 id, bytes32[] memory sib, bytes32 root) = _setupAnswerable();
-        bnl.respond(id, all[1], 1, root, sib);
+        bnl.respond(id, DECISION, 1, root, sib);
         BlockNoticeLog.Challenge memory c = bnl.getChallenge(id);
         assertEq(uint8(c.state), uint8(BlockNoticeLog.ChallengeState.ANSWERED));
         assertEq(c.answeredLeaf, all[1]);
+    }
+
+    /// The finding that reshaped `respond`: a valid inclusion proof for some OTHER record in the same
+    /// log must not close this challenge. Here the log holds (a) an arbitrary leaf, (b) a decision
+    /// bound to a different acceptance, (c) a decision bound to this acceptance but with a different
+    /// digest than the one claimed. None of them answers.
+    function test_respondRejectsRecordOfAnotherRequest() public {
+        bytes32 id = _openChallenge(genesisRoot);
+        _append(_one(_leaf(1)));
+        _append(_one(bnl.decisionLeaf(keccak256("someone else's acceptance"), DECISION)));
+        _append(_one(_boundDecisionLeaf(genesisRoot, keccak256("decision-2"))));
+        bytes32 root = bnl.getService(SERVICE).root;
+
+        vm.expectRevert(BlockNoticeLog.BadInclusionProof.selector);
+        bnl.respond(id, DECISION, 0, root, RefTree.proof(all, 0)); // a leaf that is not a bound decision
+        vm.expectRevert(BlockNoticeLog.BadInclusionProof.selector);
+        bnl.respond(id, DECISION, 1, root, RefTree.proof(all, 1)); // bound to another acceptance
+        vm.expectRevert(BlockNoticeLog.BadInclusionProof.selector);
+        bnl.respond(id, DECISION, 2, root, RefTree.proof(all, 2)); // right acceptance, different decision
+        // and the honest answer for that third leaf still works
+        bnl.respond(id, keccak256("decision-2"), 2, root, RefTree.proof(all, 2));
+        assertEq(uint8(bnl.getChallenge(id).state), uint8(BlockNoticeLog.ChallengeState.ANSWERED));
     }
 
     /// Answering late closes the challenge but must NOT erase the fact that recording was late.
     function test_lateAnchorIsFlagged() public {
         // deadline derived from the genesis anchor, long passed before anything was recorded
         bytes32 id = _openChallenge(genesisRoot);
-        _append(_one(_leaf(7)));
+        _append(_one(_boundDecisionLeaf(genesisRoot, DECISION)));
         bytes32[] memory sib = RefTree.proof(all, 0);
         bytes32 root = bnl.getService(SERVICE).root;
-        bnl.respond(id, all[0], 0, root, sib);
+        bnl.respond(id, DECISION, 0, root, sib);
         assertTrue(bnl.getChallenge(id).answeredLate, "late flag");
     }
 
     function test_respondRejectsWrongProof() public {
         (bytes32 id, bytes32[] memory sib, bytes32 root) = _setupAnswerable();
         vm.expectRevert(BlockNoticeLog.BadInclusionProof.selector);
-        bnl.respond(id, all[0], 1, root, sib); // right proof, wrong leaf
+        bnl.respond(id, keccak256("not-the-decision"), 1, root, sib); // right proof, wrong digest
     }
 
     function test_respondRejectsUnknownRoot() public {
         (bytes32 id, bytes32[] memory sib,) = _setupAnswerable();
         vm.expectRevert(BlockNoticeLog.UnknownRoot.selector);
-        bnl.respond(id, all[1], 1, keccak256("made up"), sib);
+        bnl.respond(id, DECISION, 1, keccak256("made up"), sib);
     }
 
     function test_respondRejectsIndexBeyondSize() public {
         (bytes32 id, bytes32[] memory sib, bytes32 root) = _setupAnswerable();
         vm.expectRevert(BlockNoticeLog.IndexOutOfRange.selector);
-        bnl.respond(id, all[1], 9, root, sib);
+        bnl.respond(id, DECISION, 9, root, sib);
     }
 
     function test_respondRejectsShortProof() public {
         (bytes32 id,, bytes32 root) = _setupAnswerable();
         vm.expectRevert(BlockNoticeLog.BadProofLength.selector);
-        bnl.respond(id, all[1], 1, root, new bytes32[](8));
+        bnl.respond(id, DECISION, 1, root, new bytes32[](8));
     }
 
     /// The response window boundary is specified as inclusive: exactly at the due block still works.
     function test_respondAtExactDeadlineSucceeds() public {
         (bytes32 id, bytes32[] memory sib, bytes32 root) = _setupAnswerable();
         vm.roll(bnl.getChallenge(id).responseDueBlock);
-        bnl.respond(id, all[1], 1, root, sib);
+        bnl.respond(id, DECISION, 1, root, sib);
         assertEq(uint8(bnl.getChallenge(id).state), uint8(BlockNoticeLog.ChallengeState.ANSWERED));
     }
 
@@ -381,7 +410,7 @@ contract BlockNoticeLogTest is Test {
         (bytes32 id, bytes32[] memory sib, bytes32 root) = _setupAnswerable();
         vm.roll(bnl.getChallenge(id).responseDueBlock + 1);
         vm.expectRevert(BlockNoticeLog.ResponseWindowOver.selector);
-        bnl.respond(id, all[1], 1, root, sib);
+        bnl.respond(id, DECISION, 1, root, sib);
     }
 
     // ---------------- finalize ----------------
@@ -401,7 +430,7 @@ contract BlockNoticeLogTest is Test {
         vm.roll(bnl.getChallenge(id).responseDueBlock + 1);
         bnl.finalize(id);
         vm.expectRevert(BlockNoticeLog.ChallengeClosed.selector);
-        bnl.respond(id, all[1], 1, root, sib);
+        bnl.respond(id, DECISION, 1, root, sib);
     }
 
     function test_finalizeUnknownChallenge() public {

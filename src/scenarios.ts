@@ -2,16 +2,16 @@
 // then runs against a real chain and compares. A scenario that "passes" because the verifier went
 // quiet is a failure here: the expectation names the check id and the status it must carry.
 //
-// Usage: npm run scenarios [-- --rpc http://127.0.0.1:8545 --keep]
+// Usage: npm run scenarios [-- --keep] [-- --only <scenario id substring>]
 import { spawn, type ChildProcess } from "node:child_process";
 import { keccak256, type Hex, type Address } from "viem";
 import {
   connect, deployLog, registerService, anchorPending, reconstructLog, chainClock, mine,
-  challengeAccepted, respond, finalize, readChallenge, readService, postNotice, anvilChain, type ChainCtx,
+  challengeAccepted, respond, finalize, readChallenge, readService, postNotice, anvilChain, appendBatch, challengeOf, type ChainCtx,
 } from "./chain.js";
 import { runCase, INPUTS, writeJson } from "./scenario.js";
 import { DEMO_PROFILE } from "./profile.js";
-import { profileHash, acceptedReceiptDigest, decisionDigest, recordDigest, leafHash } from "./encode.js";
+import { profileHash, acceptedReceiptDigest, decisionDigest, recordDigest, decisionRecordDigest, leafHash, challengeIdOf } from "./encode.js";
 import { LeafType, type ProtocolProfile, type ReceiptBundle } from "./types.js";
 import { verifyBundle, type VerifyReport } from "./verify.js";
 import { signTyped, newSigner } from "./crypto.js";
@@ -79,7 +79,7 @@ async function anchorAndObserve(serviceId: Hex, inst: Institution, alreadyAnchor
 
 async function verifyAsOutsider(b: ReceiptBundle, serviceId: Hex, inst: Institution, block?: bigint) {
   const { publicLog } = await anchorAndObserve(serviceId, inst);
-  return verifyBundle(b, { publicLog, registry: await registryOf(serviceId), currentBlock: block ?? await c.pub.getBlockNumber() });
+  return verifyBundle(b, { publicLog, registry: await registryOf(serviceId), currentBlock: block ?? await c.pub.getBlockNumber({ cacheTime: 0 }) });
 }
 
 const SCENARIOS: Scenario[] = [
@@ -103,7 +103,7 @@ const SCENARIOS: Scenario[] = [
     run: async () => {
       const { inst, bundle, serviceId } = await fresh({ decide: false });
       return {
-        report: await verifyAsOutsider(bundle, serviceId, inst, await c.pub.getBlockNumber()),
+        report: await verifyAsOutsider(bundle, serviceId, inst, await c.pub.getBlockNumber({ cacheTime: 0 })),
         expect: { "decision.presence": "NOT_DUE" },
       };
     },
@@ -169,7 +169,7 @@ const SCENARIOS: Scenario[] = [
       const { publicLog } = await anchorAndObserve(serviceId, inst);
       const report = await verifyBundle(bundle, {
         publicLog: { ...publicLog, root: keccak256("0xdeadbeef") },   // an outsider observing a different log
-        registry: await registryOf(serviceId), currentBlock: await c.pub.getBlockNumber(),
+        registry: await registryOf(serviceId), currentBlock: await c.pub.getBlockNumber({ cacheTime: 0 }),
       });
       return { report, expect: { "log.requestLeaf": "OBLIGATION_UNMET" } };
     },
@@ -210,7 +210,81 @@ const SCENARIOS: Scenario[] = [
       await mine(c.pub, base.challengeResponseBlocks + 1);
       await finalize(c, id);
       const st = (await readChallenge(c, id)).state;
-      return { assert: () => { if (st !== 3) throw new Error(`expected UNANSWERED(3), got ${st}`); } };
+      writeJson("out/bundle-silent.json", bundle);   // for `npm run verify -- out/bundle-silent.json --rpc … --contract …` after --keep
+      // Only now — with the public verdict in hand — may the verifier call this a violation.
+      const rec = await reconstructLog(c, serviceId);   // already anchored above — do not append again
+      const report = await verifyBundle(bundle, {
+        registry: await registryOf(serviceId), publicLog: { treeId: keccak256(serviceId), root: rec.root, size: rec.size },
+        currentBlock: await c.pub.getBlockNumber({ cacheTime: 0 }), challenge: await challengeOf(c, id),
+      });
+      return {
+        report, expect: { "decision.presence": "OBLIGATION_UNMET", "challenge.verdict": "OBLIGATION_UNMET", "log.requestLeaf": "CONFIRMED" },
+        assert: () => { if (st !== 3) throw new Error(`expected UNANSWERED(3), got ${st}`); },
+      };
+    },
+  },
+  {
+    id: "attack.answerWithAnotherRecord",
+    kind: "attack",
+    claim: "a challenge cannot be closed with another request's record, nor with this request's own REQ leaf",
+    run: async () => {
+      const { inst, bundle, serviceId, clock } = await fresh({ decide: false });
+      // the log also holds a decision that belongs to a different acceptance
+      const otherDecision = keccak256("0x01");
+      await appendBatch(c, serviceId, [leafHash(decisionRecordDigest(keccak256("0x02"), otherDecision))]);
+      await anchorPending(c, serviceId, inst.tree.leaves, 0);
+      await mine(c.pub, base.decisionRecordDueBlocks + 1);
+      await clock.sync();
+      await challengeAccepted(cReq, bundle.acceptedReceipt as any, bundle.acceptedReceiptSignature);
+      const id = challengeIdOf(serviceId, acceptedReceiptDigest(inst.profile, bundle.acceptedReceipt));
+      const rec = await reconstructLog(c, serviceId);
+      const errs: string[] = [];
+      errs.push(await expectRevert(() => respond(c, id, otherDecision, 0, rec.root, rec.proofFor(0).siblings)));
+      const reqLeaf = leafHash(recordDigest(LeafType.REQ, bundle.acceptedReceipt.signedRequestDigest));
+      const reqIdx = rec.leaves.findIndex(l => eqi(l, reqLeaf));
+      errs.push(await expectRevert(() => respond(c, id, bundle.acceptedReceipt.signedRequestDigest, reqIdx, rec.root, rec.proofFor(reqIdx).siblings)));
+      const st = (await readChallenge(c, id)).state;
+      return { assert: () => {
+        for (const e of errs) if (!e.includes("BadInclusionProof")) throw new Error(`expected BadInclusionProof, got ${e}`);
+        if (st !== 1) throw new Error(`challenge should still be OPEN(1), got ${st}`);
+      } };
+    },
+  },
+  {
+    id: "honest.strippedBundleIsNotAViolation",
+    kind: "honest",
+    claim: "a bundle handed over without its decision does not accuse an institution that did record — the chain says ANSWERED",
+    run: async () => {
+      const { inst, bundle, serviceId, clock, requestId } = await fresh();
+      await anchorPending(c, serviceId, inst.tree.leaves, 0);
+      await mine(c.pub, base.decisionRecordDueBlocks + 1);
+      await clock.sync();
+      const stripped: ReceiptBundle = JSON.parse(JSON.stringify(bundle, bigintReplacer), bigintReviver);
+      stripped.decisions = [];   // the requester's later story: "they never decided"
+      const rec0 = await reconstructLog(c, serviceId);
+      const before = await verifyBundle(stripped, {
+        registry: await registryOf(serviceId), publicLog: { treeId: keccak256(serviceId), root: rec0.root, size: rec0.size },
+        currentBlock: await c.pub.getBlockNumber({ cacheTime: 0 }),
+      });
+      // the institution answers the public challenge with the record it did make
+      await challengeAccepted(cReq, bundle.acceptedReceipt as any, bundle.acceptedReceiptSignature);
+      const id = challengeIdOf(serviceId, acceptedReceiptDigest(inst.profile, bundle.acceptedReceipt));
+      const rec = await reconstructLog(c, serviceId);
+      const dd = decisionDigest(inst.profile, inst.bundle(requestId).decisions[0].record);
+      const leaf = leafHash(decisionRecordDigest(acceptedReceiptDigest(inst.profile, bundle.acceptedReceipt), dd));
+      const idx = rec.leaves.findIndex(l => eqi(l, leaf));
+      await respond(c, id, dd, idx, rec.root, rec.proofFor(idx).siblings);
+      const report = await verifyBundle(stripped, {
+        registry: await registryOf(serviceId), publicLog: { treeId: keccak256(serviceId), root: rec.root, size: rec.size },
+        currentBlock: await c.pub.getBlockNumber({ cacheTime: 0 }), challenge: await challengeOf(c, id),
+      });
+      return {
+        report, expect: { "decision.presence": "UNVERIFIABLE", "challenge.verdict": "CONFIRMED" },
+        assert: () => {
+          const b = before.checks.find(ch => ch.id === "decision.presence");
+          if (b?.status !== "UNVERIFIABLE") throw new Error(`without a chain verdict the stripped bundle must be UNVERIFIABLE, got ${b?.status}: ${b?.detail}`);
+        },
+      };
     },
   },
   {
@@ -229,9 +303,10 @@ const SCENARIOS: Scenario[] = [
       await inst.decide(requestId, INPUTS.screening);
       await anchorPending(c, serviceId, inst.tree.leaves, before);
       const rec = await reconstructLog(c, serviceId);
-      const leaf = leafHash(recordDigest(LeafType.DEC, decisionDigest(inst.profile, inst.bundle(requestId).decisions[0].record)));
+      const dd = decisionDigest(inst.profile, inst.bundle(requestId).decisions[0].record);
+      const leaf = leafHash(decisionRecordDigest(acceptedReceiptDigest(inst.profile, bundle.acceptedReceipt), dd));
       const idx = rec.leaves.findIndex(l => eqi(l, leaf));
-      await respond(c, id, leaf, idx, rec.root, rec.proofFor(idx).siblings);
+      await respond(c, id, dd, idx, rec.root, rec.proofFor(idx).siblings);
       const ch = await readChallenge(c, id);
       return { assert: () => {
         if (ch.state !== 2) throw new Error(`expected ANSWERED(2), got ${ch.state}`);
@@ -294,9 +369,6 @@ const SCENARIOS: Scenario[] = [
   },
 ];
 
-function challengeIdOf(serviceId: Hex, acceptedDigest: Hex): Hex {
-  return keccak256(`0x${serviceId.slice(2)}${acceptedDigest.slice(2)}` as Hex);
-}
 
 /** The custom error name lives deep in viem's cause chain, not in `shortMessage`. Flatten it all. */
 async function expectRevert(fn: () => Promise<unknown>): Promise<string> {
@@ -334,7 +406,10 @@ async function main() {
   console.log(`log contract ${address}\n`);
 
   const rows: Array<{ id: string; kind: string; claim: string; ok: boolean; note: string; report?: VerifyReport }> = [];
+  const onlyIdx = process.argv.indexOf("--only");
+  const only = onlyIdx >= 0 ? process.argv[onlyIdx + 1] : undefined;
   for (const sc of SCENARIOS) {
+    if (only && !sc.id.includes(only)) continue;
     let ok = true, note = "";
     let lastReport: VerifyReport | undefined;
     try {

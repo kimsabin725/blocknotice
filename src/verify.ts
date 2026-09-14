@@ -3,7 +3,7 @@
 // CONFIRMED / NOT_DUE / OBLIGATION_UNMET / UNVERIFIABLE / OUT_OF_SCOPE.
 import { keccak256, type Address, type Hex } from "viem";
 import { LeafType, Outcome, type ReceiptBundle, type InclusionProof } from "./types.js";
-import { profileHash, requestDigest, acceptedReceiptDigest, decisionDigest, ackDigest, recordDigest, requestCommitment, inputSnapshotCommitment, policyHash, leafHash, ZERO32 } from "./encode.js";
+import { profileHash, requestDigest, acceptedReceiptDigest, decisionDigest, ackDigest, recordDigest, decisionRecordDigest, requestCommitment, inputSnapshotCommitment, policyHash, leafHash, ZERO32 } from "./encode.js";
 import { verifyInclusion } from "./merkle.js";
 import { verifyTyped } from "./crypto.js";
 import { runPolicy, POLICY_SOURCE, POLICY_VERSION } from "./policy.js";
@@ -35,7 +35,14 @@ export interface VerifyOptions {
    * profile are pinned by a public record the institution cannot rewrite.
    */
   registry?: { serviceId: Hex; signer: Address; profileHash: Hex; treeId: Hex; chainId: number; verifyingContract: Address };
+  /**
+   * The on-chain challenge for this acceptance, read from the contract. A bundle can be handed over
+   * with its decisions stripped out, so "no decision in this file" is never by itself an institution
+   * violation. Only a public demand the institution failed to answer (UNANSWERED) establishes that.
+   */
+  challenge?: { state: ChallengeState; answeredLate?: boolean; responseDueBlock?: bigint };
 }
+export type ChallengeState = "NONE" | "OPEN" | "ANSWERED" | "UNANSWERED";
 
 const eq = (a?: string, b?: string) => (a ?? "").toLowerCase() === (b ?? "").toLowerCase();
 
@@ -130,18 +137,37 @@ async function verifyBundleInner(b: ReceiptBundle, opts: VerifyOptions = {}): Pr
   }
   if (b.decisions.length === 0) {
     const cur = opts.currentBlock;
+    const due = b.acceptedReceipt.decisionRecordDueBlock;
+    const ch = opts.challenge?.state;
     checks.push(cur === undefined
       ? unk("decision.presence", "no decision in bundle and no block height given")
-      : cur <= b.acceptedReceipt.decisionRecordDueBlock
-        ? { id: "decision.presence", status: "NOT_DUE", detail: `no decision yet; due at block ${b.acceptedReceipt.decisionRecordDueBlock}, now ${cur}` }
-        : bad("decision.presence", `no decision and the signed deadline (block ${b.acceptedReceipt.decisionRecordDueBlock}) has passed`));
+      : cur <= due
+        ? { id: "decision.presence", status: "NOT_DUE", detail: `no decision yet; due at block ${due}, now ${cur}` }
+        : ch === "UNANSWERED"
+          ? bad("decision.presence", `no decision, the signed deadline (block ${due}) has passed, and the public challenge for this acceptance ended UNANSWERED — the institution was asked on-chain and proved no record`)
+          : ch === "ANSWERED"
+            ? unk("decision.presence", "the chain holds a decision record bound to this acceptance (challenge ANSWERED) but this bundle carries none — an incomplete bundle or a delivery gap, not a recording violation")
+            : ch === "OPEN"
+              ? { id: "decision.presence", status: "NOT_DUE", detail: `no decision in bundle; a public challenge is open and the institution may still prove a record${opts.challenge?.responseDueBlock !== undefined ? ` until block ${opts.challenge.responseDueBlock}` : ""}` }
+              : unk("decision.presence", `no decision in this bundle and the signed deadline (block ${due}) has passed — a file can be handed over incomplete, so this alone is not a violation; open a public challenge (challengeAccepted → finalize) to establish non-recording`));
+  }
+  // The on-chain verdict itself, when the caller read one. Independent of what the bundle contains.
+  if (opts.challenge && opts.challenge.state !== "NONE") {
+    const c = opts.challenge;
+    checks.push(c.state === "UNANSWERED"
+      ? bad("challenge.verdict", "public challenge ended UNANSWERED: the institution did not prove a decision record for this acceptance within the response window")
+      : c.state === "ANSWERED"
+        ? (c.answeredLate
+          ? bad("challenge.verdict", "public challenge ANSWERED, but the cited anchor landed after the signed recording deadline — the record exists and it was late")
+          : ok("challenge.verdict", "public challenge ANSWERED: a decision record bound to this acceptance is anchored in the log"))
+        : { id: "challenge.verdict", status: "NOT_DUE", detail: `public challenge OPEN${c.responseDueBlock !== undefined ? `; response due by block ${c.responseDueBlock}` : ""}` });
   }
 
   // 5. inclusion in the public log — only meaningful against an independently observed root
   const anchors: Array<"SIGNED_PENDING_ANCHOR" | "ANCHORED"> = [];
-  const checkProof = (id: string, type: LeafType, digest: Hex, proof?: InclusionProof) => {
+  const checkProof = (id: string, rd: Hex, proof?: InclusionProof) => {
     if (!proof) { anchors.push("SIGNED_PENDING_ANCHOR"); checks.push(unk(id, "signed but not yet in the public log (SIGNED_PENDING_ANCHOR)")); return; }
-    const leaf = leafHash(recordDigest(type, digest));
+    const leaf = leafHash(rd);
     if (!verifyInclusion(leaf, proof)) { checks.push(bad(id, "inclusion proof does not reconstruct the claimed root")); return; }
     const pl = opts.publicLog;
     if (!pl) { anchors.push("SIGNED_PENDING_ANCHOR"); checks.push(unk(id, `proof is internally consistent (root ${proof.root.slice(0, 10)}…) but no independent log root was supplied`)); return; }
@@ -150,8 +176,9 @@ async function verifyBundleInner(b: ReceiptBundle, opts: VerifyOptions = {}): Pr
     if (pl.root.toLowerCase() !== proof.root.toLowerCase()) { checks.push(bad(id, "proof root does not match the independently observed log root")); return; }
     anchors.push("ANCHORED"); checks.push(ok(id, `included at index ${proof.index} of the observed log`));
   };
-  checkProof("log.requestLeaf", LeafType.REQ, b.acceptedReceipt.signedRequestDigest, b.requestLeafProof);
-  for (const [i, d] of b.decisions.entries()) checkProof(`log.decisionLeaf[${i}]`, LeafType.DEC, decisionDigest(p, d.record), d.proof);
+  checkProof("log.requestLeaf", recordDigest(LeafType.REQ, b.acceptedReceipt.signedRequestDigest), b.requestLeafProof);
+  // A decision leaf is bound to THIS acceptance (ar), the same way the contract's `respond` derives it.
+  for (const [i, d] of b.decisions.entries()) checkProof(`log.decisionLeaf[${i}]`, decisionRecordDigest(ar, decisionDigest(p, d.record)), d.proof);
 
   // 6. policy re-execution — only for the public example inputs; real inputs stay out of scope
   if (b.publicPolicy && b.publicInputs && b.decisions.length) {

@@ -63,7 +63,18 @@ export const ackDigest = (p: ProtocolProfile, m: Ack) =>
 
 // ---- Log leaves. recordDigest binds the leaf type so a REQ leaf can never be passed off as a DEC leaf. ----
 export function recordDigest(type: LeafType, digest: Hex): Hex {
+  if (type === LeafType.DEC) throw new Error("a DEC leaf is bound to its acceptance — use decisionRecordDigest");
   return keccak256(encodeAbiParameters([{ type: "uint8" }, { type: "bytes32" }], [type, digest]));
+}
+/** A decision leaf names the acceptance it answers, so `respond` on-chain can only be satisfied by a
+ *  record for THAT acceptance — never by another request's record or a REQ/ACK leaf. Mirrors
+ *  BlockNoticeLog.decisionLeaf. */
+export function decisionRecordDigest(acceptedDigest: Hex, decisionDigest: Hex): Hex {
+  return keccak256(encodeAbiParameters([{ type: "uint8" }, { type: "bytes32" }, { type: "bytes32" }], [LeafType.DEC, acceptedDigest, decisionDigest]));
+}
+/** challengeId = keccak256(abi.encode(serviceId, acceptedDigest)) — mirrors the contract. */
+export function challengeIdOf(serviceId: Hex, acceptedDigest: Hex): Hex {
+  return keccak256(`0x${serviceId.slice(2)}${acceptedDigest.slice(2)}` as Hex);
 }
 /** leaf = H(0x00 ‖ recordDigest) — domain-separated from inner nodes (0x01). Mirrors the contract. */
 export function leafHash(rd: Hex): Hex {

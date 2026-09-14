@@ -3,7 +3,7 @@
 import { keccak256, type Hex, type Address } from "viem";
 import type { PrivateKeyAccount } from "viem/accounts";
 import { LeafType, Outcome, type ProtocolProfile, type Request, type RequestEnvelope, type AcceptedReceipt, type DecisionRecord, type PrivateReason, type ReceiptBundle, type InclusionProof } from "./types.js";
-import { profileHash, requestDigest, acceptedReceiptDigest, decisionDigest, recordDigest, requestCommitment, privateReasonCommitment, inputSnapshotCommitment, policyHash, stringsCommitment, bytes32FromString, ZERO32, institutionKeyId } from "./encode.js";
+import { profileHash, requestDigest, acceptedReceiptDigest, decisionDigest, recordDigest, decisionRecordDigest, requestCommitment, privateReasonCommitment, inputSnapshotCommitment, policyHash, stringsCommitment, bytes32FromString, ZERO32, institutionKeyId } from "./encode.js";
 import { IncrementalTree } from "./merkle.js";
 import { signTyped, verifyTyped, newHpkeKeyPair, seal, open, salt32, utf8, type HpkeKeyPair, type Sealed } from "./crypto.js";
 import { runPolicy, POLICY_SOURCE, POLICY_VERSION, type PolicyInputs } from "./policy.js";
@@ -93,7 +93,7 @@ export class Institution {
       reviewDueBlock: res.outcome === Outcome.DEFER ? blk + BigInt(inputs.reviewBlocks) : 0n, recordNonce: salt32(),
     };
     const signature = await signTyped(this.signer, p, "DecisionRecord", record);
-    const leafIndex = knobs.skipDecisionLeaf ? undefined : this.tree.appendRecord(recordDigest(LeafType.DEC, decisionDigest(p, record)));
+    const leafIndex = knobs.skipDecisionLeaf ? undefined : this.tree.appendRecord(decisionRecordDigest(record.acceptedReceiptDigest, decisionDigest(p, record)));
     const sealed = await seal(c.requesterHpkePub, utf8.enc(JSON.stringify({ record, signature }, bigintReplacer)), requestId);
     c.decisions.push({ record, signature, leafIndex, reason, inputs, inputSalt, sealed });
     return { record, signature, sealed };

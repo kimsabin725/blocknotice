@@ -15,6 +15,9 @@ contract BlockNoticeLog {
     // Merkle log (depth 32, order preserving, zero-padded)                   //
     // leaf   = keccak256(0x00 ‖ recordDigest)   <- computed off-chain        //
     // node   = keccak256(0x01 ‖ left ‖ right)                                //
+    // DEC recordDigest = keccak256(abi.encode(uint8(2), acceptedDigest,      //
+    //                    decisionDigest)) — a decision leaf names the        //
+    //                    acceptance it answers, so `respond` can check it    //
     // --------------------------------------------------------------------- //
     uint256 internal constant DEPTH = 32;
     uint256 internal constant MAX_BATCH = 256;
@@ -330,13 +333,17 @@ contract BlockNoticeLog {
         emit ChallengeOpened(challengeId, a.serviceId, acceptedDigest, msg.sender, due);
     }
 
-    /// @notice Answer a challenge by proving that a record leaf is anchored in the public log.
-    /// @dev    The contract deliberately does NOT check that the leaf is the *right* decision — it
-    ///         cannot see the plaintext. It separates "a committed record was produced" from
-    ///         "the content checks out", which the off-chain verifier decides.
+    /// @notice Answer a challenge by proving that a decision record *for this acceptance* is anchored
+    ///         in the public log. The caller supplies the decision digest; the contract derives the
+    ///         leaf from the challenge's own acceptedDigest, so a record belonging to any other
+    ///         request — or a REQ/ACK leaf — cannot close it. Anyone may call: proving that the
+    ///         institution recorded is a fact about the log, not about the caller.
+    /// @dev    What this does NOT establish: that the decision content is correct, or that it was
+    ///         delivered to the requester. The contract never sees the plaintext; those questions
+    ///         belong to the off-chain verifier and to the ACK path.
     function respond(
         bytes32 challengeId,
-        bytes32 leaf,
+        bytes32 decisionDigest,
         uint64 index,
         bytes32 root,
         bytes32[] calldata siblings
@@ -350,6 +357,7 @@ contract BlockNoticeLog {
         if (ri.blockNumber == 0) revert UnknownRoot();
         if (index >= ri.size) revert IndexOutOfRange();
         if (siblings.length != DEPTH) revert BadProofLength();
+        bytes32 leaf = decisionLeaf(c.acceptedDigest, decisionDigest);
         if (_computeRoot(leaf, index, siblings) != root) revert BadInclusionProof();
 
         bool late = ri.blockNumber > c.decisionRecordDueBlock;
@@ -357,6 +365,12 @@ contract BlockNoticeLog {
         c.answeredLeaf = leaf;
         c.answeredLate = late;
         emit ChallengeAnswered(challengeId, leaf, root, index, late);
+    }
+
+    /// @notice The leaf a decision record occupies in the log. Mirrors the off-chain encoder:
+    ///         leaf = H(0x00 ‖ keccak256(abi.encode(uint8(2), acceptedDigest, decisionDigest))).
+    function decisionLeaf(bytes32 acceptedDigest, bytes32 decisionDigest) public pure returns (bytes32) {
+        return keccak256(abi.encodePacked(bytes1(0x00), keccak256(abi.encode(uint8(2), acceptedDigest, decisionDigest))));
     }
 
     /// @notice Close an unanswered challenge once the window is over. Anyone may call it; the
