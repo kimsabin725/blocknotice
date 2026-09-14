@@ -1,7 +1,8 @@
 // Day-2 integration: the public log is a contract, and the verifier rebuilds it from events only.
 // Every assertion here is about what a third party can establish with no access to the institution.
 import { describe, it, expect, beforeAll, afterAll } from "vitest";
-import { spawn, type ChildProcess } from "node:child_process";
+import type { ChildProcess } from "node:child_process";
+import { spawnAnvil } from "../src/anvil.js";
 import { keccak256, type Hex } from "viem";
 import { connect, deployLog, registerService, anchorPending, reconstructLog, chainClock, mine,
   challengeAccepted, respond, finalize, readChallenge, readService, postNotice, anvilChain, type ChainCtx } from "../src/chain.js";
@@ -29,7 +30,7 @@ let profile: Omit<ProtocolProfile, "institutionKeyId">;
 const encodeStruct = (o: Record<string, unknown>) => o; // viem maps named fields onto the ABI tuple
 
 beforeAll(async () => {
-  anvil = spawn("anvil", ["--port", String(PORT), "--silent"], { stdio: "ignore" });
+  anvil = spawnAnvil(PORT);
   const chain = anvilChain(CHAIN_ID, RPC);
   for (let i = 0; i < 100; i++) {
     try { const t = await connect(RPC, chain, DEPLOYER); await t.pub.getBlockNumber(); break; }

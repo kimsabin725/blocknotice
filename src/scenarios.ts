@@ -3,7 +3,8 @@
 // quiet is a failure here: the expectation names the check id and the status it must carry.
 //
 // Usage: npm run scenarios [-- --keep] [-- --only <scenario id substring>]
-import { spawn, type ChildProcess } from "node:child_process";
+import type { ChildProcess } from "node:child_process";
+import { spawnAnvil } from "./anvil.js";
 import { keccak256, type Hex, type Address } from "viem";
 import {
   connect, deployLog, registerService, anchorPending, reconstructLog, chainClock, mine,
@@ -388,7 +389,7 @@ async function main() {
   const keep = process.argv.includes("--keep");
   let anvil: ChildProcess | undefined;
   if (!process.env.SCENARIO_RPC) {
-    anvil = spawn("anvil", ["--port", String(PORT), "--silent"], { stdio: "ignore" });
+    anvil = spawnAnvil(PORT);
   }
   const chain = anvilChain(CHAIN_ID, RPC);
   for (let i = 0; i < 150; i++) {
