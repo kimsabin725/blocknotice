@@ -19,7 +19,8 @@ BlockNotice는 판단 기록과 기한을 이용자가 자기 증거와 공개 �
 구체적인 함수·기한·설계 보완 사항은 [상환 사양](docs/redemption-design.md), 작업 상태는
 [제출본 현황](docs/submission-status.md)에 있습니다.
 
-> 해커톤 프로젝트입니다(TRUST404 트랙 3). 아래의 모든 수치는 이 저장소에서 재현됩니다.
+> 해커톤 프로젝트입니다(TRUST404 트랙 3). 테스트·시나리오는 아래 명령으로 재현할 수 있습니다.
+> 가스는 명시된 환경의 측정값이며, 공개망에서는 배포·등록을 수행했습니다. 30개 시나리오는 로컬 실행입니다.
 > 성능이나 고객 도입이 완료됐다는 보고가 아닙니다.
 
 ---
@@ -45,27 +46,31 @@ passkey·가스 대납은 설계 범위이며, 현재 데모는 secp256k1 지갑
 
 ## 2. 돌려보기
 
+Node.js 22와 Foundry(`forge`, `anvil`)가 PATH에 필요합니다. 검증 환경은 Node 22.23.2,
+Foundry 1.8.3, Solidity 0.8.28입니다. Windows에서는 공식 Visual C++ x64 런타임도 필요할 수 있습니다.
+
 ```bash
+git clone https://github.com/tnwjd023-boop/BlockNotice_GoldRWA.git
+cd BlockNotice_GoldRWA
 npm ci
 forge install foundry-rs/forge-std@0d006dafa09d0b3722575acd29338b79c23e7c2f --no-git   # 최초 1회
 forge build
 
 npm run demo               # 30개 장면(기존 18 + 상환·인박스 12) + out/report.html ★
 npm run scenarios          # 장면만 재현 (out/scenarios.json 도 함께 씀)
-npm run test:all           # 단위 테스트 (최신 실측 수치는 §8)
-npm run check:deployment   # 공개 테스트넷 배포를 체인에서 되읽어 대조 (.env 불필요)
-
-npm run issue -- --case screening    # 합성 거절 1건 발행 → out/bundle-screening.json
-npm run verify -- out/bundle-screening.json          # 파일만으로 — 로그 포함 여부는 UNVERIFIABLE
-
-# 기관 없이 끝까지: 시나리오가 남긴 로컬 체인만 살려 두고, 파일 + 공개 RPC 로 검증
-npm run scenarios -- --keep                          # anvil(:8611)과 로그 컨트랙트가 남습니다
-npm run verify -- out/bundle-silent.json --rpc http://127.0.0.1:8611 --contract 0x5fbdb2315678afecb367f032d93f642f64180aa3
-#   → 등록 정보·로그(이벤트로 재구성)·챌린지 판정을 체인에서 읽고, 기관 서버 접속 0회로 판정합니다
-#   공개 테스트넷 영수증이면 --network sepolia|hoodi
+npm run test:all           # Solidity + TypeScript 단위·통합 테스트 (§8)
+npm run typecheck          # TypeScript 타입 검사
+npm run check:deployment   # 기존 공개 로그 배포 대조 (.env 불필요)
 ```
 
-**`npm run demo`가 로그·영수증과 상환 에스크로 시나리오를 검사하고 화면까지 냅니다.** 각 장면은
+기존 영수증 묶음은 다음과 같이 생성·검증합니다.
+
+```bash
+npm run issue -- --case screening    # 합성 거절 1건 발행 → out/bundle-screening.json
+npm run verify -- out/bundle-screening.json          # 파일만으로 — 로그 포함 여부는 UNVERIFIABLE
+```
+
+**`npm run demo`가 로그·영수증·상환 에스크로·인박스 시나리오를 검사하고 화면까지 냅니다.** 각 장면은
 「독립된 제3자가 무엇을 결론지어야 하는가」를 **실행 전에** 명시하고, 실제 체인에서 돌린 뒤 대조합니다.
 검증기가 조용해서 통과하는 일은 없습니다 — 기대값이 검사 항목 id와 그 상태를 직접 지목합니다.
 
@@ -74,21 +79,29 @@ npm run verify -- out/bundle-silent.json --rpc http://127.0.0.1:8611 --contract 
 공개 테스트넷 주소·링크, 그리고 **실측된 기관 접속 횟수**. 로컬 가속 시연과 공개 증거를
 화면 안에서도 구분해 표시합니다.
 
-### 에스크로 증거를 직접 검증하기
-
-Node 22와 Foundry가 PATH에 있어야 합니다. Windows에서는 공식 Visual C++ x64 런타임도 필요할 수 있습니다.
+### 기관 없이 로컬 증거를 직접 검증하기
 
 ```bash
+# 새 Anvil을 띄워 한 번 실행하고 체인을 남깁니다. 기본 포트는 8611입니다.
 npm run scenarios -- --keep
+# out/scenarios.json의 logContract를 사용
+npm run verify -- out/bundle-silent.json --rpc http://127.0.0.1:8611 --contract <LOG_ADDRESS>
 # 위 실행이 남긴 out/attack.courierSilent.json의 report.escrow / report.lockId 사용
 npm run verify -- --escrow <ESCROW_ADDRESS> --lock <LOCK_ID> --rpc http://127.0.0.1:8611
 # out/attack.exchangeNotForwarded.json의 report.inbox / report.requestId 사용
 npm run verify -- --inbox <INBOX_ADDRESS> --request <REQUEST_ID> --rpc http://127.0.0.1:8611
 ```
 
+`<...>`는 해당 실행이 만든 값으로 교체합니다. 남겨 둔 Anvil을 종료한 뒤 다음 데모를 실행합니다.
+인박스가 전달한 요청은 `--include-escrow`를 붙여 연결된 잠금까지 검증할 수 있습니다.
+기존 영수증의 공개망 조회에는 `--network sepolia` 또는 `--network hoodi`를 사용할 수 있고,
+에스크로·인박스 조회에는 `--rpc`를 명시합니다.
+
 기존 `verify <bundle.json>` 경로도 유지합니다. 상환 검증기는 하나의 블록에 조회를 고정하고
 `Locked`부터의 상태 전이와 두 기관의 `Appended` 이벤트를 재구성합니다. 원문이 없어도 공개 기록 판정은 유지하며,
-원문 개봉만 `UNVERIFIABLE`입니다. 무응답 확정이 있는 검증 명령은 의무 미이행을 보고하며 0이 아닌 종료 코드를 냅니다.
+원문 개봉만 `UNVERIFIABLE`입니다. `verify` 종료 코드 0은 `OBLIGATION_UNMET` 항목이 없다는 뜻이며,
+모든 항목이 확인됐다는 뜻은 아닙니다. `UNVERIFIABLE`·`OUT_OF_SCOPE`를 포함할 수 있습니다.
+위반 항목이 있으면 1, 인수·RPC 등 실행 오류는 2입니다.
 
 ---
 
@@ -114,8 +127,9 @@ npm run verify -- --inbox <INBOX_ADDRESS> --request <REQUEST_ID> --rpc http://12
 2. **접수 책임** — 기관이 서명한 접수 약속의 기록 기한이 지켜졌는가.
    기한은 기관의 시계가 아니라 **체인이 본 블록**에서 나옵니다(§6).
 3. **독립 제출** — 영수증을 못 받아도 요청자가 자기 제출 사실을 공개 경로에 남길 수 있는가.
-4. **기관 서버 접속 0회** — 검증 중 나간 HTTP 호출 수를 **세어서** 보고합니다.
-   상수 0이 아니라 실측값입니다. 어느 경로든 밖으로 손을 뻗으면 숫자가 올라갑니다.
+4. **기관 서버 접속 0회** — 검증 구간의 `globalThis.fetch` 호출을 계측합니다.
+   상환·인박스 관측기는 공개 RPC 호출 구간과 나머지를 구분해 보고합니다.
+   기관 서버가 없어도 검증할 수 있다는 시연이며, 모든 HTTP 라이브러리·동시 작업을 감시하는 네트워크 감사 도구는 아닙니다.
 
 ### 상환 에스크로가 검증하는 것
 
@@ -125,12 +139,20 @@ npm run verify -- --inbox <INBOX_ADDRESS> --request <REQUEST_ID> --rpc http://12
 - 인도 기관 자신의 로그에 남긴 인도 주장과 보유자의 수령 확인·이의 기간을 소각 조건에 사용합니다.
 - 판단 결과·사유는 비공개 다이제스트로 묶습니다. DENY·DEFER를 공개 상태로 만들지 않습니다.
 
+### 거래소 인박스가 검증하는 것
+
+- 보유자 EIP-712 서명 요청의 제출 블록부터 거래소 전달 기한을 계산합니다.
+- 등록된 거래소 운영자의 토큰으로 보유자 명의 잠금을 한 트랜잭션에서 만들거나, 해당 거래소 로그의 거절 기록을 증명합니다.
+- 전달·거절 없이 챌린지가 `UNANSWERED`로 확정되면 거래소 홉만 의무 미이행으로 표시합니다. 운영사 시계는 시작하지 않습니다.
+- 보유자 서명을 확인할 뿐, 거래소 고객 관계·보유 잔고·상환 자격은 확인하지 않습니다.
+
 ### 보증하지 않습니다
 
 1. **비공개 사유의 진실성** — 커밋은 교체를 탐지할 뿐, 내용이 참인지는 모릅니다.
 2. **기관이 아무에게도 알리지 않은 판단** — 존재 자체를 발견하지 못합니다.
 3. **오프체인 전달** — 요청자가 실제로 보냈는지는 **어떤 컨트랙트도 증명하지 못합니다.**
-   영수증 없는 공개 제출은 위반이 아니라 **중립 기록**입니다.
+   기존 로그의 영수증 없는 `postNotice`는 **중립 기록**입니다.
+   별도 `RedemptionInbox.submit`은 계약이 정한 거래소 응답 절차를 시작하지만, 이전 오프체인 전달을 증명하지 않습니다.
 4. **완전성** — 각 피결정자가 **자기 항목**에 대해서만 누락을 잡습니다(CONIKS 모델).
    전체 누락은 앵커 size와 영수증 합집합으로 근사할 뿐입니다.
 5. **법적 강제력** — 체인은 의무를 만들지 않습니다. 약속 위반을 기록할 뿐입니다.
@@ -147,12 +169,14 @@ npm run verify -- --inbox <INBOX_ADDRESS> --request <REQUEST_ID> --rpc http://12
 |---|---|
 | 확인됨 `CONFIRMED` | 서명·바인딩·포함증명으로 확인됨 |
 | 기한 미도래 `NOT_DUE` | 아직 의무 이행 기한 전 — **위반이 아님** |
-| 의무 미이행 `OBLIGATION_UNMET` | 서명한 의무가 지켜지지 않음 |
+| 의무 미이행 `OBLIGATION_UNMET` | 검사 조건 불일치·영수증 기한 위반 또는 온체인 무응답 확정. 어떤 항목인지 함께 확인해야 함 |
 | 검증 불가 `UNVERIFIABLE` | 자료가 없어 판단할 수 없음 — **위반이 아님** |
 | 범위 밖 `OUT_OF_SCOPE` | 이 도구가 보증하지 않는 사실 |
 
 앵커 상태도 `SIGNED_PENDING_ANCHOR`(서명만 받음)와 `ANCHORED`(공개 로그에 확정)로 나눕니다.
-**「모르겠다」와 「위반이다」를 섞지 않는 것**이 이 도구가 오탐으로 무기가 되지 않는 이유입니다.
+기존 영수증 검증기는 서명·커밋 불일치에도 `OBLIGATION_UNMET`를 사용합니다. 조작된 파일의 불일치가
+곧 기관의 위법·무응답을 입증하는 것은 아닙니다. 기록 누락의 확정 판정에는 별도의 온체인 `UNANSWERED` 증거가 필요합니다.
+자료 부족과 확인된 불일치를 구분하고, 각 판정의 검사 항목과 근거를 함께 확인하도록 설계했습니다.
 
 ---
 
@@ -218,16 +242,34 @@ stateDiagram-v2
 인도 기록은 인도 기관 서비스의 루트로만 증명합니다.
 
 `STALLED`는 인도 기관 무응답 후 잠금 유지, `DISPUTED`는 보유자 이의 후 잠금 유지입니다.
-두 경우 오프체인 해결이 필요하며 운영사 단독 완료·소각 경로는 없습니다.
+두 경우 오프체인 해결이 필요하며 운영사가 조건을 무시하고 완료·소각하는 관리자 경로는 없습니다.
+단, `DELIVERED`에서 이의 기간이 지나면 운영사를 포함한 누구나 `burn`을 호출할 수 있습니다.
 앵커 지각은 `late`로 남습니다. 인계 증명은 인계 기한까지만 받으므로 기한 후 회수와 경쟁하지 않습니다.
 이의 기간은 인도 증명이 에스크로에서 수락된 블록부터 시작합니다. 오래된 앵커를 늦게 제출해도 보유자에게
 전체 기간이 주어집니다. 기획안에서 보완한 경계 조건은 [상세 사양](docs/redemption-design.md)에 명시했습니다.
+
+### 거래소 인박스: 잠금 이전의 시계
+
+```mermaid
+stateDiagram-v2
+    [*] --> SUBMITTED: 보유자 서명 submit
+    SUBMITTED --> FORWARDED: 거래소 forward / 보유자 명의 잠금
+    SUBMITTED --> REJECTED: proveRejection
+    SUBMITTED --> CHALLENGED: 전달 기한 후 보유자 challenge
+    CHALLENGED --> FORWARDED: 응답창 내 forward
+    CHALLENGED --> REJECTED: 응답창 내 proveRejection
+    CHALLENGED --> UNANSWERED: 응답창 후 finalize
+```
+
+챌린지 전에는 최초 기한이 지나도 전달·거절 기록을 받을 수 있으며 지각 여부를 남깁니다.
+`FORWARDED`가 기록한 `lockId`에서 운영사 시계가 시작됩니다. 제3자가 별도로 만든 선물 잠금은 요청을 완료시키지 않습니다.
 
 ---
 
 ## 6. 공개 로그 컨트랙트 (`contracts/src/BlockNoticeLog.sol`)
 
-컨트랙트는 **해시만** 저장합니다. 요청 내용도, 통지문도, 비공개 사유도 모릅니다.
+업무 내용은 해시로 기록하며 주소·기한·트리 크기·챌린지 상태 등의 메타데이터도 저장합니다.
+요청 본문·통지문·비공개 사유의 원문은 저장하지 않습니다.
 루트는 제출받지 않고 **컨트랙트가 직접 계산**합니다 — 기관이 자기가 만들지 않은 트리의 루트를 올릴 수 없습니다.
 
 | 함수 | 하는 일 |
@@ -274,10 +316,9 @@ stateDiagram-v2
 
 ### 남용이 어디로 퇴화하는가
 
-**영수증 보류는 로그 완전성을 해치지 못하고 수수료 세금으로 퇴화합니다.**
-매 에폭 성실히 앵커하면서 영수증만 안 주는 기관에게는 `UNANSWERED` 0건이 나옵니다. 대신 이용자는
-자기 순번을 알기 위해 공개 제출 가스를 내야 하고, 그 비용이 곧 세금입니다. 이 구조는 그걸
-막지 못하며, 막는 척하지도 않습니다.
+**기존 영수증 경로에서 기관이 접수 영수증을 주지 않으면, 그 요청으로 서명 기반 챌린지를 열 수 없습니다.**
+이용자는 가스를 내고 `postNotice`를 남길 수 있지만, 이는 접수 인정이나 결정 기록을 강제하지 않습니다.
+상환 에스크로와 인박스는 각각 잠금·서명 요청 제출로 별도의 계약상 시계를 시작합니다.
 
 ---
 
@@ -290,7 +331,7 @@ stateDiagram-v2
 |---|---|---|
 | Arbitrum delayed inbox / zkSync priority queue / OP deposits | 소프트 확인 + 강제 제출 + 포함 기한 | 롤업은 **프로토콜이 포함을 강제**합니다. 오프체인 결정 서비스에는 그런 강제가 없습니다. 그래서 포함 여부를 롤업 상태 대신 **머클 앵커**로 판정하고, 강제가 없는 자리를 영수증 바인딩과 기한 역산으로 메웠습니다 |
 | Certificate Transparency (RFC 6962/9162) | append-only 로그, 포함증명, 자기 항목 감시 | CT는 발급자가 로그에 올릴 유인이 있습니다. 여기선 **올리지 않는 것이 이득**이라, 안 올린 사실을 요청자가 자기 영수증으로 증명하게 만들었습니다 |
-| SCITT (RFC 9943) | 서명 진술 → 영수증 구조 | 와이어 포맷 호환을 **주장하지 않습니다**. 개념만 참고했습니다 |
+| [SCITT (RFC 9943)](https://www.rfc-editor.org/rfc/rfc9943.html) | 서명 진술 → 영수증 구조 | 와이어 포맷 호환을 **주장하지 않습니다**. 개념만 참고했습니다 |
 
 **기존 기술 델타**: 롤업의 강제 포함 패턴을, 프로토콜 강제가 없는 오프체인 결정에 옮기고,
 그 빈자리를 **「기관이 서명한 기한」 + 「체인이 본 앵커에서의 역산」**으로 채운 것.
@@ -304,18 +345,19 @@ stateDiagram-v2
 
 ---
 
-## 8. 수치 — 전부 이 저장소에서 재현됩니다
+## 8. 검증 결과와 가스 측정
 
 ### 검사
 
 | 종류 | 개수 | 무엇을 보는가 |
 |---|---|---|
-| 시나리오 (`npm run scenarios`) | **30** | 공격 20 + 정직 10. 기존 18 + 상환·인박스 12, 실제 체인에서 기대 판정 대조 |
+| 시나리오 (`npm run scenarios`) | **30** | 공격 20 + 정직 10. 기존 18 + 상환·인박스 12, 로컬 Anvil에서 기대 판정 대조 |
 | Solidity 단위 테스트 | **107** | 기존 32 + 에스크로 39 + 인박스 36. 레퍼런스 트리 퍼즈 포함 |
 | TypeScript 테스트 | **84** | 기존 경로, Windows 실행, 에스크로·인박스 증거·실제 체인 통합, 배포 도구 |
 
 **공격 20개 전부 기대 판정 일치, 정직한 장면 10개 중 오탐 0건.**
 각 공격의 성공 기준에는 거부·지각 표시·검증 불가·범위 밖도 포함됩니다. 전부 위반 판정이라는 뜻은 아닙니다.
+하니스의 `falsePositives`는 정상 장면의 기대값 불일치 수입니다. 일반적인 탐지기의 오탐률을 측정한 통계는 아닙니다.
 인박스 무응답 시나리오를 포함합니다. 실행 결과는 `out/scenarios.json`, 상환별 공개 증거는 `out/attack.redeemSilent.json` 등으로 저장합니다.
 
 ### 기존 로그 가스 (원본 저장소의 Foundry 실측 기록)
@@ -360,6 +402,33 @@ stateDiagram-v2
 
 ## 9. 배포 (공개 테스트넷)
 
+### 금 RWA 상환 배포 — Sepolia (11155111)
+
+| 계약 | 주소 | 검증 |
+|---|---|---|
+| MockGold | [0xb3a791fbb0a2f5001375dd32b6fb621837955b1a](https://sepolia.etherscan.io/address/0xb3a791fbb0a2f5001375dd32b6fb621837955b1a) | Sourcify `exact_match` |
+| RedemptionEscrow | [0x8c8cbf50a91ce2c6d0746d0c4745d3a8b8f7778c](https://sepolia.etherscan.io/address/0x8c8cbf50a91ce2c6d0746d0c4745d3a8b8f7778c) | Sourcify `exact_match` |
+| RedemptionInbox | [0x870238b0be5d5835ff47de3510875c996c01bb5d](https://sepolia.etherscan.io/address/0x870238b0be5d5835ff47de3510875c996c01bb5d) | Sourcify `exact_match` |
+
+2026-09-17 배포·서비스 등록 6건을 완료했습니다. 고정 기한은 에스크로 판단/인계/인도/응답/이의
+**20/40/60/30/30블록**, 인박스 전달/응답 **20/30블록**입니다. 실물 상환이나 공개망의 전체 시나리오 실행을 뜻하지 않습니다.
+[배포·소스 검증 상세](docs/public-deployment.md), [기계 판독 기록](escrow-deployments.json).
+
+설치·`forge build` 후 **키 없이** 공개 배포를 대조할 수 있습니다.
+
+```bash
+# Bash
+SEPOLIA_RPC_URL=https://ethereum-sepolia-rpc.publicnode.com npm run check:escrow -- sepolia
+```
+
+```powershell
+# PowerShell
+$env:SEPOLIA_RPC_URL = 'https://ethereum-sepolia-rpc.publicnode.com'
+npm.cmd run check:escrow -- sepolia
+```
+
+### 기존 로그 배포
+
 | 네트워크 | 컨트랙트 | 서비스 등록 tx |
 |---|---|---|
 | **Sepolia** (11155111) | [`0xa4d46da2bc8bd6c113e254424be1e78002af5504`](https://sepolia.etherscan.io/address/0xa4d46da2bc8bd6c113e254424be1e78002af5504) | [`0x75e1cea4…63bf93b8`](https://sepolia.etherscan.io/tx/0x75e1cea4be1ca4954cff06eaeadd7f3b2c6a698e1fc1fd061de58d7c63bf93b8) |
@@ -383,10 +452,13 @@ npm run check:deployment
 기관 서명자·프로필 해시를 공개 RPC에서 다시 읽어 대조하고, 하나라도 어긋나면 0이 아닌 코드로 종료합니다.
 `.env` 없이 동작합니다.
 
-### 직접 배포하려면
+### 기존 로그를 새로 배포하려면
+
+`.env.example`을 참고해 `.env`에 테스트넷용 `DEPLOYER_KEY`와 대상 RPC를 설정합니다.
+기존 `.env`가 있다면 필요한 항목만 수정해 키를 보존합니다. 아래 명령은 읽기 검증이 아니라
+새 배포이며 `deployments.json`의 해당 네트워크 기록을 갱신합니다.
 
 ```bash
-cp .env.example .env         # DEPLOYER_KEY 채우기 (테스트넷 전용 지갑을 쓰세요)
 npm run deploy -- sepolia    # 배포 + demo-exchange 등록 → deployments.json 에 네트워크별로 기록
 npm run deploy -- hoodi      # Hoodi 로그 배포. deployments.json의 해당 네트워크 기록 갱신
 ```
@@ -404,7 +476,9 @@ npm run deploy:escrow -- local --record out/escrow-local.json
 npm run check:escrow -- local --record out/escrow-local.json
 ```
 
-`LOCAL_RPC_URL`로 주소를 바꿀 수 있습니다. 로컬 기본 키는 실제 RPC chainId가 31337일 때만 선택합니다.
+`LOCAL_RPC_URL`로 주소를 바꿀 수 있습니다. `DEPLOYER_KEY`가 없을 때만 Anvil 기본 키를 사용하고,
+실제 RPC chainId가 31337인지 먼저 확인합니다. `.env`에 다른 키가 있으면 로컬 배포에서도 그 키를 사용하므로
+해당 주소에 로컬 잔액이 있어야 합니다.
 공개 배포는 `.env`의 `DEPLOYER_KEY`와 `HOODI_RPC_URL` 또는 `SEPOLIA_RPC_URL`을 채우고 실행합니다.
 
 ```bash
@@ -417,7 +491,8 @@ npm run check:escrow -- hoodi
 중단된 전송 상태가 모호하면 재배포를 거부합니다. 먼저 기록과 체인을 조사한 뒤 새 `--record` 경로를 선택합니다.
 
 검사기는 지갑 없이 기록된 코드 해시·영수증·서비스·모든 불변 값과 재계산한 프로필을 대조합니다.
-배포 당시 기록한 런타임과의 비교이며 외부 보안 감사나 재현 빌드 인증은 아닙니다.
+이 명령 자체는 배포 기록과의 비교입니다. Sepolia 신규 계약 3개는 별도로 Sourcify 소스 검증을 받았으며,
+어느 검사도 외부 보안 감사를 대신하지 않습니다.
 배포 도구의 세 서비스는 서로 다른 ID이지만 한 배포 지갑이 통제하는 **데모 구성**입니다.
 MockGold는 누구나 발행할 수 있고 실물 금을 담보하지 않습니다.
 Sepolia 신규 배포는 [escrow-deployments.json](escrow-deployments.json)에 기록했습니다.
@@ -432,14 +507,14 @@ Sepolia 신규 배포는 [escrow-deployments.json](escrow-deployments.json)에 �
 
 ### 왜 Sepolia인가, 그리고 왜 Hoodi도인가
 
-Arbitrum Sepolia가 아니라 Sepolia인 이유: 이 프로토콜의 판정은 전부 **블록 번호 기한**이고,
-Arbitrum의 `block.number`는 L1 블록 번호의 근사치라 그 경계가 흔들립니다. 배치별 append 가스를
-정직하게 보고하려면 L1 calldata 비용이 섞이지 않아야 한다는 이유도 있습니다.
+2026-09-17 확인한 [Ethereum 공식 네트워크 문서](https://ethereum.org/developers/docs/networks/)는
+앱·계약 개발에 Sepolia를 권장합니다. 이번 상환 배포는 Sepolia를 사용하고 기존 Hoodi 로그 미러는 유지합니다.
+기한은 시간이 아닌 해당 체인의 블록 수이므로, 다른 체인으로 옮길 때는 프로필을 다시 정해야 합니다.
 
 > [Ethereum Foundation의 2025-03-18 공지](https://blog.ethereum.org/2025/03/18/hoodi-holesky)는
 > Sepolia의 예상 종료일을 2026-09-30으로 제시했습니다. 현재 [공식 네트워크 문서](https://ethereum.org/developers/docs/networks/)는
 > Sepolia와 Hoodi를 유지 중인 테스트넷으로 설명하므로, 종료를 확정된 사실로 발표하지 않습니다.
-> 기존 Hoodi 미러는 유지하며, 신규 에스크로의 배포망은 구현 시점의 공지를 다시 확인합니다.
+> 이후 추가 배포 전에는 최신 공지를 다시 확인합니다.
 
 판정은 블록 순서 하나에 걸려 있어 **인접 블록 재조직에 뒤집힐 수 있습니다.** 컨트랙트는 이걸 막지 못합니다.
 상환·인박스 검증기는 조회 블록을 고정하며 `--block`으로 과거 블록을 지정할 수 있습니다.
@@ -454,16 +529,17 @@ Arbitrum의 `block.number`는 L1 블록 번호의 근사치라 그 경계가 흔
 2. **기록 내용의 진실성과 키의 정당한 사용은 별도 문제입니다.** 로그는 저장된 트리에서 다음 루트를 직접 계산하므로
    운영자가 과거 리프를 교체할 수는 없습니다. 그러나 키 보유자가 거짓 주장을 새 리프로 추가하는 것은 막지 못합니다.
 3. **에폭별 size 증가분이 건수를 흘립니다.** 몇 건을 처리했는지는 외부에서 추정 가능합니다.
-4. **경제적 강제층(stake·fee)은 설계만 있고 구현하지 않았습니다.** 지금 이 컨트랙트에는
-   예치금도 수수료도 없습니다. 남는 것은 공개 기록과 평판뿐입니다.
-5. **키 회전 미구현.** 요청자 키 분실은 자기 증거의 상실입니다(로그 완전성은 유지됩니다).
+4. **기관의 stake·벌금·프로토콜 수수료는 구현하지 않았습니다.** 상환 에스크로에는 보유자의 토큰 잠금과
+   조건부 반환·소각이 있지만, 기관의 무응답에 벌금을 부과하는 별도 담보는 없습니다.
+5. **키 회전 미구현.** 보유자 키를 잃으면 챌린지·회수·이의·수령 확인 등 보유자 전용 호출을 할 수 없습니다.
+   공개 기록은 남으며, 인박스는 EOA 서명만 지원합니다(EIP-1271 스마트 계약 지갑 미지원).
 6. **상환이 막힌 요청자가 가스를 못 낼 수 있습니다.** 접근성 해법(기관 예치금에서 무차별 가스 환급)은
    설계만 있고 구현하지 않았습니다. 1차 장면인 기관 고객에겐 작은 문제지만, 개인에겐 큰 문제입니다.
 7. **서명된 타임라인은 양날입니다.** 정직한 기관을 방어하는 증거이면서, 동시에 소송에서
    원고 측 증거이기도 합니다. 법무팀이 도입을 거부할 수 있습니다. 이건 기술로 못 푸는 문제입니다.
 8. **serviceId는 선착순입니다.** 누구든 먼저 등록하면 그 이름을 갖습니다. 영수증은 등록된 서명자에
    묶이므로 **남의 이름으로 남의 영수증을 위조할 수는 없지만**, 이름 자체를 선점당할 수는 있습니다.
-   운영 시에는 serviceId를 기관이 통제하는 식별자(도메인 해시 등)에서 파생시켜야 합니다. 미구현입니다.
+   도메인 해시를 ID로 쓰는 것만으로 소유권이 증명되지는 않습니다. 기관 신원·도메인 소유권을 검증하는 등록 절차는 미구현입니다.
 9. **상환의 최종 결과는 숨겨지지 않습니다.** 설계상 결과 코드·사유 분류는 비공개지만, 보유자 주소·수량과
    소각·반환은 공개됩니다. 반환만으로 DENY와 지연을 구분할 수는 없어도 사후 추론 가능성은 남습니다.
 10. **인도 기관 무응답과 허위 이의는 체인이 해결하지 않습니다.** `STALLED`·`DISPUTED`는 잠금이 유지됩니다.
@@ -473,10 +549,14 @@ Arbitrum의 `block.number`는 L1 블록 번호의 근사치라 그 경계가 흔
 12. **발행사 도입 유인은 가설입니다.** 실제 고객 도입·상환 운영·법적 집행을 검증한 결과가 아닙니다.
 13. **신뢰할 수 있는 burnable ERC-20만 지원합니다.** 수수료 차감·리베이스·거짓 잔액 응답은 지원 범위 밖입니다.
     MockGold는 permissionless mint를 갖는 시연용 토큰이며 실물 금과 무관합니다. 관리자 복구·업그레이드 경로는 없습니다.
+14. **인박스는 거래소 고객·잔고를 인증하지 않습니다.** 누구나 자기 서명으로 등록 서비스에 요청할 수 있습니다.
+    허위 잔고 주장·대량 요청을 막는 고객 인증·요청 빈도 제한·요청 담보는 별도 구현이 필요합니다.
+15. **비공개 판단의 승인 여부를 체인이 검사하지 않습니다.** 판단 다이제스트와 인계 포함증명은 확인하지만,
+    원문이 ALLOW인지, 인계할 자격이 있는지까지 검증하는 구조는 아닙니다.
 
 ---
 
-## 11. 구조
+## 11. 기존 영수증 경로의 구조
 
 ```
 요청자 ──서명 요청(EIP-712) + HPKE 봉투──▶ 기관
@@ -487,10 +567,10 @@ Arbitrum의 `block.number`는 L1 블록 번호의 근사치라 그 경계가 흔
 검증기: 파일 + 공개 로그 루트만으로 5분류 출력 — 기관 접속 0회(실측)
 ```
 
-- **서명**: EIP-712 / secp256k1. 도메인에 chainId·verifyingContract·serviceId를 넣어 다른 배포·체인으로
-  재사용 불가. 가변(high-s) 서명은 거부합니다.
+- **서명**: EIP-712 / secp256k1. 도메인은 name·version·chainId·verifyingContract입니다.
+  serviceId는 서명 구조체·프로필에 바인딩하며 도메인 필드는 아닙니다. 인박스도 요청 구조체에 exchangeServiceId를 넣습니다.
 - **암호화**: HPKE(RFC 9180, DHKEM-X25519 + HKDF-SHA256 + AES-128-GCM). 서명키와 암호화키는 역할이 다릅니다.
-- **비공개 사유**: `keccak(detail ‖ ruleIds ‖ salt)` 커밋만 영수증에 들어가고, 개봉 자료는
+- **비공개 사유**: `keccak256(abi.encode(detail, ruleIds, salt))` 커밋만 영수증에 들어가고, 개봉 자료는
   **사건별로** 따로 보관합니다(전역 키 없음).
 - **직렬화**: bigint는 태그 객체로 나갑니다. 이전의 `"123n"` 문자열 방식은 단사가 아니어서,
   값이 우연히 `"123n"`인 정상 문자열 필드가 BigInt로 되살아났습니다 — 정직한 기관의 묶음을
@@ -502,11 +582,11 @@ Arbitrum의 `block.number`는 L1 블록 번호의 근사치라 그 경계가 흔
 
 ## 12. 관련 작업과의 위치
 
-Certificate Transparency(RFC 6962/9162)의 append-only 로그·포함증명, SCITT(RFC 9943)의 서명 진술→영수증
+Certificate Transparency(RFC 6962/9162)의 append-only 로그·포함증명, [SCITT(RFC 9943)](https://www.rfc-editor.org/rfc/rfc9943.html)의 서명 진술→영수증
 구조를 참고했습니다. 와이어 포맷 호환을 주장하지 않습니다.
 
-게이트 운영자 측 증거(ANAM145 SignTrail, Fireblocks 감사로그 등)가 **운영자의 기록**을 완성한다면,
-BlockNotice는 **피결정자가 보유하는 쪽**의 기록을 다룹니다. 경쟁이 아니라 반대편입니다.
+BlockNotice는 이용자가 보유한 영수증을 공개 커밋과 대조하는 경로를 제공합니다.
+기관 내부 감사 로그를 대체하기보다 이용자 측의 독립 검증을 보완하는 구조입니다.
 
 ---
 
@@ -523,7 +603,7 @@ BlockNotice는 **피결정자가 보유하는 쪽**의 기록을 다룹니다. �
 
 Idea and committed by **SBK**. 검토·피드백 [@tnwjd023-boop](https://github.com/tnwjd023-boop).
 
-Of course, special thanks to Claude and Anthropic — 구현은 Claude Code(Claude Opus 5)와 함께 했습니다.
+원본 구현은 Claude Code와 작업했습니다. Claude와 Anthropic에 감사를 전합니다.
 이번 금 RWA 에스크로·인박스, 검증기·배포 도구·제출 자료 확장은 Codex와 작업했습니다.
 컨트랙트·검증기·시나리오 하니스의 코드 작성에 AI를 사용했고, 설계 판단과 위협 모델,
 그리고 위 한계 목록의 취사선택은 사람이 했습니다.
