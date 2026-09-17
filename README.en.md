@@ -653,6 +653,10 @@ The older [`deck/BlockNotice_pitch.pdf`](deck/BlockNotice_pitch.pdf) predates th
 and should not be used as the submission deck.
 The script and HTML distinguish accelerated local scenarios from the actual Sepolia escrow and inbox deployments.
 
+An English [consulting-style pitch deck](deck/BlockNotice_GoldRWA_pitch.en.pdf) is also available,
+with [HTML slides](deck/pitch.en.html) and [editable source and Figma transfer status](deck/README.en.md).
+It presents the same implementation with conclusion-led headlines and an updated evidence narrative.
+
 ---
 
 ## 14. Credits

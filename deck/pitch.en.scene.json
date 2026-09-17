@@ -1,0 +1,4087 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "font": "Arial",
+  "repo": "https://github.com/tnwjd023-boop/BlockNotice_GoldRWA",
+  "colors": {
+    "navy": "#10283F",
+    "ink": "#172D40",
+    "gold": "#AE812B",
+    "pale": "#F4EDDE",
+    "slate": "#526477",
+    "light": "#F1F4F6",
+    "rule": "#D7DEE4",
+    "white": "#FFFFFF",
+    "teal": "#21766B",
+    "rust": "#A24B35",
+    "soft": "#CFD9E2"
+  },
+  "slides": [
+    {
+      "name": "01 · Make every redemption delay attributable.",
+      "bg": "#10283F",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "BLOCKNOTICE / GOLD RWA REDEMPTION",
+          "size": 20,
+          "color": "#CFD9E2",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1190,
+          "text": "Make every redemption\ndelay attributable.",
+          "size": 90,
+          "color": "#FFFFFF",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#395064"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "TRUST404 · Track 3  |  Prototype evidence as of 17 September 2026",
+          "size": 18,
+          "color": "#CFD9E2",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "01",
+          "size": 24,
+          "color": "#FFFFFF",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 100,
+          "y": 450,
+          "w": 1050,
+          "text": "Independent evidence for the journey\nfrom a token lock to a delivery claim.",
+          "size": 38,
+          "color": "#FFFFFF",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 100,
+          "y": 640,
+          "w": 1030,
+          "text": "A commitment to record and prove each step.\nRedemption approval remains an institutional decision.",
+          "size": 28,
+          "color": "#CFD9E2",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 100,
+          "y": 861,
+          "w": 1100,
+          "text": "ESCROW  /  EXCHANGE INBOX  /  PUBLIC VERIFIER",
+          "size": 21,
+          "color": "#CFD9E2",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Three-clock spine",
+          "x": 1370,
+          "y": 230,
+          "w": 3,
+          "h": 528,
+          "color": "#AE812B"
+        },
+        {
+          "type": "rect",
+          "name": "Milestone",
+          "x": 1357,
+          "y": 244,
+          "w": 29,
+          "h": 29,
+          "color": "#AE812B"
+        },
+        {
+          "type": "group",
+          "name": "Exchange",
+          "x": 1430,
+          "y": 223,
+          "w": 370,
+          "h": 175,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "01",
+              "size": 24,
+              "color": "#CFD9E2",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "Exchange",
+              "size": 37,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "Signed request",
+              "size": 26,
+              "color": "#CFD9E2",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "rect",
+          "name": "Milestone",
+          "x": 1357,
+          "y": 480,
+          "w": 29,
+          "h": 29,
+          "color": "#AE812B"
+        },
+        {
+          "type": "group",
+          "name": "Operator",
+          "x": 1430,
+          "y": 459,
+          "w": 370,
+          "h": 175,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "02",
+              "size": 24,
+              "color": "#CFD9E2",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "Operator",
+              "size": 37,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "Token lock",
+              "size": 26,
+              "color": "#CFD9E2",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "rect",
+          "name": "Milestone",
+          "x": 1357,
+          "y": 716,
+          "w": 29,
+          "h": 29,
+          "color": "#AE812B"
+        },
+        {
+          "type": "group",
+          "name": "Delivery provider",
+          "x": 1430,
+          "y": 695,
+          "w": 370,
+          "h": 175,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "03",
+              "size": 24,
+              "color": "#CFD9E2",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "Delivery provider",
+              "size": 37,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "Handoff anchor",
+              "size": 26,
+              "color": "#CFD9E2",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "02 · One redemption journey. Three accountable clocks.",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "EXECUTIVE PERSPECTIVE",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "One redemption journey.\nThree accountable clocks.",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "Source: README.en.md §§1, 4–5, 8–9. Adoption incentives remain a hypothesis.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "02",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Locate the delay",
+          "x": 96,
+          "y": 385,
+          "w": 530,
+          "h": 390,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "01",
+              "size": 74,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "Locate the delay",
+              "size": 36,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "Separate exchange forwarding, operator\ndecision-making, and delivery-provider\nrecording into distinct obligations.",
+              "size": 29,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 24,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Keep evidence portable",
+          "x": 680,
+          "y": 385,
+          "w": 530,
+          "h": 390,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "02",
+              "size": 74,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "Keep evidence portable",
+              "size": 36,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "Let holders check signed records and\npublic commitments without relying\non the institution’s server.",
+              "size": 29,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 24,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Test before adoption",
+          "x": 1264,
+          "y": 385,
+          "w": 530,
+          "h": 390,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "03",
+              "size": 74,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "Test before adoption",
+              "size": 36,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "Use reproducible local scenarios and\nverified testnet deployments as the\nstarting point for a partner pilot.",
+              "size": 29,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 24,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Key implication",
+          "x": 96,
+          "y": 846,
+          "w": 1728,
+          "h": 94,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 1672,
+              "text": "Implemented today: signed receipts + public log + redemption escrow + exchange inbox.",
+              "size": 28,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 0,
+          "pad": 28,
+          "bg": "#F4EDDE",
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "03 · A token lock reveals custody— not who is delaying redemption.",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "THE PROBLEM",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "A token lock reveals custody—\nnot who is delaying redemption.",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "Source: redemption proposal and README.en.md §1. Illustrative process; not a claim about any particular issuer.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "03",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 96,
+          "y": 334,
+          "w": 1660,
+          "text": "Holders see one delay. Responsibility spans several institutions.",
+          "size": 31,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Process field",
+          "x": 96,
+          "y": 425,
+          "w": 1728,
+          "h": 352,
+          "color": "#F1F4F6"
+        },
+        {
+          "type": "group",
+          "name": "Request",
+          "x": 128,
+          "y": 471,
+          "w": 244,
+          "h": 250,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "01",
+              "size": 23,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Request",
+              "size": 33,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Exchange",
+              "size": 23,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 24,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 373,
+          "y": 531,
+          "w": 34,
+          "text": "→",
+          "size": 31,
+          "color": "#AE812B",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Lock",
+          "x": 412,
+          "y": 471,
+          "w": 244,
+          "h": 250,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "02",
+              "size": 23,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Lock",
+              "size": 33,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Escrow",
+              "size": 23,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 24,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 657,
+          "y": 531,
+          "w": 34,
+          "text": "→",
+          "size": 31,
+          "color": "#AE812B",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Decision",
+          "x": 696,
+          "y": 471,
+          "w": 244,
+          "h": 250,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "03",
+              "size": 23,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Decision",
+              "size": 33,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Operator",
+              "size": 23,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 24,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 941,
+          "y": 531,
+          "w": 34,
+          "text": "→",
+          "size": 31,
+          "color": "#AE812B",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Handoff",
+          "x": 980,
+          "y": 471,
+          "w": 244,
+          "h": 250,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "04",
+              "size": 23,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Handoff",
+              "size": 33,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Operator → provider",
+              "size": 23,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 24,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 1225,
+          "y": 531,
+          "w": 34,
+          "text": "→",
+          "size": 31,
+          "color": "#AE812B",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Delivery claim",
+          "x": 1264,
+          "y": 471,
+          "w": 244,
+          "h": 250,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "05",
+              "size": 23,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Delivery claim",
+              "size": 33,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Provider",
+              "size": 23,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 24,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 1509,
+          "y": 531,
+          "w": 34,
+          "text": "→",
+          "size": 31,
+          "color": "#AE812B",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Burn / return",
+          "x": 1548,
+          "y": 471,
+          "w": 244,
+          "h": 250,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "06",
+              "size": 23,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Burn / return",
+              "size": 33,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 244,
+              "text": "Escrow",
+              "size": 23,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 24,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Public token evidence",
+          "x": 96,
+          "y": 822,
+          "w": 760,
+          "h": 118,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 760,
+              "text": "VISIBLE ONCHAIN",
+              "size": 20,
+              "color": "#21766B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 760,
+              "text": "Lock, amounts, token movements",
+              "size": 32,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 13,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Institutional evidence gap",
+          "x": 982,
+          "y": 822,
+          "w": 842,
+          "h": 118,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 842,
+              "text": "EVIDENCE GAP",
+              "size": 20,
+              "color": "#A24B35",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 842,
+              "text": "Decision timing, handoff, delivery claims",
+              "size": 32,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 13,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "04 · Start with holders who can sign and institutions that can integrate.",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "INITIAL USER FOCUS",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "Start with holders who can sign\nand institutions that can integrate.",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "Source: README.en.md §1 and limitations §§10.5, 10.14. No customer adoption is claimed.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "04",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Primary audience",
+          "x": 96,
+          "y": 378,
+          "w": 740,
+          "h": 545,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 636,
+              "text": "PRIMARY USER",
+              "size": 20,
+              "color": "#CFD9E2",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 636,
+              "text": "Self-custody\nholders and\ninstitutions",
+              "size": 58,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 636,
+              "text": "Direct locking starts the operator’s clock.\nThe holder retains control of challenges,\nreclaims, disputes, and acknowledgement.",
+              "size": 28,
+              "color": "#FFFFFF",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 32,
+          "pad": 52,
+          "bg": "#10283F",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Issuer / operator",
+          "x": 930,
+          "y": 387,
+          "w": 890,
+          "h": 162,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 890,
+              "text": "ADOPTER",
+              "size": 19,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 890,
+              "text": "Issuer / operator",
+              "size": 33,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 890,
+              "text": "Integration incentive: distinguish responsibility\nacross the redemption chain. Hypothesis, not traction.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Exchange-wallet customer",
+          "x": 930,
+          "y": 574,
+          "w": 890,
+          "h": 162,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 890,
+              "text": "CONDITIONAL",
+              "size": 19,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 890,
+              "text": "Exchange-wallet customer",
+              "size": 33,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 890,
+              "text": "Needs an external signing key. The inbox does not\nverify customer status, balance, or eligibility.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Custodial user without a key",
+          "x": 930,
+          "y": 761,
+          "w": 890,
+          "h": 162,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 890,
+              "text": "OUTSIDE DIRECT SCOPE",
+              "size": 19,
+              "color": "#A24B35",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 890,
+              "text": "Custodial user without a key",
+              "size": 33,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 890,
+              "text": "Cannot independently sign the current flow.\nPasskeys and gas sponsorship are not implemented.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "05 · Each clock starts from a different onchain event.",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "PROTOCOL DESIGN",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "Each clock starts from\na different onchain event.",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "Source: contracts and README.en.md §§4–5, 9. Deadlines are block counts, not elapsed-time guarantees.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "05",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 360,
+          "w": 1728,
+          "h": 76,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 320,
+              "h": 76,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 280,
+                  "text": "RESPONSIBLE PARTY",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 460,
+              "h": 76,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 420,
+                  "text": "CLOCK STARTS AT",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 480,
+              "h": 76,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 440,
+                  "text": "REQUIRED EVIDENCE",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 4",
+              "x": 0,
+              "y": 0,
+              "w": 468,
+              "h": 76,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 428,
+                  "text": "IF UNANSWERED",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#10283F",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 436,
+          "w": 1728,
+          "h": 146,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 320,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 280,
+                  "text": "01  Exchange",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 460,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 420,
+                  "text": "Holder-signed request\nsubmitted to inbox",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 480,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 440,
+                  "text": "Forward into escrow\nor prove rejection",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 4",
+              "x": 0,
+              "y": 0,
+              "w": 468,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 428,
+                  "text": "Exchange breach only;\noperator clock not started",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#F1F4F6",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 582,
+          "w": 1728,
+          "h": 146,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 320,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 280,
+                  "text": "02  Operator",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 460,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 420,
+                  "text": "Token lock\n(direct or via inbox)",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 480,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 440,
+                  "text": "Decision record;\nthen a proven handoff",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 4",
+              "x": 0,
+              "y": 0,
+              "w": 468,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 428,
+                  "text": "finalize returns tokens\nafter the response window",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 728,
+          "w": 1728,
+          "h": 146,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 320,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 280,
+                  "text": "03  Delivery provider",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 460,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 420,
+                  "text": "Handoff anchor\nrecorded onchain",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 480,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 440,
+                  "text": "Delivery claim in\nprovider’s own log",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 4",
+              "x": 0,
+              "y": 0,
+              "w": 468,
+              "h": 146,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 428,
+                  "text": "STALLED;\ntokens remain locked",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#F1F4F6",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 96,
+          "y": 916,
+          "w": 1728,
+          "text": "Requests and locks start clocks without waiting for a separate acceptance receipt.",
+          "size": 29,
+          "color": "#AE812B",
+          "bold": true,
+          "line": 1.26
+        }
+      ]
+    },
+    {
+      "name": "06 · Public commitments make records independently checkable.",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "EVIDENCE ARCHITECTURE",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "Public commitments make records\nindependently checkable.",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "Source: README.en.md §§4, 6, 11. Fetch instrumentation is scoped to verifier call windows; not a universal network audit.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "06",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "HOLDER",
+          "x": 96,
+          "y": 386,
+          "w": 530,
+          "h": 400,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "HOLDER",
+              "size": 21,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "Signed request\n+ private evidence",
+              "size": 43,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "EIP-712 binds the requester.\nPrivate opening material stays\nwith the case.",
+              "size": 29,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 30,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 634,
+          "y": 500,
+          "w": 45,
+          "text": "→",
+          "size": 40,
+          "color": "#AE812B",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "PUBLIC CHAIN",
+          "x": 691,
+          "y": 386,
+          "w": 530,
+          "h": 400,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "PUBLIC CHAIN",
+              "size": 21,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "Escrow / inbox\n+ append-only log",
+              "size": 43,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "Contracts compute Merkle roots.\nEvents bind obligations to\nchain-observed blocks.",
+              "size": 29,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 30,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 1229,
+          "y": 500,
+          "w": 45,
+          "text": "→",
+          "size": 40,
+          "color": "#AE812B",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "INDEPENDENT VERIFIER",
+          "x": 1286,
+          "y": 386,
+          "w": 530,
+          "h": 400,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "INDEPENDENT VERIFIER",
+              "size": 21,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "Replay records\n+ inspect proofs",
+              "size": 43,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "Public RPC and held evidence\nproduce a finding per check,\nwithout the institution’s server.",
+              "size": 29,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 30,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Privacy boundary",
+          "x": 96,
+          "y": 834,
+          "w": 1728,
+          "h": 108,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 1664,
+              "text": "PRIVATE: decision outcome + reason opening     PUBLIC: addresses, amounts, deadlines, states, burn / return",
+              "size": 27,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 16,
+          "pad": 32,
+          "bg": "#F4EDDE",
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "07 · Return, hold, or burn— each follows explicit conditions.",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "ESCROW OUTCOMES",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "Return, hold, or burn—\neach follows explicit conditions.",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "Source: RedemptionEscrow and README.en.md §5. STALLED / DISPUTED have no administrator override.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "07",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "RETURN outcome",
+          "x": 96,
+          "y": 360,
+          "w": 285,
+          "h": 141,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 237,
+              "text": "RETURN",
+              "size": 44,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 16,
+          "pad": 24,
+          "bg": "#21766B",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "RETURN trigger",
+          "x": 425,
+          "y": 370,
+          "w": 830,
+          "h": 126,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 830,
+              "text": "Operator non-response is finalized,\nor the handoff deadline passes.",
+              "size": 32,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "RETURN effect",
+          "x": 1320,
+          "y": 370,
+          "w": 500,
+          "h": 125,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 500,
+              "text": "Tokens return through finalize / reclaim.",
+              "size": 28,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "HOLD outcome",
+          "x": 96,
+          "y": 531,
+          "w": 285,
+          "h": 141,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 237,
+              "text": "HOLD",
+              "size": 44,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 16,
+          "pad": 24,
+          "bg": "#AE812B",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "HOLD trigger",
+          "x": 425,
+          "y": 541,
+          "w": 830,
+          "h": 126,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 830,
+              "text": "Provider non-response → STALLED.\nHolder dispute → DISPUTED.",
+              "size": 32,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "HOLD effect",
+          "x": 1320,
+          "y": 541,
+          "w": 500,
+          "h": 125,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 500,
+              "text": "Tokens stay locked pending offchain resolution.",
+              "size": 28,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "BURN outcome",
+          "x": 96,
+          "y": 702,
+          "w": 285,
+          "h": 141,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 237,
+              "text": "BURN",
+              "size": 44,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 16,
+          "pad": 24,
+          "bg": "#10283F",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "BURN trigger",
+          "x": 425,
+          "y": 712,
+          "w": 830,
+          "h": 126,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 830,
+              "text": "Provider delivery claim is proven;\nholder acknowledges or dispute window expires.",
+              "size": 32,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "BURN effect",
+          "x": 1320,
+          "y": 712,
+          "w": 500,
+          "h": 125,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 500,
+              "text": "After expiry in DELIVERED, anyone can call burn.",
+              "size": 28,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 96,
+          "y": 915,
+          "w": 1728,
+          "text": "The dispute window begins when the escrow accepts the proof—not at an older delivery anchor.",
+          "size": 28,
+          "color": "#AE812B",
+          "bold": true,
+          "line": 1.26
+        }
+      ]
+    },
+    {
+      "name": "08 · Missing evidence must remain distinct from a proven breach.",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "TRUST BOUNDARIES",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "Missing evidence must remain distinct\nfrom a proven breach.",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "Source: README.en.md §§3–4, 10. A manipulated bundle alone does not attribute wrongdoing to an institution.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "08",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "CONFIRMED",
+          "x": 96,
+          "y": 355,
+          "w": 855,
+          "h": 92,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 803,
+              "text": "CONFIRMED",
+              "size": 27,
+              "color": "#21766B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 803,
+              "text": "Signature / binding / proof checks out",
+              "size": 26,
+              "color": "#172D40",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 9,
+          "pad": 14,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "NOT_DUE",
+          "x": 96,
+          "y": 468,
+          "w": 855,
+          "h": 92,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 803,
+              "text": "NOT_DUE",
+              "size": 27,
+              "color": "#526477",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 803,
+              "text": "Deadline has not arrived",
+              "size": 26,
+              "color": "#172D40",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 9,
+          "pad": 14,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "OBLIGATION_UNMET",
+          "x": 96,
+          "y": 581,
+          "w": 855,
+          "h": 92,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 803,
+              "text": "OBLIGATION_UNMET",
+              "size": 27,
+              "color": "#A24B35",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 803,
+              "text": "Inspect the failed check and evidence",
+              "size": 26,
+              "color": "#172D40",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 9,
+          "pad": 14,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "UNVERIFIABLE",
+          "x": 96,
+          "y": 694,
+          "w": 855,
+          "h": 92,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 803,
+              "text": "UNVERIFIABLE",
+              "size": 27,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 803,
+              "text": "Evidence is insufficient",
+              "size": 26,
+              "color": "#172D40",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 9,
+          "pad": 14,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "OUT_OF_SCOPE",
+          "x": 96,
+          "y": 807,
+          "w": 855,
+          "h": 92,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 803,
+              "text": "OUT_OF_SCOPE",
+              "size": 27,
+              "color": "#526477",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 803,
+              "text": "Fact is outside the tool’s guarantees",
+              "size": 26,
+              "color": "#172D40",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 9,
+          "pad": 14,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Threat actors",
+          "x": 1062,
+          "y": 367,
+          "w": 738,
+          "h": 227,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 738,
+              "text": "THREATS ADDRESSED",
+              "size": 20,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 738,
+              "text": "Institution: omission and lateness\nRequester: fabricated obligations\nThird party: forged bundles",
+              "size": 30,
+              "color": "#172D40",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 22,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Guarantee boundary",
+          "x": 1062,
+          "y": 649,
+          "w": 738,
+          "h": 243,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 738,
+              "text": "OUTSIDE THE GUARANTEE",
+              "size": 20,
+              "color": "#A24B35",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 738,
+              "text": "Physical gold and actual delivery\nTruth of private reasons\nLegal enforcement and chain finality",
+              "size": 30,
+              "color": "#172D40",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 22,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "09 · The prototype is reproducible; production validation is still ahead.",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "VERIFICATION EVIDENCE",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "The prototype is reproducible;\nproduction validation is still ahead.",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "Source: README.en.md §§8–9; escrow-deployments.json. Counts are the 17 September 2026 verification snapshot.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "09",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Automated tests",
+          "x": 96,
+          "y": 340,
+          "w": 540,
+          "h": 320,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "191",
+              "size": 132,
+              "color": "#10283F",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "Automated tests",
+              "size": 34,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "107 Solidity + 84 TypeScript",
+              "size": 25,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 15,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Local scenarios",
+          "x": 686,
+          "y": 340,
+          "w": 540,
+          "h": 320,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "30",
+              "size": 132,
+              "color": "#10283F",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "Local scenarios",
+              "size": 34,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "20 attack + 10 honest",
+              "size": 25,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 15,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Source-verified contracts",
+          "x": 1276,
+          "y": 340,
+          "w": 540,
+          "h": 320,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "3",
+              "size": 132,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "Source-verified contracts",
+              "size": 34,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "Sourcify exact_match on Sepolia",
+              "size": 25,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 15,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Local validation",
+          "x": 96,
+          "y": 737,
+          "w": 817,
+          "h": 200,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 753,
+              "text": "LOCAL EVIDENCE",
+              "size": 20,
+              "color": "#21766B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 753,
+              "text": "All 30 scenarios matched expected findings.\nZero expectation mismatches in honest cases.",
+              "size": 29,
+              "color": "#172D40",
+              "bold": false,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 753,
+              "text": "This is not a statistical false-positive rate.",
+              "size": 22,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 15,
+          "pad": 32,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Public validation",
+          "x": 951,
+          "y": 737,
+          "w": 873,
+          "h": 200,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 809,
+              "text": "PUBLIC EVIDENCE",
+              "size": 20,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 809,
+              "text": "Six deployment / registration transactions.\nMockGold + escrow + inbox on Sepolia.",
+              "size": 29,
+              "color": "#172D40",
+              "bold": false,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 809,
+              "text": "No physical redemption or full public scenario run.",
+              "size": 22,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 15,
+          "pad": 32,
+          "bg": "#F4EDDE",
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "10 · The contribution is accountability for offchain decisions.",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "TECHNICAL CONTRIBUTION",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "The contribution is accountability\nfor offchain decisions.",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "Source: README.en.md §§7, 12. References: rollup inboxes, CT RFC 6962/9162, SCITT RFC 9943; no wire compatibility claimed.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "10",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 355,
+          "w": 1728,
+          "h": 78,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 400,
+              "h": 78,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 360,
+                  "text": "REFERENCE",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 520,
+              "h": 78,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 480,
+                  "text": "CORE MECHANISM",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 808,
+              "h": 78,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 768,
+                  "text": "BOUNDARY / ADAPTATION",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#10283F",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 433,
+          "w": 1728,
+          "h": 143,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 400,
+              "h": 143,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 360,
+                  "text": "Rollup inboxes",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 520,
+              "h": 143,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 480,
+                  "text": "Forced inclusion",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 808,
+              "h": 143,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 768,
+                  "text": "The rollup protocol can enforce inclusion.\nAn offchain service cannot be forced the same way.",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#F1F4F6",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 576,
+          "w": 1728,
+          "h": 143,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 400,
+              "h": 143,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 360,
+                  "text": "Transparency logs",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 520,
+              "h": 143,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 480,
+                  "text": "Append-only commitments\nand inclusion proofs",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 808,
+              "h": 143,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 768,
+                  "text": "Users monitor their own entries;\npublic roots provide evidence of inclusion.",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 719,
+          "w": 1728,
+          "h": 143,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 400,
+              "h": 143,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 360,
+                  "text": "BlockNotice",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 520,
+              "h": 143,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 480,
+                  "text": "Bound receipts, chain-derived\ndeadlines, asset locks",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 808,
+              "h": 143,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 768,
+                  "text": "Locks start the operator clock without a receipt;\nhandoff starts the provider clock.",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#F4EDDE",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 96,
+          "y": 915,
+          "w": 1728,
+          "text": "Adapt established primitives to make delay attribution independently verifiable.",
+          "size": 29,
+          "color": "#AE812B",
+          "bold": true,
+          "line": 1.26
+        }
+      ]
+    },
+    {
+      "name": "11 · Adoption depends on identity, disputes, and operational controls.",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "PATH TO ADOPTION / PROPOSED NEXT STEPS",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "Adoption depends on identity, disputes,\nand operational controls.",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "Source: README.en.md §10. These are proposed validation workstreams, not committed delivery dates or completed controls.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "11",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Identity & access",
+          "x": 96,
+          "y": 374,
+          "w": 536,
+          "h": 397,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 536,
+              "text": "01",
+              "size": 65,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 536,
+              "text": "Identity & access",
+              "size": 35,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 536,
+              "text": "Authenticate institutions and customers.\nAddress inbox spam and false balance claims.\nPlan key rotation and wallet support.",
+              "size": 28,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 25,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Disputes & incentives",
+          "x": 686,
+          "y": 374,
+          "w": 536,
+          "h": 397,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 536,
+              "text": "02",
+              "size": 65,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 536,
+              "text": "Disputes & incentives",
+              "size": 35,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 536,
+              "text": "Define offchain resolution for locked cases.\nValidate issuer and legal-team incentives.\nEvaluate institutional collateral / penalties.",
+              "size": 28,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 25,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Operational readiness",
+          "x": 1276,
+          "y": 374,
+          "w": 536,
+          "h": 397,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 536,
+              "text": "03",
+              "size": 65,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 536,
+              "text": "Operational readiness",
+              "size": 35,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 536,
+              "text": "Set finality and monitoring policies.\nAudit contracts and token assumptions.\nPilot with a real operating partner.",
+              "size": 28,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 25,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Key implication",
+          "x": 96,
+          "y": 844,
+          "w": 1728,
+          "h": 94,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 1672,
+              "text": "Shipped: working prototype and testnet evidence. Next: validate the operating model with a partner.",
+              "size": 28,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 0,
+          "pad": 28,
+          "bg": "#F4EDDE",
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "12 · Verify the evidence. Then test the operating model.",
+      "bg": "#10283F",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "BLOCKNOTICE / NEXT CONVERSATION",
+          "size": 20,
+          "color": "#CFD9E2",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "Verify the evidence.\nThen test the operating model.",
+          "size": 75,
+          "color": "#FFFFFF",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#395064"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "Original: kimsabin725/blocknotice · Idea: SBK · Extension: tnwjd023-boop · AI-assisted implementation",
+          "size": 18,
+          "color": "#CFD9E2",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "12",
+          "size": 24,
+          "color": "#FFFFFF",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Reproduction commands",
+          "x": 96,
+          "y": 412,
+          "w": 1065,
+          "h": 303,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 1065,
+              "text": "REPRODUCE THE LOCAL DEMO",
+              "size": 20,
+              "color": "#CFD9E2",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 1065,
+              "text": "npm run demo",
+              "size": 52,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 1065,
+              "text": "CHECK THE PUBLIC DEPLOYMENT",
+              "size": 20,
+              "color": "#CFD9E2",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 1065,
+              "text": "npm run check:escrow -- sepolia",
+              "size": 40,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 1065,
+              "text": "Setup and SEPOLIA_RPC_URL are documented in the README.",
+              "size": 23,
+              "color": "#CFD9E2",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 22,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Deployment registry",
+          "x": 1280,
+          "y": 414,
+          "w": 540,
+          "h": 354,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "SEPOLIA / 11155111",
+              "size": 21,
+              "color": "#CFD9E2",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "MockGold       0xb3a791…955b1a\nEscrow            0x8c8cbf…f7778c\nInbox               0x870238…bb5d",
+              "size": 27,
+              "color": "#FFFFFF",
+              "bold": false,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 540,
+              "text": "Three services, one demo wallet.\nMockGold has no physical-gold backing.\nSource verification is not a security audit.",
+              "size": 25,
+              "color": "#CFD9E2",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 30,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "rect",
+          "name": "Closing milestone",
+          "x": 96,
+          "y": 841,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 96,
+          "y": 879,
+          "w": 1728,
+          "text": "github.com/tnwjd023-boop/BlockNotice_GoldRWA",
+          "size": 30,
+          "color": "#FFFFFF",
+          "bold": true,
+          "line": 1.26
+        }
+      ]
+    }
+  ]
+}

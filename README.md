@@ -599,6 +599,9 @@ BlockNotice는 이용자가 보유한 영수증을 공개 커밋과 대조하는
 기존 [`deck/BlockNotice_pitch.pdf`](deck/BlockNotice_pitch.pdf)는 상환 전환 이전 자료이므로 제출본으로 사용하지 않습니다.
 대본과 HTML은 가속한 로컬 시나리오와 실제 Sepolia 상환·인박스 배포를 구분합니다.
 
+영문 발표용으로 재구성한 [컨설팅 스타일 피치덱 PDF](deck/BlockNotice_GoldRWA_pitch.en.pdf)도 제공합니다.
+[영문 HTML](deck/pitch.en.html)과 [제작 원본·Figma 이관 상태](deck/README.en.md)를 함께 확인할 수 있습니다.
+
 ---
 
 ## 14. 만든 사람
