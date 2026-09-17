@@ -14,7 +14,8 @@ BlockNotice는 판단 기록과 기한을 이용자가 자기 증거와 공개 �
 토큰 잠금으로 운영사 시계가, 인계로 인도 기관 시계가 시작됩니다. 조건부 반환·소각과 보유자 이의를
 실제 로컬 체인에서 재현하고, 공개 이벤트로 홉별 판정을 다시 구성합니다.
 `RedemptionInbox`는 보유자 서명 요청부터 거래소 전달·거절·무응답을 추적합니다.
-공개 테스트넷의 기존 로그는 유지하며 신규 에스크로·인박스는 아직 공개 배포하지 않았습니다.
+기존 공개 로그에 연결한 MockGold·에스크로·인박스를 Sepolia에 배포했습니다.
+주소와 검증 결과는 [공개 배포 기록](docs/public-deployment.md)에 있습니다.
 구체적인 함수·기한·설계 보완 사항은 [상환 사양](docs/redemption-design.md), 작업 상태는
 [제출본 현황](docs/submission-status.md)에 있습니다.
 
@@ -418,7 +419,10 @@ npm run check:escrow -- hoodi
 검사기는 지갑 없이 기록된 코드 해시·영수증·서비스·모든 불변 값과 재계산한 프로필을 대조합니다.
 배포 당시 기록한 런타임과의 비교이며 외부 보안 감사나 재현 빌드 인증은 아닙니다.
 배포 도구의 세 서비스는 서로 다른 ID이지만 한 배포 지갑이 통제하는 **데모 구성**입니다.
-MockGold는 누구나 발행할 수 있고 실물 금을 담보하지 않습니다. 이번 작업에서는 신규 공개 배포를 실행하지 않았습니다.
+MockGold는 누구나 발행할 수 있고 실물 금을 담보하지 않습니다.
+Sepolia 신규 배포는 [escrow-deployments.json](escrow-deployments.json)에 기록했습니다.
+현재 기록이 있는 Sepolia에 같은 명령으로 재배포하면 거부됩니다. 검증만 하려면 RPC를 설정하고
+`npm run check:escrow -- sepolia`를 실행합니다. [주소·트랜잭션·소스 검증](docs/public-deployment.md)을 참조하세요.
 
 ### 로컬 시연과 공개 증거는 다릅니다
 
@@ -511,7 +515,7 @@ BlockNotice는 **피결정자가 보유하는 쪽**의 기록을 다룹니다. �
 제출 전 5분 발표 대본은 [`DEMO.md`](DEMO.md), 최신 피치덱은 [금 RWA 상환 PDF](deck/BlockNotice_GoldRWA_pitch.pdf),
 원본은 [`deck/pitch.html`](deck/pitch.html)입니다. 새 PDF는 12장입니다.
 기존 [`deck/BlockNotice_pitch.pdf`](deck/BlockNotice_pitch.pdf)는 상환 전환 이전 자료이므로 제출본으로 사용하지 않습니다.
-대본과 HTML은 실행 가능한 로그·상환·인박스 데모와 기존 로그의 공개 배포를 구분합니다.
+대본과 HTML은 가속한 로컬 시나리오와 실제 Sepolia 상환·인박스 배포를 구분합니다.
 
 ---
 

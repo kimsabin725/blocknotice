@@ -2,7 +2,8 @@
 
 준비: Node 22·Foundry를 PATH에 놓고 README 설치 명령, `npm run test:all`, `npm run typecheck`를 실행한다.
 이번 시연은 MockGold를 사용하는 로컬 체인이다. 공개 Sepolia·Hoodi에는 기존 BlockNoticeLog가 배포되어 있다.
-신규 에스크로·인박스를 공개 배포했다고 말하지 않는다. 최신 검증 수치는 README §8을 따른다.
+신규 MockGold·에스크로·인박스는 Sepolia에 배포했다. [공개 배포 기록](docs/public-deployment.md)을 보여주되
+30개 로컬 시나리오를 공개망에서 실행한 것으로 발표하지 않는다. 최신 검증 수치는 README §8을 따른다.
 
 ## 0:00–0:45 · 문제와 대상
 
@@ -68,6 +69,7 @@ npm run verify -- --escrow <ESCROW_ADDRESS> --lock <LOCK_ID> --rpc http://127.0.
 
 ```bash
 npm run check:deployment
+npm run check:escrow -- sepolia # SEPOLIA_RPC_URL 설정 필요, 키는 불필요
 ```
 
 > 기존 Sepolia·Hoodi 로그의 chainId, 코드 존재, 등록 서비스·서명자·프로필을 공개 RPC에서 되읽습니다.

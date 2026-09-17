@@ -47,7 +47,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
   <h1>BlockNotice</h1>
   <p class="big"><span class="hl">금 RWA 상환, 누구의 시계에서 멈췄는가.</span><br>잠금은 체인에, 판단·기한·인도 주장은 기관 내부에.</p>
   <p class="big dim" style="margin-top:6mm">판단 기록과 기한을 보유자가 <b>기관 서버 없이</b> 검증합니다.<br>구현: 로그·영수증 + 상환 에스크로 + 거래소 인박스</p>
-  <p class="foot">github.com/tnwjd023-boop/BlockNotice_GoldRWA · 로컬 구현·검증 완료 · 신규 계약 공개 배포 전</p>
+  <p class="foot">github.com/tnwjd023-boop/BlockNotice_GoldRWA · 에스크로·인박스 Sepolia 배포·소스 검증 완료</p>
   <span class="n">1</span>
 </section>
 
@@ -181,14 +181,15 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
   <h2>우리 말을 믿지 말고 직접 확인하세요</h2>
   <table style="margin-bottom:7mm">
     <tr><th>네트워크</th><th>컨트랙트</th><th>비고</th></tr>
-    <tr><td><b>Sepolia</b> (11155111)</td><td><code>0xa4d46da2bc8bd6c113e254424be1e78002af5504</code></td><td>기존 BlockNoticeLog</td></tr>
-    <tr><td><b>Hoodi</b> (560048)</td><td><code>0x6841393c82c984edbc6eca822dab7028cc6f9a94</code></td><td>기존 로그 미러 · 에스크로 미배포</td></tr>
+    <tr><td><b>Sepolia</b> · MockGold</td><td><code>0xb3a791fbb0a2f5001375dd32b6fb621837955b1a</code></td><td>시연 토큰</td></tr>
+    <tr><td><b>Sepolia</b> · Escrow</td><td><code>0x8c8cbf50a91ce2c6d0746d0c4745d3a8b8f7778c</code></td><td>상환 잠금</td></tr>
+    <tr><td><b>Sepolia</b> · Inbox</td><td><code>0x870238b0be5d5835ff47de3510875c996c01bb5d</code></td><td>거래소 요청</td></tr>
   </table>
   <div class="cols">
-    <div class="box"><h3><code>npm run check:deployment</code></h3>
-      <p style="margin-bottom:0">chainId · 코드 존재 · 서비스 등록 · 기관 서명자 · 프로필 해시를 <b>공개 RPC에서 다시 읽어</b> 대조. 불일치 시 실패합니다. 로컬 빌드와 바이트코드 해시 일치 검사는 포함하지 않습니다.</p></div>
-    <div class="box"><h3>기존 로그 가스 (원본 Foundry 실측)</h3>
-      <p style="margin-bottom:0"><code>appendBatch</code> 64장 1,576,428 · <code>challengeAccepted</code> 평균 104,714 · <code>respond</code> 80,108 · <code>finalize</code> 26,586. 배포 8,325 B.</p></div>
+    <div class="box"><h3><code>check:escrow -- sepolia</code></h3>
+      <p style="margin-bottom:0">공개 RPC에서 주소·영수증·런타임 해시·서비스·불변 값·프로필을 대조해 통과했습니다. 기록: <code>escrow-deployments.json</code>.</p></div>
+    <div class="box"><h3>Sourcify 소스 검증 3개 완료</h3>
+      <p style="margin-bottom:0">신규 계약 모두 <b>exact_match</b>. 배포·등록 6건 성공, 비용 약 0.00586 테스트 ETH. 기존 Sepolia·Hoodi 로그는 유지합니다.</p></div>
   </div>
   <span class="n">8</span>
 </section>
@@ -212,7 +213,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 
 <!-- 10 상환 설계 -->
 <section class="s compact">
-  <p class="k">상환 에스크로·인박스 · 로컬 구현 / 공개 미배포</p>
+  <p class="k">상환 에스크로·인박스 · Sepolia 배포 / Sourcify exact_match</p>
   <h2>거래소·운영사·인도 기관의 세 시계</h2>
   <table>
     <tr><th>시계</th><th>시작</th><th>무응답 확정 후</th></tr>
@@ -262,7 +263,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
     <div><ul>
       <li>상환 판단의 <b>증거 비대칭</b>을 서명 영수증 + 공개 커밋으로 줄입니다.</li>
       <li>30개 시나리오의 기대 판정 일치, 오탐 0. <code>npm run demo</code>로 재현.</li>
-      <li>기존 로그 Sepolia · Hoodi 배포, <code>.env</code> 없이 되읽기 검증.</li>
+      <li>로그 Sepolia·Hoodi, 상환·인박스 Sepolia 배포. 공개 RPC 되읽기 검증.</li>
       <li>실물 준비금·실제 인도·사유 진실성은 보증하지 않습니다.</li></ul></div>
     <div class="box">
       <h3>이번 구현</h3>

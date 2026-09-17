@@ -1,0 +1,135 @@
+{
+  "sepolia": {
+    "format": "blocknotice-escrow-deployment-v1",
+    "status": "complete",
+    "network": "sepolia",
+    "chainId": 11155111,
+    "rpcEnvironmentVariable": "SEPOLIA_RPC_URL",
+    "deployer": "0xD82DEbb00A73aC657eB9F56e2e2c861A29b0a7c6",
+    "namespace": "0x9bf8817d42e4bc63209f715d32b54547caeee6f7dac1699ff299b836aea3da9c",
+    "createdAt": "2026-09-17T12:50:08.386Z",
+    "demoMode": {
+      "token": "MockGold",
+      "permissionlessMinting": true,
+      "warning": "DEMO ONLY: MockGold has permissionless minting and is not gold-backed."
+    },
+    "services": {
+      "commonControl": true,
+      "controlDisclosure": "Demo operator, courier, and exchange roles are distinct service IDs under the same deployer-controlled account.",
+      "operator": {
+        "role": "operator",
+        "serviceId": "0x485ebbbb75ff8995654a9ca49d435254c85cc3abb26fda14792acccabd22d6c0",
+        "operator": "0xD82DEbb00A73aC657eB9F56e2e2c861A29b0a7c6",
+        "signer": "0xD82DEbb00A73aC657eB9F56e2e2c861A29b0a7c6",
+        "profileHash": "0xcde7451805c13867cc9ccaae0218d6b54d24687900cafc89b56d1bbb52478a62",
+        "challengeResponseBlocks": 30,
+        "requestRecordBlocks": 20,
+        "decisionRecordBlocks": 40
+      },
+      "courier": {
+        "role": "courier",
+        "serviceId": "0x9259330cc37b7a9b05a781f39d40786b0ae508f84b7a2ab49d7a2b1d470050f1",
+        "operator": "0xD82DEbb00A73aC657eB9F56e2e2c861A29b0a7c6",
+        "signer": "0xD82DEbb00A73aC657eB9F56e2e2c861A29b0a7c6",
+        "profileHash": "0x0b9f571cf46908185be72bf20d0a8dec4eb8ce9d1ca5b9ccfe1d04737ef75da7",
+        "challengeResponseBlocks": 30,
+        "requestRecordBlocks": 20,
+        "decisionRecordBlocks": 40
+      },
+      "exchange": {
+        "role": "exchange",
+        "serviceId": "0xd1882fec66ec096fad9a4006f203f8dc350b41bedbbaf42ac31ac63abbc76059",
+        "operator": "0xD82DEbb00A73aC657eB9F56e2e2c861A29b0a7c6",
+        "signer": "0xD82DEbb00A73aC657eB9F56e2e2c861A29b0a7c6",
+        "profileHash": "0x5af28305c0f988b939e625fa1dc102c22b0836328da9b796050d937adffb24d0",
+        "challengeResponseBlocks": 30,
+        "requestRecordBlocks": 20,
+        "decisionRecordBlocks": 40
+      }
+    },
+    "profile": {
+      "decisionBlocks": 20,
+      "handoffBlocks": 40,
+      "courierBlocks": 60,
+      "responseBlocks": 30,
+      "disputeBlocks": 30,
+      "profileHash": "0xf53b177260c0fe6a889613bfa9415a08dc086240e11a2b352ec5ed4822cdbd6c"
+    },
+    "inboxProfile": {
+      "forwardBlocks": 20,
+      "responseBlocks": 30,
+      "profileHash": "0xc6b6a15beaf676c490cfab04546bdfb0d286743c535bc1dbd069eef394dad782"
+    },
+    "contracts": {
+      "log": {
+        "address": "0xa4d46da2bc8bd6c113e254424be1e78002af5504",
+        "runtimeCodeHash": "0xcabc66d5ab5527ac612fbfe390653df2606dd5c2e72ba9927bd2078281a789f0",
+        "deploymentBlock": 11699494,
+        "source": "existing-public-deployment"
+      },
+      "token": {
+        "address": "0xb3a791fbb0a2f5001375dd32b6fb621837955b1a",
+        "runtimeCodeHash": "0xacfef28313000b6fff8e155992d6127929bdb94f65aa0d2a085c74e4284f193e",
+        "deploymentBlock": 11723830,
+        "transactionHash": "0x9291ae8b2029ca36edf415523bbfaa8ae8a426679eb3f1e70475babf6b8ca3ca",
+        "source": "deployed-by-this-run"
+      },
+      "escrow": {
+        "address": "0x8c8cbf50a91ce2c6d0746d0c4745d3a8b8f7778c",
+        "runtimeCodeHash": "0x4b1a59e9fbdadd6d87d78285e909c2e7b37612366aa811e455fe6a1e880c4a18",
+        "deploymentBlock": 11723834,
+        "transactionHash": "0x64098b75d245242b0513f0029d6b5f24f08e67334ace01c49ef5420d06f0df49",
+        "source": "deployed-by-this-run"
+      },
+      "inbox": {
+        "address": "0x870238b0be5d5835ff47de3510875c996c01bb5d",
+        "runtimeCodeHash": "0x8da2a166965493d5117fcf736c6b9450c74a1b98aa971a25694ef88aa5771a02",
+        "deploymentBlock": 11723835,
+        "transactionHash": "0xe7bbe67eeb02e1e9e5de1a24c2dd9d3a54d7d4a7b19864bfd3ce44d91844695f",
+        "source": "deployed-by-this-run"
+      }
+    },
+    "transactions": {
+      "token": {
+        "status": "confirmed",
+        "transactionHash": "0x9291ae8b2029ca36edf415523bbfaa8ae8a426679eb3f1e70475babf6b8ca3ca",
+        "blockNumber": 11723830,
+        "contractAddress": "0xb3a791fbb0a2f5001375dd32b6fb621837955b1a"
+      },
+      "registerOperator": {
+        "status": "confirmed",
+        "transactionHash": "0xbf11289259bbb92a5ef63cf6d8525e1e8f958bb7ffc7392e13798f867a1506b4",
+        "blockNumber": 11723831
+      },
+      "registerCourier": {
+        "status": "confirmed",
+        "transactionHash": "0x000289735ee6aa79173895ce945cc8383c5eb01016ca3c4474563635150b3d3c",
+        "blockNumber": 11723832
+      },
+      "registerExchange": {
+        "status": "confirmed",
+        "transactionHash": "0xb013c6859f09c2f33e47a0b7a91bc4c035119332a4a659759acbf3c5fb454680",
+        "blockNumber": 11723833
+      },
+      "escrow": {
+        "status": "confirmed",
+        "transactionHash": "0x64098b75d245242b0513f0029d6b5f24f08e67334ace01c49ef5420d06f0df49",
+        "blockNumber": 11723834,
+        "contractAddress": "0x8c8cbf50a91ce2c6d0746d0c4745d3a8b8f7778c"
+      },
+      "inbox": {
+        "status": "confirmed",
+        "transactionHash": "0xe7bbe67eeb02e1e9e5de1a24c2dd9d3a54d7d4a7b19864bfd3ce44d91844695f",
+        "blockNumber": 11723835,
+        "contractAddress": "0x870238b0be5d5835ff47de3510875c996c01bb5d"
+      }
+    },
+    "explorer": {
+      "log": "https://sepolia.etherscan.io/address/0xa4d46da2bc8bd6c113e254424be1e78002af5504",
+      "token": "https://sepolia.etherscan.io/address/0xb3a791fbb0a2f5001375dd32b6fb621837955b1a",
+      "escrow": "https://sepolia.etherscan.io/address/0x8c8cbf50a91ce2c6d0746d0c4745d3a8b8f7778c",
+      "inbox": "https://sepolia.etherscan.io/address/0x870238b0be5d5835ff47de3510875c996c01bb5d"
+    },
+    "completedAt": "2026-09-17T12:51:16.400Z"
+  }
+}

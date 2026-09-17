@@ -112,6 +112,7 @@ async function main() {
   if (!existsSync("out/scenarios.json")) throw new Error("run `npm run scenarios` first");
   const sc = JSON.parse(readFileSync("out/scenarios.json", "utf8"));
   const deployments = existsSync("deployments.json") ? JSON.parse(readFileSync("deployments.json", "utf8")) : {};
+  const redemptionDeployments = existsSync("escrow-deployments.json") ? JSON.parse(readFileSync("escrow-deployments.json", "utf8")) : {};
 
   const { bundle } = await runCase({ inputs: "screening" });
   const report = await verifyBundle(bundle, {});
@@ -145,6 +146,10 @@ async function main() {
     <tr><td><b>${esc(d.network)}</b> <span class="dim">chainId ${esc(d.chainId)}</span></td>
         <td><code>${esc(d.contract)}</code></td>
         <td><a href="${esc(d.explorer)}">탐색기에서 보기 ↗</a></td></tr>`).join("");
+  const redemptionRows = Object.values(redemptionDeployments).filter((d: any) => d.status === "complete" && d.network !== "local")
+    .flatMap((d: any) => ["token", "escrow", "inbox"].map(name => `
+      <tr><td><b>${esc(d.network)} · ${esc(name)}</b></td><td><code>${esc(d.contracts[name].address)}</code></td>
+      <td><a href="${esc(d.explorer[name])}">탐색기에서 보기 ↗</a></td></tr>`)).join("");
 
   const checkRows = report.checks.map(c => `
     <tr><td><span class="s ${c.status}">${esc(c.status)}</span></td>
@@ -249,8 +254,10 @@ async function main() {
 
 <h2>공개 테스트넷 배포</h2>
 <table>${deployRows || "<tr><td class=dim>기록 없음</td></tr>"}</table>
-<p class="note" style="margin-top:10px">기존 로그는 Sepolia와 Hoodi에 배포되어 있습니다. 상환 에스크로 배포는 아직 없습니다.
-저장소에서 <code>npm run check:deployment</code>를 돌리면 양쪽을 공개 RPC에서 다시 읽어 대조합니다.</p>
+<p class="note" style="margin-top:10px">기존 로그는 <code>npm run check:deployment</code>로 공개 RPC에서 다시 읽어 대조합니다.</p>
+<table>${redemptionRows || "<tr><td class=dim>공개 상환 배포 기록 없음</td></tr>"}</table>
+<p class="note">상환 배포는 <code>escrow-deployments.json</code>의 완료 기록입니다. RPC 설정 후
+<code>npm run check:escrow -- sepolia</code>로 검증합니다. 배포 확인과 위 로컬 시나리오 결과는 구분합니다.</p>
 
 <h2>검증기 출력 — 영수증 한 건을 실제로 검사한 결과</h2>
 <p class="note">체인 등록 정보를 일부러 주지 않고 돌렸습니다. 그래서 신뢰 기준점이
