@@ -61,7 +61,7 @@ function band(y,message,dark=false) {
   stages.forEach((d,i)=>{
     let x=128+i*284;
     a.push(stack(x,471,244,250,[tx(244,String(i+1).padStart(2,'0'),23,C.gold,true),tx(244,d[0],33,C.ink,true),tx(244,d[1],23,C.slate)],{gap:24,name:d[0]}));
-    if(i<5)a.push(text(x+245,531,34,'→',31,C.gold));
+    if(i<5)a.push(text(x+229,531,34,'→',31,C.gold));
   });
   a.push(stack(96,822,760,118,[tx(760,'VISIBLE ONCHAIN',20,C.teal,true),tx(760,'Lock, amounts, token movements',32,C.ink,true)],{gap:13,name:'Public token evidence'}));
   a.push(stack(982,822,842,118,[tx(842,'EVIDENCE GAP',20,C.rust,true),tx(842,'Decision timing, handoff, delivery claims',32,C.ink,true)],{gap:13,name:'Institutional evidence gap'}));
@@ -96,7 +96,7 @@ function band(y,message,dark=false) {
   blocks.forEach((d,i)=>{
     const x=96+i*595;
     a.push(stack(x,386,530,400,[tx(530,d[0],21,C.gold,true),tx(530,d[1],43,C.ink,true),tx(530,d[2],29,C.slate)],{gap:30,name:d[0]}));
-    if(i<2)a.push(text(x+538,500,45,'→',40,C.gold));
+    if(i<2)a.push(text(x+522,500,45,'→',40,C.gold));
   });
   a.push(stack(96,834,1728,108,[tx(1664,'PRIVATE: decision outcome + reason opening     PUBLIC: addresses, amounts, deadlines, states, burn / return',27,C.ink,true)],{pad:32,bg:C.pale,name:'Privacy boundary'}));
 }
