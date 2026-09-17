@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest run",
+    "typecheck": "tsc --noEmit",
     "issue": "tsx src/cli.ts issue",
     "verify": "tsx src/cli.ts verify",
     "build:contracts": "forge build",
@@ -12,6 +13,8 @@
     "test:all": "forge test && vitest run",
     "deploy": "tsx src/deploy.ts",
     "check:deployment": "tsx src/check-deployment.ts",
+    "deploy:escrow": "tsx src/deploy-escrow.ts",
+    "check:escrow": "tsx src/check-escrow-deployment.ts",
     "scenarios": "tsx src/scenarios.ts",
     "report": "tsx src/report.ts",
     "demo": "npm run scenarios && npm run report"

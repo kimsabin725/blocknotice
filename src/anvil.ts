@@ -10,7 +10,7 @@ export function findAnvil(): string | undefined {
   const dirs = (process.env.PATH ?? "").split(delimiter).filter(Boolean);
   dirs.push(join(homedir(), ".foundry", "bin"));
   for (const d of dirs) {
-    const p = join(d, "anvil");
+    const p = join(d, process.platform === "win32" ? "anvil.exe" : "anvil");
     if (existsSync(p)) return p;
   }
   return undefined;

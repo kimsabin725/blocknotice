@@ -17,6 +17,7 @@ import { LeafType, type ProtocolProfile, type ReceiptBundle } from "./types.js";
 import { verifyBundle, type VerifyReport } from "./verify.js";
 import { signTyped, newSigner } from "./crypto.js";
 import { bigintReplacer, bigintReviver, type Institution } from "./institution.js";
+import { createEscrowScenarios } from "./escrow-scenarios.js";
 
 const PORT = Number(process.env.SCENARIO_PORT ?? 8611);
 const RPC = process.env.SCENARIO_RPC ?? `http://127.0.0.1:${PORT}`;
@@ -33,12 +34,12 @@ let base: Omit<ProtocolProfile, "institutionKeyId">;
 /** What a scenario asserts. `expect` names check ids and the status each must carry. */
 interface Expectation { [checkIdPrefix: string]: "CONFIRMED" | "NOT_DUE" | "OBLIGATION_UNMET" | "UNVERIFIABLE" | "OUT_OF_SCOPE"; }
 
-interface Scenario {
+export interface Scenario {
   id: string;
   kind: "attack" | "honest";
   /** Stated before the run: what an independent party should be able to conclude. */
   claim: string;
-  run: () => Promise<{ report?: VerifyReport; expect?: Expectation; assert?: () => void | Promise<void> }>;
+  run: () => Promise<{ report?: Pick<VerifyReport, "checks">; expect?: Expectation; assert?: () => void | Promise<void> }>;
 }
 
 const eqi = (a: string, b: string) => a.toLowerCase() === b.toLowerCase();
@@ -403,16 +404,17 @@ async function main() {
   cStranger = { ...(await connect(RPC, chain, STRANGER)), address };
   base = { ...DEMO_PROFILE, chainId: CHAIN_ID, verifyingContract: address };
 
-  console.log(`BlockNotice scenarios — ${SCENARIOS.length} scenes on a local chain at ${RPC}`);
+  const scenarios = [...SCENARIOS, ...createEscrowScenarios(c, cReq, cStranger)];
+  console.log(`BlockNotice scenarios — ${scenarios.length} scenes on a local chain at ${RPC}`);
   console.log(`log contract ${address}\n`);
 
-  const rows: Array<{ id: string; kind: string; claim: string; ok: boolean; note: string; report?: VerifyReport }> = [];
+  const rows: Array<{ id: string; kind: string; claim: string; ok: boolean; note: string; report?: Pick<VerifyReport, "checks"> }> = [];
   const onlyIdx = process.argv.indexOf("--only");
   const only = onlyIdx >= 0 ? process.argv[onlyIdx + 1] : undefined;
-  for (const sc of SCENARIOS) {
+  for (const sc of scenarios) {
     if (only && !sc.id.includes(only)) continue;
     let ok = true, note = "";
-    let lastReport: VerifyReport | undefined;
+    let lastReport: Pick<VerifyReport, "checks"> | undefined;
     try {
       const out = await sc.run();
       lastReport = out.report;

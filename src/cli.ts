@@ -2,7 +2,7 @@
 // blocknotice CLI — issue a synthetic denial, then verify it with the institution gone: the bundle
 // file plus a public RPC is everything the verifier gets.
 import { readFileSync } from "node:fs";
-import type { Address } from "viem";
+import type { Address, Hex } from "viem";
 import { verifyBundle, type VerifyReport, type VerifyOptions } from "./verify.js";
 import { bigintReviver } from "./institution.js";
 import { runCase, writeJson, INPUTS } from "./scenario.js";
@@ -16,6 +16,8 @@ const PUBLIC_RPC: Record<string, string> = {
 
 const [, , cmd, ...rest] = process.argv;
 const arg = (name: string) => { const i = rest.indexOf(`--${name}`); return i >= 0 ? rest[i + 1] : undefined; };
+const has = (name: string) => rest.includes(`--${name}`);
+const jsonReplacer = (_key: string, value: unknown) => typeof value === "bigint" ? `${value}n` : value;
 
 function render(r: VerifyReport) {
   const mark: Record<string, string> = { CONFIRMED: "확인됨   ", NOT_DUE: "기한 미도래", OBLIGATION_UNMET: "의무 미이행", UNVERIFIABLE: "검증 불가 ", OUT_OF_SCOPE: "범위 밖  " };
@@ -41,6 +43,44 @@ async function main() {
       break;
     }
     case "verify": {
+      const inbox = arg("inbox"), request = arg("request"), inboxRpc = arg("rpc");
+      if (inbox || request) {
+        if (!inbox || !request || !inboxRpc) throw new Error("usage: verify --inbox ADDRESS --request ID --rpc URL [--block N] [--include-escrow] [--json]");
+        const { readonlyCtx } = await import("./chain.js");
+        const { verifyInbox } = await import("./inbox-verify.js");
+        const block = arg("block");
+        const report = await verifyInbox(readonlyCtx(inboxRpc, inbox as Address), request as Hex, {
+          blockNumber: block ? BigInt(block) : undefined,
+          includeEscrow: has("include-escrow"),
+        });
+        if (has("json")) console.log(JSON.stringify(report, jsonReplacer, 2));
+        else {
+          console.log(`\ninbox   ${inbox}  request ${request}`);
+          console.log(`block   ${report.pinnedBlock}  state ${report.state}  public RPC calls ${report.publicRpcCalls}  institution calls ${report.institutionNetworkCalls}\n`);
+          for (const item of report.checks) console.log(`  ${item.status.padEnd(18)} ${item.id.padEnd(26)} ${item.detail}`);
+          if (report.derivedEscrowLockId) console.log(`\n  escrow lock  ${report.derivedEscrowLockId}${report.escrowReport ? `  state ${report.escrowReport.state}` : "  (use --include-escrow to verify)"}`);
+          console.log(`\n  totals  ${Object.entries(report.summary).map(([key, value]) => `${key}=${value}`).join("  ")}`);
+        }
+        process.exit(report.summary.OBLIGATION_UNMET === 0 ? 0 : 1);
+      }
+      const escrow = arg("escrow"), lock = arg("lock"), escrowRpc = arg("rpc");
+      if (escrow || lock) {
+        if (!escrow || !lock || !escrowRpc) throw new Error("usage: verify --escrow ADDRESS --lock ID --rpc URL [--block N] [--json]");
+        const { readonlyCtx } = await import("./chain.js");
+        const { verifyEscrow } = await import("./escrow-verify.js");
+        const block = arg("block");
+        const report = await verifyEscrow(readonlyCtx(escrowRpc, escrow as Address), lock as Hex, {
+          blockNumber: block ? BigInt(block) : undefined,
+        });
+        if (has("json")) console.log(JSON.stringify(report, jsonReplacer, 2));
+        else {
+          console.log(`\nescrow  ${escrow}  lock ${lock}`);
+          console.log(`block   ${report.pinnedBlock}  state ${report.state}  public RPC calls ${report.publicRpcCalls}  institution calls ${report.institutionNetworkCalls}\n`);
+          for (const item of report.checks) console.log(`  ${item.status.padEnd(18)} ${item.id.padEnd(26)} ${item.detail}`);
+          console.log(`\n  totals  ${Object.entries(report.summary).map(([key, value]) => `${key}=${value}`).join("  ")}`);
+        }
+        process.exit(report.summary.OBLIGATION_UNMET === 0 ? 0 : 1);
+      }
       const path = arg("bundle") ?? rest[0];
       if (!path) throw new Error("usage: verify <bundle.json> [--block N] [--rpc URL --contract 0x… | --network sepolia|hoodi]");
       const bundle = JSON.parse(readFileSync(path, "utf8"), bigintReviver) as ReceiptBundle;
@@ -74,7 +114,11 @@ async function main() {
       console.log(`blocknotice
   issue  --case clean|screening|review|limit [--ack] [--out path]
   verify <bundle.json> [--block N] [--rpc URL --contract 0x… | --network sepolia|hoodi]
-         with --rpc/--network the registration, the log and the challenge verdict are read from the chain`);
+         with --rpc/--network the registration, the log and the challenge verdict are read from the chain
+  verify --escrow ADDRESS --lock ID --rpc URL [--block N] [--json]
+         replays both escrow hops from public events at one pinned block; no bundle is required
+  verify --inbox ADDRESS --request ID --rpc URL [--block N] [--include-escrow] [--json]
+         replays exchange forwarding/rejection evidence; optionally verifies the derived escrow lock`);
   }
 }
 main().catch(e => { console.error(e); process.exit(2); });

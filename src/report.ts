@@ -14,6 +14,18 @@ const json = (v: unknown) => esc(JSON.stringify(v, bigintReplacer, 2));
 /** Korean reading of each scene. The English `claim` in scenarios.ts stays the technical source of
  *  truth; this is what a reader who did not write the code needs in order to judge the result. */
 const KO: Record<string, { title: string; story: string; why: string }> = {
+  "attack.exchangeNotForwarded": { title: "거래소가 전달하지 않았다", story: "보유자가 서명 요청을 인박스에 제출했지만 거래소는 잠금도 거절 기록도 남기지 않았다.", why: "거래소 홉만 의무 미이행. 운영사 시계는 시작하지 않았다." },
+  "attack.redeemSilent": { title: "운영사 침묵 → 토큰 반환", story: "잠금 후 운영사가 응답하지 않았다.", why: "운영사 홉의 UNANSWERED 확정과 실제 잔액 반환을 검사한다." },
+  "attack.redeemAnswerWithOtherLock": { title: "다른 잠금의 판단으로 응답", story: "다른 lockId의 진짜 판단 리프를 제시했다.", why: "포함증명이 유효해도 이 잠금에 묶이지 않으면 거부된다." },
+  "attack.redeemEarlyChallenge": { title: "상환 기한 전 챌린지", story: "판단 기한 전에 보유자가 챌린지를 시도했다.", why: "NotYetDue로 거부하고 기한 미도래로 표시한다." },
+  "attack.burnWithoutDelivery": { title: "인도 기록 없는 소각", story: "잠금만 된 토큰을 소각하려 했다.", why: "WrongState로 거부하고 잔액을 유지한다." },
+  "attack.deliveryFromOperatorLog": { title: "운영사의 인도 주장 대행", story: "운영사가 자기 로그로 인도를 증명하려 했다.", why: "인도 기관 서비스에 없는 루트는 UnknownRoot로 거부한다." },
+  "attack.reclaimAfterHandoff": { title: "인계 후 회수 시도", story: "인계가 증명된 뒤 보유자가 토큰을 회수하려 했다.", why: "회수를 거부하고 인도 기관의 시계를 유지한다." },
+  "attack.courierSilent": { title: "멈춘 시계는 인도 기관", story: "운영사는 판단·인계를 기록했고, 인도 기관은 침묵했다.", why: "운영사는 확인됨, 인도 기관은 의무 미이행. STALLED에서 잠금을 유지한다." },
+  "honest.redeemDenied": { title: "비공개 판단 후 회수", story: "운영사가 판단을 기록했지만 인계하지 않았다.", why: "인계 기한 후 회수하며 원문 부재를 위반으로 만들지 않는다." },
+  "honest.redeemDelivered": { title: "인도 기록·이의 기간 후 소각", story: "인도 기관이 기록하고 보유자의 이의 기간이 지났다.", why: "토큰 잔액과 공급량 감소를 확인한다. 실제 금 인도는 범위 밖이다." },
+  "honest.lateButRecorded": { title: "늦은 기록도 지각은 남는다", story: "판단 기한은 지났지만 챌린지 응답창 안에 기록했다.", why: "기록은 인정하고 late 플래그를 별도로 표시한다." },
+  "honest.disputeHoldsLock": { title: "보유자 이의 → 잠금 유지", story: "인도 주장에 보유자가 이의를 제기했다.", why: "일반 소각을 거부한다. 분쟁의 진위는 체인이 판단하지 않는다." },
   "honest.recorded": {
     title: "정상 처리",
     story: "기관이 제때 서명하고 제때 기록했다.",
@@ -110,12 +122,22 @@ async function main() {
 
   const sceneCard = (r: any) => {
     const ko = KO[r.id] ?? { title: r.id, story: r.claim, why: "" };
+    const redemption = r.report?.escrow ? `<div class="meta"><b>상환 상태 ${esc(r.report.state)}</b><br>
+      운영사: ${esc(r.report.hops.operator.status)} · 인도 기관: ${esc(r.report.hops.courier.status)}<br>
+      기관 접속 ${esc(r.report.institutionNetworkCalls)}회 · 공개 RPC 조회 ${esc(r.report.publicRpcCalls)}회<br>
+      지각 기록: ${r.report.lateRecords.length ? r.report.lateRecords.map((e: any) => esc(e.record)).join(", ") : "없음"}</div>
+      <details><summary>상환 증거와 잔액</summary><pre>${json(r.report)}</pre></details>` : r.report?.inbox ?
+      `<div class="meta"><b>인박스 상태 ${esc(r.report.state)}</b><br>
+      거래소: ${esc(r.report.checks.find((c: any) => c.id === "exchange.hop")?.status)} · 운영사 시계 미시작<br>
+      기관 접속 ${esc(r.report.institutionNetworkCalls)}회</div>
+      <details><summary>인박스 공개 증거</summary><pre>${json(r.report)}</pre></details>` : "";
     return `<div class="scene ${r.ok ? "" : "bad"}">
       <div class="sh"><span class="tick ${r.ok ? "ok" : "no"}">${r.ok ? "✓" : "✕"}</span>
         <b>${esc(ko.title)}</b><span class="tag ${r.kind}">${r.kind === "attack" ? "공격" : "정상"}</span></div>
       <div class="story">${esc(ko.story)}</div>
       <div class="why">→ ${esc(ko.why)}</div>
       <div class="meta"><code>${esc(r.id)}</code> · ${esc(r.note)}</div>
+      ${redemption}
     </div>`;
   };
 
@@ -186,21 +208,23 @@ async function main() {
 <div class="wrap">
 
 <h1>BlockNotice — 검증 결과</h1>
-<p class="lede">거절된 출금은 트랜잭션이 되지 않습니다. 그래서 기록이 기관 쪽에만 남습니다.</p>
+<p class="lede">금 RWA 상환에서 잠금은 체인에, 판단·기한·인도 주장은 기관 내부에 남습니다.</p>
 <p class="stamp">${esc(when)} 실행 · 로그 컨트랙트 <code>${esc(sc.logContract)}</code></p>
 
 <div class="brief">
   <div class="q">이게 뭔가</div>
-  <p>출금이 <b>승인</b>되면 체인에 트랜잭션이 남습니다. 그런데 <b>거절·보류</b>되면 아무 데도 안 남습니다 —
-  기관의 내부 DB 말고는. 나중에 기관이 「그런 요청 없었다」거나 「사유는 이랬다」고 말을 바꾸면
-  이용자에게는 반박할 근거가 없습니다.</p>
+  <p>금 RWA의 요청·잠금·소각 사이에는 운영사의 <b>상환 판단</b>과 인도 기관의 <b>인도 주장</b>이 있습니다.
+  그 기록과 기한이 기관 내부에만 있으면, 보유자는 어느 단계에서 처리가 멈췄는지 확인하기 어렵습니다.</p>
   <p>BlockNotice는 그 판단의 <b>서명 영수증을 요청자에게 돌려주고</b>, 기관이 서명한 약속이 지켜졌는지를
   <b>기관 서버에 한 번도 접속하지 않고</b> 확인합니다.</p>
 
   <div class="q">이 화면은 뭔가</div>
-  <p>방금 <b>실제로 돌린 결과</b>입니다. 16개 상황을 로컬 체인에 올려 재현했고, 각 상황은
+  <p>방금 <b>실제로 돌린 로그·영수증·상환 에스크로 데모 결과</b>입니다. ${sc.totals.scenes}개 상황을 로컬 체인에 올려 재현했고, 각 상황은
   <b>돌기 전에</b> 「제3자가 무엇을 결론지어야 하는가」를 먼저 선언합니다. 그래서
   검증기가 조용해서 통과하는 일이 없습니다.</p>
+  <p><b>상환 에스크로는 로컬 체인에서 실행했습니다.</b> 잠금·반환·소각과 두 홉의 판정을 공개 이벤트로 재구성합니다.
+  사용한 MockGold는 누구나 발행 가능한 데모 토큰입니다. 인박스의 서명 요청·거래소 전달 의무도 검증합니다.
+  실물 준비금·실제 인도·사유의 진실성은 보증하지 않습니다.</p>
 
   <div class="q">뭘 보면 되나</div>
   <p><b>아래 숫자 두 개만 보셔도 됩니다.</b> 공격을 몇 개 잡았는지, 그리고 <b>정상인데 위반으로 잘못 찍은 게
@@ -225,7 +249,7 @@ async function main() {
 
 <h2>공개 테스트넷 배포</h2>
 <table>${deployRows || "<tr><td class=dim>기록 없음</td></tr>"}</table>
-<p class="note" style="margin-top:10px">Sepolia가 2026-09-30에 종료 예정이라 같은 컨트랙트를 Hoodi에도 올렸습니다.
+<p class="note" style="margin-top:10px">기존 로그는 Sepolia와 Hoodi에 배포되어 있습니다. 상환 에스크로 배포는 아직 없습니다.
 저장소에서 <code>npm run check:deployment</code>를 돌리면 양쪽을 공개 RPC에서 다시 읽어 대조합니다.</p>
 
 <h2>검증기 출력 — 영수증 한 건을 실제로 검사한 결과</h2>

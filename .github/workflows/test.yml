@@ -1,0 +1,29 @@
+name: Test and redemption demo
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: v1.8.3
+      - run: npm ci
+      - run: forge install foundry-rs/forge-std@0d006dafa09d0b3722575acd29338b79c23e7c2f --no-git
+      - run: npm run test:all
+      - run: npm run typecheck
+      - run: npm run demo
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: redemption-demo-evidence
+          path: out/
