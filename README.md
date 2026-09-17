@@ -1,5 +1,7 @@
 # BlockNotice
 
+[한국어](README.md) | [English](README.en.md)
+
 금 RWA 확장 저장소: [tnwjd023-boop/BlockNotice_GoldRWA](https://github.com/tnwjd023-boop/BlockNotice_GoldRWA).
 [원본 BlockNotice](https://github.com/kimsabin725/blocknotice)의 `39139b9`에서 시작했으며 기존 이력을 유지합니다.
 
