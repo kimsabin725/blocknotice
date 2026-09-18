@@ -26,10 +26,16 @@
 서비스 소유자·서명자·기한, 모든 불변 값과 재계산한 프로필 해시를 대조해 통과했다.
 
 신규 계약 3개는 별도로 Sourcify에서 **exact_match** 소스 검증을 받았다.
+아래는 조회 API 주소이며 `match`·`creationMatch`·`runtimeMatch`가 모두 `exact_match`로 나온다.
+등록 당시의 작업(job) 주소가 아니라 지금도 같은 답을 주는 주소다.
 
-- [MockGold 검증](https://sourcify.dev/server/verify-ui/jobs/de2730ba-cf03-4dbd-8dbc-770e5e5b33d6)
-- [RedemptionEscrow 검증](https://sourcify.dev/server/verify-ui/jobs/b48b1a15-35c4-4308-a642-bf426dae010a)
-- [RedemptionInbox 검증](https://sourcify.dev/server/verify-ui/jobs/33c7e35c-a40e-4561-80f9-d116d0621b36)
+| 계약 | Sourcify 조회 |
+|---|---|
+| MockGold | [11155111 / 0xb3a791fb…](https://sourcify.dev/server/v2/contract/11155111/0xb3a791fbb0a2f5001375dd32b6fb621837955b1a) |
+| RedemptionEscrow | [11155111 / 0x8c8cbf50…](https://sourcify.dev/server/v2/contract/11155111/0x8c8cbf50a91ce2c6d0746d0c4745d3a8b8f7778c) |
+| RedemptionInbox | [11155111 / 0x870238b0…](https://sourcify.dev/server/v2/contract/11155111/0x870238b0be5d5835ff47de3510875c996c01bb5d) |
+
+소스 검증은 보안 감사가 아니다. 컴파일된 바이트코드가 공개된 소스와 같다는 것만 말한다.
 
 읽기 전용 재검증에는 개인키가 필요 없다. Node·Foundry 설치 후 다음을 실행한다.
 
