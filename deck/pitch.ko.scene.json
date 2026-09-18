@@ -1,0 +1,3361 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "font": "Apple SD Gothic Neo",
+  "repo": "https://github.com/kimsabin725/blocknotice",
+  "colors": {
+    "navy": "#10283F",
+    "ink": "#172D40",
+    "gold": "#AE812B",
+    "pale": "#F4EDDE",
+    "slate": "#526477",
+    "light": "#F1F4F6",
+    "rule": "#D7DEE4",
+    "white": "#FFFFFF",
+    "teal": "#21766B",
+    "rust": "#A24B35",
+    "soft": "#CFD9E2"
+  },
+  "slides": [
+    {
+      "name": "01 · 거절된 요청은 트랜잭션이 되지 못합니다.",
+      "bg": "#10283F",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "TRUST404 · TRACK 3 · 실행 이전",
+          "size": 20,
+          "color": "#CFD9E2",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1250,
+          "text": "거절된 요청은\n트랜잭션이 되지 못합니다.",
+          "size": 72,
+          "color": "#FFFFFF",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#395064"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "제출 저장소 github.com/kimsabin725/blocknotice · 증거 기준 2026년 9월 18일",
+          "size": 18,
+          "color": "#CFD9E2",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "01",
+          "size": 24,
+          "color": "#FFFFFF",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 100,
+          "y": 450,
+          "w": 1050,
+          "text": "승인만 체인에 남고,\n막힌 요청은 기관 DB에만 남습니다.",
+          "size": 38,
+          "color": "#FFFFFF",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 100,
+          "y": 640,
+          "w": 1030,
+          "text": "그 판단에 서명 영수증을 붙이고, 서명한 기한이 지켜졌는지를\n기관 서버에 한 번도 접속하지 않고 확인합니다.",
+          "size": 28,
+          "color": "#CFD9E2",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 100,
+          "y": 861,
+          "w": 1100,
+          "text": "에스크로  /  거래소 인박스  /  공개 검증기",
+          "size": 21,
+          "color": "#CFD9E2",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "세 시계 축",
+          "x": 1370,
+          "y": 230,
+          "w": 3,
+          "h": 528,
+          "color": "#AE812B"
+        },
+        {
+          "type": "rect",
+          "name": "지점",
+          "x": 1357,
+          "y": 244,
+          "w": 29,
+          "h": 29,
+          "color": "#AE812B"
+        },
+        {
+          "type": "group",
+          "name": "거래소",
+          "x": 1430,
+          "y": 223,
+          "w": 370,
+          "h": 175,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "01",
+              "size": 24,
+              "color": "#CFD9E2",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "거래소",
+              "size": 37,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "서명 요청 제출",
+              "size": 26,
+              "color": "#CFD9E2",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "rect",
+          "name": "지점",
+          "x": 1357,
+          "y": 480,
+          "w": 29,
+          "h": 29,
+          "color": "#AE812B"
+        },
+        {
+          "type": "group",
+          "name": "운영사",
+          "x": 1430,
+          "y": 459,
+          "w": 370,
+          "h": 175,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "02",
+              "size": 24,
+              "color": "#CFD9E2",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "운영사",
+              "size": 37,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "토큰 잠금",
+              "size": 26,
+              "color": "#CFD9E2",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "rect",
+          "name": "지점",
+          "x": 1357,
+          "y": 716,
+          "w": 29,
+          "h": 29,
+          "color": "#AE812B"
+        },
+        {
+          "type": "group",
+          "name": "인도 기관",
+          "x": 1430,
+          "y": 695,
+          "w": 370,
+          "h": 175,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "03",
+              "size": 24,
+              "color": "#CFD9E2",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "인도 기관",
+              "size": 37,
+              "color": "#FFFFFF",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 370,
+              "text": "인계 앵커",
+              "size": 26,
+              "color": "#CFD9E2",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "02 · 「그런 요청 받은 적 없는데요」",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "문제 정의",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "「그런 요청 받은 적 없는데요」",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "일반화된 구조입니다. 특정 기관이 실제로 그렇게 한다는 주장은 아닙니다.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "02",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 96,
+          "y": 300,
+          "w": 1660,
+          "text": "기록은 기관 내부 DB에만 있습니다. 사후에 바꿔 적어도, 행을 지워도 밖에서는 알 수 없습니다.",
+          "size": 30,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "승인은 남습니다",
+          "x": 96,
+          "y": 420,
+          "w": 530,
+          "h": 330,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "01",
+              "size": 74,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "승인은 남습니다",
+              "size": 36,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "승인은 트랜잭션이 되어\n체인에 흔적을 남깁니다.",
+              "size": 28,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 22,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "거절은 사라집니다",
+          "x": 680,
+          "y": 420,
+          "w": 530,
+          "h": 330,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "02",
+              "size": 74,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "거절은 사라집니다",
+              "size": 36,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "사유를 바꿔 적어도, 행을\n지워도 요청자는 모릅니다.",
+              "size": 28,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 22,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "안 주는 게 이득입니다",
+          "x": 1264,
+          "y": 420,
+          "w": 530,
+          "h": 330,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "03",
+              "size": 74,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "안 주는 게 이득입니다",
+              "size": 36,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 530,
+              "text": "영수증을 아예 안 주면\n안 줬다는 증거도 없습니다.",
+              "size": 28,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 22,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "Key implication",
+          "x": 96,
+          "y": 846,
+          "w": 1728,
+          "h": 94,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 1672,
+              "text": "금 RWA 상환은 이 구조를 가장 두껍게 보여주는 예시입니다. 에스크로는 소각 가능한 임의의 ERC-20을 받습니다.",
+              "size": 28,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 0,
+          "pad": 28,
+          "bg": "#F4EDDE",
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "03 · 1차 대상은 자기 키로 잠그는 요청자",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "누구를 위한 것인가 — 먼저 좁힙니다",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "1차 대상은 자기 키로 잠그는 요청자",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "「모든 이용자를 위한 것」이라고 말하면 가장 먼저 무너지는 곳이 여기입니다.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "03",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "닿는 사람",
+          "x": 96,
+          "y": 360,
+          "w": 530,
+          "h": 430,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 490,
+              "text": "닿는 사람",
+              "size": 34,
+              "color": "#21766B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 490,
+              "text": "자기 지갑에 자산을 보유한\n고액 개인·기관. 직접 잠금\n트랜잭션으로 운영사 시계를\n시작합니다.\n\n도입 주체는 발행사·운영사.\n책임 구간을 구분할 유인이\n있다는 가설입니다.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 20,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "조건부",
+          "x": 680,
+          "y": 360,
+          "w": 530,
+          "h": 430,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 490,
+              "text": "조건부",
+              "size": 34,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 490,
+              "text": "거래소 지갑 이용자는 거래소\n밖 키로 인박스 요청에 서명할\n수 있을 때만.\n\n인박스는 구현했습니다.\npasskey는 설계 범위입니다.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 20,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "안 닿는 사람",
+          "x": 1264,
+          "y": 360,
+          "w": 530,
+          "h": 430,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 490,
+              "text": "안 닿는 사람",
+              "size": 34,
+              "color": "#A24B35",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 490,
+              "text": "서명할 키가 없는\n커스터디얼 이용자.\n\n이 프로토콜의 직접 이용\n범위 밖입니다.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 20,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "04 · 누가, 무엇을 가지고, 무엇을 시도하는가",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "위협 모델",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "누가, 무엇을 가지고, 무엇을 시도하는가",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "비가정: 로그키·앵커키 동시 유출, 체인 재구성, 요청자 = 결정자, 오프체인 전달 자체의 증명(존재하지 않습니다).",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "04",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 330,
+          "w": 1728,
+          "h": 74,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 300,
+              "h": 74,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 260,
+                  "text": "행위자",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 430,
+              "h": 74,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 390,
+                  "text": "가진 능력",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 998,
+              "h": 74,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 958,
+                  "text": "시도할 수 있는 공격",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#10283F",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 404,
+          "w": 1728,
+          "h": 138,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 300,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 260,
+                  "text": "기관 (결정자)",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 430,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 390,
+                  "text": "로그 서명키, 앵커키,\nDB, 서버, 멤풀 관찰",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 998,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 958,
+                  "text": "기록 누락·삭제·수정·백데이트 / 사유 사후 교체 /\n영수증 보류 / 기한 자가 연장 / 늦은 응답으로 지각 은폐",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 542,
+          "w": 1728,
+          "h": 138,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 300,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 260,
+                  "text": "요청자",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 430,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 390,
+                  "text": "자기 키, 받은 영수증",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 998,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 958,
+                  "text": "없던 의무 날조 / 남의 영수증으로 기관 괴롭히기 /\n조작된 묶음으로 허위 고발",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#F1F4F6",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 680,
+          "w": 1728,
+          "h": 138,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 300,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 260,
+                  "text": "제3자",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 430,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 390,
+                  "text": "자기 도메인·자기 키",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 998,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 958,
+                  "text": "통째로 위조한 묶음을 진짜처럼 제시",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 818,
+          "w": 1728,
+          "h": 138,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 300,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 260,
+                  "text": "외부 관찰자",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 430,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 390,
+                  "text": "로그·앵커·공개 제출 열람",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 998,
+              "h": 138,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 958,
+                  "text": "건수 추정 / 상환 확장에서는 보유자·수량·소각·반환 공개",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#F1F4F6",
+          "direction": "HORIZONTAL"
+        }
+      ]
+    },
+    {
+      "name": "05 · 서명 영수증과 공개 로그",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "어떻게",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "서명 영수증과 공개 로그",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "컨트랙트는 해시만 저장합니다. 요청 내용·통지문·사유를 모릅니다.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "05",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "프로토콜 흐름",
+          "x": 96,
+          "y": 330,
+          "w": 860,
+          "h": 470,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 804,
+              "text": "요청자 ──서명 요청(EIP-712)+HPKE 봉투──▶ 기관\n\n   ◀── AcceptedReceipt ─────────────\n       (기록 기한 + 요청자 바인딩)      REQ 리프 기록\n\n   ◀── DecisionRecord ──────────────\n       (암호화 전달, 기관 서명)          DEC 리프 기록\n\n공개 로그 : append-only 머클 트리(깊이 32)\n            루트는 제출받지 않고 컨트랙트가 계산\n검증기    : 파일 + 공개 로그 루트만으로 판정\n            기관 접속 0회 (실측)",
+              "size": 24,
+              "color": "#172D40",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 16,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "루트를 제출받지 않습니다.",
+          "x": 1010,
+          "y": 330,
+          "w": 814,
+          "h": 170,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 814,
+              "text": "루트를 제출받지 않습니다.",
+              "size": 30,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 814,
+              "text": "리프를 받아 컨트랙트가 계산합니다. 기관이 자기가 만들지 않은 트리의 루트를 올릴 수 없습니다.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 14,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "기한은 체인이 본 블록에서.",
+          "x": 1010,
+          "y": 520,
+          "w": 814,
+          "h": 170,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 814,
+              "text": "기한은 체인이 본 블록에서.",
+              "size": 30,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 814,
+              "text": "영수증이 인용한 앵커의 실제 블록 + 등록된 간격을 컨트랙트가 다시 계산해 대조합니다.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 14,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "영수증 사본은 자격이 아닙니다.",
+          "x": 1010,
+          "y": 710,
+          "w": 814,
+          "h": 170,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 814,
+              "text": "영수증 사본은 자격이 아닙니다.",
+              "size": 30,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 814,
+              "text": "이름이 적힌 요청자만 챌린지를 열 수 있고, 그 바인딩에 기관이 서명합니다.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 14,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "06 · 「모르겠다」와 「위반이다」를 섞지 않습니다",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "보증하는 것 / 보증하지 않는 것",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "「모르겠다」와 「위반이다」를 섞지 않습니다",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "판정 5분류: CONFIRMED · NOT_DUE · OBLIGATION_UNMET · UNVERIFIABLE · OUT_OF_SCOPE — 「아직」과 「모름」은 위반이 아닙니다.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "06",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "보증",
+          "x": 96,
+          "y": 330,
+          "w": 856,
+          "h": 560,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "보증합니다",
+              "size": 34,
+              "color": "#21766B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "기록 무결성 — 영수증 서명과 공개 커밋의 일치.\n사후 교체 탐지.\n\n접수 책임 — 서명한 기록 기한이 지켜졌는가.\n\n독립 제출 — 영수증 없이도 공개 경로에\n제출 사실을 남김.\n\n기관 접속 0회 — 검증 중 나간 HTTP 호출을\n세어서 보고. 상수가 아니라 실측.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 20,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "비보증",
+          "x": 968,
+          "y": 330,
+          "w": 856,
+          "h": 560,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "보증하지 않습니다",
+              "size": 34,
+              "color": "#A24B35",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "비공개 사유의 진실성 — 커밋은 교체를 탐지할 뿐.\n\n실물 준비금 — PoR 영역. 자산의 존재를 증명하지 않음.\n\n실제 인도 — 인도 기관의 기록은 인도 주장.\n물리적 이행의 증명이 아님.\n\n완전성 — 각자 자기 항목만. 전체는 근사.\n\n법적 강제력 — 체인은 의무를 만들지 않음.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 20,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "07 · 공격 20개 기대 판정 일치, 정상 10개 오탐 0",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "검증 결과 — TEST:ALL + DEMO",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "공격 20개 기대 판정 일치, 정상 10개 오탐 0",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "기한 경과 장면은 로컬 체인에서 블록을 당겨 시연했습니다. 공개 테스트넷에는 실제로 일어난 것만 있습니다.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "07",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "공격 탐지",
+          "x": 96,
+          "y": 330,
+          "w": 530,
+          "h": 240,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 474,
+              "text": "20/20",
+              "size": 96,
+              "color": "#21766B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 474,
+              "text": "공격 탐지",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "오탐 (정상을 위반으로)",
+          "x": 680,
+          "y": 330,
+          "w": 530,
+          "h": 240,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 474,
+              "text": "0",
+              "size": 96,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 474,
+              "text": "오탐 (정상을 위반으로)",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "실행 시나리오",
+          "x": 1264,
+          "y": 330,
+          "w": 530,
+          "h": 240,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 474,
+              "text": "30",
+              "size": 96,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 474,
+              "text": "실행 시나리오",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 12,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "선언",
+          "x": 96,
+          "y": 620,
+          "w": 856,
+          "h": 220,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "실행 전에 검사 id와 기대 판정을 선언합니다.",
+              "size": 30,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "검증기가 조용해서 통과하지 않습니다. 거부·지각 표시·검증 불가도 기대값이며, 모두 위반 판정이라는 뜻은 아닙니다.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 14,
+          "pad": 0,
+          "bg": null,
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "예시",
+          "x": 968,
+          "y": 620,
+          "w": 856,
+          "h": 168,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "공격 예시 — 무응답 · 다른 건으로 응답 · 사후 조작 · 기한 자가 연장",
+              "size": 26,
+              "color": "#172D40",
+              "bold": false,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "정상 예시 — 제때 처리 · 불완전 번들 · 중립 공개 제출",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 18,
+          "pad": 24,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "08 · 우리 말을 믿지 말고 직접 확인하세요",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "공개 증거",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "우리 말을 믿지 말고 직접 확인하세요",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "신규 계약 모두 Sourcify exact_match. 배포·등록 6건 성공, 비용 약 0.00586 테스트 ETH.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "08",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 330,
+          "w": 1728,
+          "h": 70,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 420,
+              "h": 70,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 380,
+                  "text": "네트워크",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 900,
+              "h": 70,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 860,
+                  "text": "컨트랙트",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 408,
+              "h": 70,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 368,
+                  "text": "비고",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#10283F",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 400,
+          "w": 1728,
+          "h": 96,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 420,
+              "h": 96,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 380,
+                  "text": "Sepolia · MockGold",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 900,
+              "h": 96,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 860,
+                  "text": "0xb3a791fbb0a2f5001375dd32b6fb621837955b1a",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 408,
+              "h": 96,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 368,
+                  "text": "시연 토큰",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 496,
+          "w": 1728,
+          "h": 96,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 420,
+              "h": 96,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 380,
+                  "text": "Sepolia · Escrow",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 900,
+              "h": 96,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 860,
+                  "text": "0x8c8cbf50a91ce2c6d0746d0c4745d3a8b8f7778c",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 408,
+              "h": 96,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 368,
+                  "text": "상환 잠금",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#F1F4F6",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 592,
+          "w": 1728,
+          "h": 96,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 420,
+              "h": 96,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 380,
+                  "text": "Sepolia · Inbox",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 900,
+              "h": 96,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 860,
+                  "text": "0x870238b0be5d5835ff47de3510875c996c01bb5d",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 408,
+              "h": 96,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 368,
+                  "text": "거래소 요청",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "되읽기",
+          "x": 96,
+          "y": 720,
+          "w": 856,
+          "h": 180,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "check:escrow -- sepolia",
+              "size": 28,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "공개 RPC에서 주소·영수증·런타임 해시·서비스·불변 값·프로필을 대조해 통과했습니다. 기록: escrow-deployments.json",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 14,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "소스검증",
+          "x": 968,
+          "y": 720,
+          "w": 856,
+          "h": 180,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "Sourcify 소스 검증 3개 완료",
+              "size": 28,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "기존 Sepolia·Hoodi 로그는 그대로 유지합니다. 누구든 같은 주소로 직접 대조할 수 있습니다.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 14,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "09 · 「Arbitrum delayed inbox와 뭐가 다르죠?」",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "무엇이 새로운가 — 정직한 델타",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "「Arbitrum delayed inbox와 뭐가 다르죠?」",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "참고: Arbitrum delayed inbox · zkSync priority queue · Certificate Transparency(RFC 6962) · SCITT(RFC 9943)",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "09",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "요지",
+          "x": 96,
+          "y": 320,
+          "w": 1728,
+          "h": 120,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 1672,
+              "text": "발명이 아니라 이식입니다. 롤업은 프로토콜이 포함을 강제합니다. 오프체인 결정 서비스에는 그 강제가 없습니다.",
+              "size": 30,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            }
+          ],
+          "gap": 0,
+          "pad": 28,
+          "bg": "#F4EDDE",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 96,
+          "y": 486,
+          "w": 860,
+          "text": "— 포함 여부를 롤업 상태 대신 머클 앵커로 판정합니다.",
+          "size": 27,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 96,
+          "y": 606,
+          "w": 860,
+          "text": "— 강제가 없는 자리를 「기관이 서명한 기한」 + 「체인이 본 앵커에서의 역산」으로 채웠습니다.",
+          "size": 27,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 96,
+          "y": 726,
+          "w": 860,
+          "text": "— CT와 달리 여기선 안 올리는 게 이득이라, 안 올린 사실을 요청자가 자기 영수증으로 증명하게 만들었습니다.",
+          "size": 27,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "추가 델타",
+          "x": 1010,
+          "y": 486,
+          "w": 814,
+          "h": 290,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 758,
+              "text": "상환 구현의 추가 델타",
+              "size": 30,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 758,
+              "text": "자산 잠금이 있는 자리에서는 영수증 없이 시계가 시작됩니다.",
+              "size": 28,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 758,
+              "text": "영수증을 안 줘서 시계를 안 시작시키는 회피를 잠금 트랜잭션으로 막습니다. 잠금으로 운영사 시계를, 인계로 인도 기관 시계를 시작합니다.",
+              "size": 26,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 16,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "10 · 거래소·운영사·인도 기관의 세 시계",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "상환 에스크로·인박스 · SEPOLIA 배포",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "거래소·운영사·인도 기관의 세 시계",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "상세: docs/redemption-design.md · 실물 준비금·물리적 인도·사유 진실성은 보증하지 않습니다.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "10",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 330,
+          "w": 1728,
+          "h": 70,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 380,
+              "h": 70,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 340,
+                  "text": "시계",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 560,
+              "h": 70,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 520,
+                  "text": "시작",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 788,
+              "h": 70,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 748,
+                  "text": "무응답 확정 후",
+                  "size": 22,
+                  "color": "#FFFFFF",
+                  "bold": true,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#10283F",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 400,
+          "w": 1728,
+          "h": 92,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 380,
+              "h": 92,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 340,
+                  "text": "거래소",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 560,
+              "h": 92,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 520,
+                  "text": "서명 요청 제출 블록",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 788,
+              "h": 92,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 748,
+                  "text": "UNANSWERED · 운영사 시계 미시작",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 492,
+          "w": 1728,
+          "h": 92,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 380,
+              "h": 92,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 340,
+                  "text": "운영사",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 560,
+              "h": 92,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 520,
+                  "text": "토큰 잠금 블록",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 788,
+              "h": 92,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 748,
+                  "text": "UNANSWERED · finalize 호출에서 토큰 반환",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": "#F1F4F6",
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "Table row",
+          "x": 96,
+          "y": 584,
+          "w": 1728,
+          "h": 92,
+          "items": [
+            {
+              "type": "group",
+              "name": "Column 1",
+              "x": 0,
+              "y": 0,
+              "w": 380,
+              "h": 92,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 340,
+                  "text": "인도 기관",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 2",
+              "x": 0,
+              "y": 0,
+              "w": 560,
+              "h": 92,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 520,
+                  "text": "인계 리프 앵커 블록",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            },
+            {
+              "type": "group",
+              "name": "Column 3",
+              "x": 0,
+              "y": 0,
+              "w": 788,
+              "h": 92,
+              "items": [
+                {
+                  "type": "text",
+                  "name": "Text",
+                  "x": 0,
+                  "y": 0,
+                  "w": 748,
+                  "text": "UNANSWERED · STALLED · 잠금 유지",
+                  "size": 28,
+                  "color": "#172D40",
+                  "bold": false,
+                  "line": 1.26
+                }
+              ],
+              "gap": 0,
+              "pad": 20,
+              "bg": null,
+              "direction": "VERTICAL"
+            }
+          ],
+          "gap": 0,
+          "pad": 0,
+          "bg": null,
+          "direction": "HORIZONTAL"
+        },
+        {
+          "type": "group",
+          "name": "인도 이후",
+          "x": 96,
+          "y": 706,
+          "w": 856,
+          "h": 194,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "인도 이후: 보유자의 확인과 이의",
+              "size": 30,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "인도 기관은 자기 로그로 인도를 주장합니다. 보유자 수령 확인 또는 이의 기간 경과 후 소각합니다. 이의 제기 시 잠금을 유지하며, 운영사 단독 완료 확인은 없습니다.",
+              "size": 25,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 14,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "group",
+          "name": "비공개",
+          "x": 968,
+          "y": 706,
+          "w": 856,
+          "h": 194,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "판단 결과는 비공개",
+              "size": 30,
+              "color": "#172D40",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 800,
+              "text": "ALLOW / DENY / DEFER와 사유 분류는 해시로 묶습니다. 판단 후 인계가 없으면 기한 경과 시 회수하고, 인계 기한 후 증명은 거부합니다.",
+              "size": 25,
+              "color": "#526477",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 14,
+          "pad": 28,
+          "bg": "#F1F4F6",
+          "direction": "VERTICAL"
+        }
+      ]
+    },
+    {
+      "name": "11 · 안 되는 것, 안 만든 것",
+      "bg": "#FFFFFF",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "한계 — 우리가 먼저 적습니다",
+          "size": 20,
+          "color": "#526477",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "안 되는 것, 안 만든 것",
+          "size": 56,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#D7DEE4"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "조회 블록을 고정해 검증하지만 체인 재조직을 막지는 못합니다. 운영 환경에서는 별도의 확정성 정책이 필요합니다.",
+          "size": 18,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "11",
+          "size": 24,
+          "color": "#172D40",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 96,
+          "y": 330,
+          "w": 856,
+          "text": "요청자 = 결정자는 못 잡습니다. 자기 지갑·같은 법인.\n\n기존 경로의 영수증 보류는 못 막습니다.\n상환 구현에서는 잠금으로 시계를 시작합니다.\n\n경제적 강제층(stake·fee)은 설계만.\n지금 컨트랙트엔 예치금도 수수료도 없습니다.\n\nserviceId는 선착순. 남의 영수증 위조는 불가하지만\n이름은 뺏깁니다.",
+          "size": 27,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 968,
+          "y": 330,
+          "w": 856,
+          "text": "인도 기관 무응답·보유자 이의 — 잠금 유지, 오프체인 해결.\n토큰 자동 해제 없음.\n\n반환·소각은 공개. 사유 비공개가 최종 결과의\n비공개는 아닙니다.\n\n키 회전 미구현. 요청자 키 분실 = 자기 증거 상실.\n\n서명된 타임라인은 양날. 기관 방어 증거이자 소송의\n원고 증거. 법무팀이 거부할 수 있습니다 — 기술로 못 풉니다.",
+          "size": 27,
+          "color": "#526477",
+          "bold": false,
+          "line": 1.26
+        }
+      ]
+    },
+    {
+      "name": "12 · 증거를 먼저 확인하고, 그다음 운영을 시험하십시오.",
+      "bg": "#10283F",
+      "children": [
+        {
+          "type": "text",
+          "name": "Section label",
+          "x": 96,
+          "y": 62,
+          "w": 1650,
+          "text": "정리",
+          "size": 20,
+          "color": "#CFD9E2",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Gold milestone",
+          "x": 96,
+          "y": 106,
+          "w": 62,
+          "h": 6,
+          "color": "#AE812B"
+        },
+        {
+          "type": "text",
+          "name": "Conclusion",
+          "x": 96,
+          "y": 146,
+          "w": 1728,
+          "text": "증거를 먼저 확인하고,\n그다음 운영을 시험하십시오.",
+          "size": 56,
+          "color": "#FFFFFF",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "rect",
+          "name": "Footer rule",
+          "x": 96,
+          "y": 992,
+          "w": 1728,
+          "h": 1,
+          "color": "#395064"
+        },
+        {
+          "type": "text",
+          "name": "Source",
+          "x": 96,
+          "y": 1011,
+          "w": 1620,
+          "text": "저장소 github.com/kimsabin725/blocknotice · 아이디어 SBK · 상환 확장 tnwjd023-boop · AI 보조 구현",
+          "size": 18,
+          "color": "#CFD9E2",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Page number",
+          "x": 1744,
+          "y": 1007,
+          "w": 80,
+          "text": "12",
+          "size": 24,
+          "color": "#FFFFFF",
+          "bold": true,
+          "line": 1.26
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 100,
+          "y": 420,
+          "w": 1000,
+          "text": "거절 판단의 증거 비대칭을 서명 영수증 + 공개 커밋으로 줄입니다.\n\n30개 시나리오의 기대 판정 일치, 오탐 0. npm run demo 로 재현.\n\n로그 Sepolia·Hoodi, 상환·인박스 Sepolia 배포. 공개 RPC 되읽기 검증.\n\n실물 준비금·실제 인도·사유 진실성은 보증하지 않습니다.",
+          "size": 28,
+          "color": "#CFD9E2",
+          "bold": false,
+          "line": 1.26
+        },
+        {
+          "type": "group",
+          "name": "이번 구현",
+          "x": 1180,
+          "y": 420,
+          "w": 644,
+          "h": 300,
+          "items": [
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 588,
+              "text": "이번 구현",
+              "size": 30,
+              "color": "#AE812B",
+              "bold": true,
+              "line": 1.26
+            },
+            {
+              "type": "text",
+              "name": "Text",
+              "x": 0,
+              "y": 0,
+              "w": 588,
+              "text": "에스크로·인박스 계약, 독립 검증기, 30개 데모, 배포·대조 도구를 구현했습니다.\n\nMockGold 로컬 검증이며 실물 운영 검증은 아닙니다.",
+              "size": 26,
+              "color": "#CFD9E2",
+              "bold": false,
+              "line": 1.26
+            }
+          ],
+          "gap": 16,
+          "pad": 28,
+          "bg": "#16344F",
+          "direction": "VERTICAL"
+        },
+        {
+          "type": "text",
+          "name": "Text",
+          "x": 96,
+          "y": 879,
+          "w": 1728,
+          "text": "github.com/kimsabin725/blocknotice",
+          "size": 30,
+          "color": "#FFFFFF",
+          "bold": true,
+          "line": 1.26
+        }
+      ]
+    }
+  ]
+}

@@ -13,3 +13,14 @@ To regenerate HTML and scene data, run `node deck/pitch.en.source.cjs` from the 
 **Figma status:** pending. The Figma plugin was invoked, but its account lookup returned `Unknown tool: figma.whoami` after reconnection. No native Figma file or share link exists yet. The HTML/PDF are local deliverables, not Figma exports.
 
 The original Korean presentation remains available separately. No market-size, customer-traction, investment-return, physical-reserve, or security-audit claims were added.
+
+## Korean deck
+
+`BlockNotice_GoldRWA_pitch.pdf` is the Korean deck, rendered from `pitch.ko.source.cjs` into
+`pitch.ko.html`. It reuses the English deck's design system — same canvas, grid, colour tokens and
+`slide()`/`row()`/`stack()` primitives — with Korean copy and a Korean font stack, so the two decks read
+as one set. Regenerate with `node deck/pitch.ko.source.cjs`, then print `pitch.ko.html` at 297x167mm with
+background graphics on.
+
+`pitch.html` is the earlier standalone Korean deck in a different, plainer style. It is kept for history and
+is no longer the submitted file.
