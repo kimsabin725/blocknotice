@@ -21,12 +21,24 @@ the signed deadline. Absence of evidence is never auto-promoted to proven breach
 in [section 4](#4-guarantees-and-non-guarantees).
 
 One command replays **30 situations** (20 attacks, 10 honest paths, zero false alarms). The two
-demonstrations Track 3 asks for are here.
+demonstrations Track 3 asks for — detecting post-hoc modification, and detecting missing or deleted
+records — are the seven scenes below. They end three different ways: the contract refuses the attack
+outright, the verifier marks it unverifiable, or a public challenge establishes the violation.
 
-| Required demonstration | Scenarios |
-|---|---|
-| Detecting post-hoc record modification | `attack.tamperedNotice` · `attack.stretchedDeadline` · `attack.phantomAnchor` · `attack.lateRecordingStillFlagged` |
-| Detecting missing or deleted refusal records | `attack.omitRequestLeaf` · `attack.omitDecisionLeaf` · `attack.silentInstitution` |
+| Scenario | Attack | Result |
+|---|---|---|
+| `attack.stretchedDeadline` | Cite a stretched deadline | Contract reverts — `DeadlineNotDerived` |
+| `attack.phantomAnchor` | Cite an anchor that does not exist | Contract reverts — `UnknownAnchor` |
+| `attack.tamperedNotice` | Swap the record after the fact | `log.decisionLeaf[0] = OBLIGATION_UNMET` |
+| `attack.lateRecordingStillFlagged` | Record late, after the challenge | Challenge closes `ANSWERED`, but **the lateness stays on record** |
+| `attack.omitRequestLeaf` | Never post the intake record | `log.requestLeaf = UNVERIFIABLE` |
+| `attack.omitDecisionLeaf` | Never post the decision record | `log.decisionLeaf[0] = UNVERIFIABLE` |
+| `attack.silentInstitution` | Ignore the challenge entirely | On-chain verdict **UNANSWERED** → `decision.presence` and `challenge.verdict = OBLIGATION_UNMET`, `log.requestLeaf = CONFIRMED` |
+
+**A missing record is `UNVERIFIABLE`, not a violation.** A violation appears as `OBLIGATION_UNMET` once
+the deadline the institution signed has passed and a public challenge has been finalised unanswered. That
+distinction is the point of the design and is stated in
+[section 4](#4-guarantees-and-non-guarantees).
 
 **Available now:** signed receipts, a public log, independent verifiers, a redemption escrow and an exchange
 inbox, deployed on Sepolia. See the [public deployment record](docs/public-deployment.md) for addresses and

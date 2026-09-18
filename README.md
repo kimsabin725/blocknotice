@@ -19,13 +19,23 @@ BlockNotice는 그 판단에 **서명 영수증**을 붙이고, 기관이 서명
 「기한 내 증빙하지 않았다」를 공개적으로 확정할 수 있습니다. 증거 부재를 위반으로 자동 승격하지는
 않습니다 — 그 경계는 [4절](#4-보증하는-것--보증하지-않는-것)에 적었습니다.
 
-재현 명령 하나로 **30개 상황**이 돌아갑니다(공격 20 · 정상 10, 오탐 0). 트랙 3이 요구하는 두 시연은
-여기 있습니다.
+재현 명령 하나로 **30개 상황**이 돌아갑니다(공격 20 · 정상 10, 오탐 0). 트랙 3이 요구하는 두 시연
+— 사후 변조 탐지와 누락·삭제 탐지 — 은 아래 일곱 장면입니다. 결과가 셋으로 갈립니다: 컨트랙트가
+아예 거부하거나, 검증기가 「확인 불가」로 표시하거나, 공개 챌린지로 위반이 확정됩니다.
 
-| 필수 시연 | 시나리오 |
-|---|---|
-| 사후 기록 변조 탐지 | `attack.tamperedNotice` · `attack.stretchedDeadline` · `attack.phantomAnchor` · `attack.lateRecordingStillFlagged` |
-| 누락·삭제된 거절 기록 탐지 | `attack.omitRequestLeaf` · `attack.omitDecisionLeaf` · `attack.silentInstitution` |
+| 시나리오 | 공격 | 결과 |
+|---|---|---|
+| `attack.stretchedDeadline` | 기한을 늘려 인용 | 컨트랙트가 되돌림 — `DeadlineNotDerived` |
+| `attack.phantomAnchor` | 없는 앵커를 인용 | 컨트랙트가 되돌림 — `UnknownAnchor` |
+| `attack.tamperedNotice` | 기록을 사후 교체 | `log.decisionLeaf[0] = OBLIGATION_UNMET` |
+| `attack.lateRecordingStillFlagged` | 챌린지 뒤 뒤늦게 기록 | 챌린지는 `ANSWERED`로 닫히지만 **지각 사실은 남음** |
+| `attack.omitRequestLeaf` | 접수 기록을 안 올림 | `log.requestLeaf = UNVERIFIABLE` |
+| `attack.omitDecisionLeaf` | 결정 기록을 안 올림 | `log.decisionLeaf[0] = UNVERIFIABLE` |
+| `attack.silentInstitution` | 챌린지에 무응답 | 체인 판정 **UNANSWERED** → `decision.presence`·`challenge.verdict = OBLIGATION_UNMET`, `log.requestLeaf = CONFIRMED` |
+
+**누락은 그 자체로 위반이 아니라 `UNVERIFIABLE`입니다.** 위반은 기관이 서명한 기한이 지나고
+공개 챌린지가 무응답으로 확정될 때 `OBLIGATION_UNMET`으로 나옵니다. 그 구분이 이 설계의 핵심이고
+[4절](#4-보증하는-것--보증하지-않는-것)에 적었습니다.
 
 **현재 실행 가능:** 서명 영수증, 공개 로그, 독립 검증기, 상환 에스크로와 거래소 인박스.
 Sepolia에 배포돼 있고 주소와 검증 결과는 [공개 배포 기록](docs/public-deployment.md)에 있습니다.
