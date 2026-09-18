@@ -741,15 +741,15 @@ There are two 12-slide decks, built on the **same design system**.
 
 | Deck | Generator | HTML |
 |---|---|---|
-| [Korean PDF](deck/BlockNotice_GoldRWA_pitch.pdf) | [`pitch.ko.source.cjs`](deck/pitch.ko.source.cjs) | [`pitch.ko.html`](deck/pitch.ko.html) |
-| [English PDF](deck/BlockNotice_GoldRWA_pitch.en.pdf) | [`pitch.en.source.cjs`](deck/pitch.en.source.cjs) | [`pitch.en.html`](deck/pitch.en.html) |
+| [Korean PDF](deck/BlockNotice_pitch_ko.pdf) | [`pitch.ko.source.cjs`](deck/pitch.ko.source.cjs) | [`pitch.ko.html`](deck/pitch.ko.html) |
+| [English PDF](deck/BlockNotice_pitch_en.pdf) | [`pitch.en.source.cjs`](deck/pitch.en.source.cjs) | [`pitch.en.html`](deck/pitch.en.html) |
 
 Both open on refusals that leave no onchain trace and keep gold RWA redemption as the worked example.
 Accelerated local scenarios and the actual Sepolia deployments are marked separately in each.
 See [deck/README.en.md](deck/README.en.md) for regeneration and Figma transfer status.
 
 Not submission material: [`deck/pitch.html`](deck/pitch.html) is the earlier Korean deck in a plainer
-design, and [`deck/BlockNotice_pitch.pdf`](deck/BlockNotice_pitch.pdf) predates the escrow and inbox
+design, and [`deck/BlockNotice_pitch_2026-09-14_superseded.pdf`](deck/BlockNotice_pitch_2026-09-14_superseded.pdf) predates the escrow and inbox
 extension.
 
 ---

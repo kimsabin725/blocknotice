@@ -15,7 +15,7 @@
 | CLI | 기존 번들 검증 + `verify --escrow` + `verify --inbox --include-escrow` |
 | 배포 도구 | 명시적 네트워크·chainId 확인, 별도 기록·트랜잭션 저널, 재배포 충돌 방지 |
 | 배포 대조 | 읽기 전용 서비스·불변 값·프로필·영수증·런타임 해시 검사 |
-| 제출 자료 | [README](../README.md), [상세 사양](redemption-design.md), [5분 대본](../DEMO.md), [12장 PDF](../deck/BlockNotice_GoldRWA_pitch.pdf) |
+| 제출 자료 | [README](../README.md), [상세 사양](redemption-design.md), [5분 대본](../DEMO.md), [12장 PDF](../deck/BlockNotice_pitch_ko.pdf) |
 | 재현 | 기존 18 + 상환·인박스 12 = 30개, 단일 HTML 리포트, GitHub Actions 워크플로 |
 
 기존 `BlockNoticeLog.sol`, `deployments.json`, `src/profile.ts`, `src/deploy.ts`, `src/scenario.ts`,

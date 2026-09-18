@@ -680,14 +680,14 @@ BlockNotice는 이용자가 보유한 영수증을 공개 커밋과 대조하는
 
 | 덱 | 생성기 | HTML |
 |---|---|---|
-| [한글 PDF](deck/BlockNotice_GoldRWA_pitch.pdf) | [`pitch.ko.source.cjs`](deck/pitch.ko.source.cjs) | [`pitch.ko.html`](deck/pitch.ko.html) |
-| [영문 PDF](deck/BlockNotice_GoldRWA_pitch.en.pdf) | [`pitch.en.source.cjs`](deck/pitch.en.source.cjs) | [`pitch.en.html`](deck/pitch.en.html) |
+| [한글 PDF](deck/BlockNotice_pitch_ko.pdf) | [`pitch.ko.source.cjs`](deck/pitch.ko.source.cjs) | [`pitch.ko.html`](deck/pitch.ko.html) |
+| [영문 PDF](deck/BlockNotice_pitch_en.pdf) | [`pitch.en.source.cjs`](deck/pitch.en.source.cjs) | [`pitch.en.html`](deck/pitch.en.html) |
 
 둘 다 체인에 남지 않는 거절 기록을 먼저 말하고, 금 RWA 상환은 그 구조를 보여주는 예시로 둡니다.
 가속한 로컬 시나리오와 실제 Sepolia 배포는 구분해 표기합니다.
 
 제출본이 아닌 것: [`deck/pitch.html`](deck/pitch.html)은 이전 디자인의 한글 덱이고,
-[`deck/BlockNotice_pitch.pdf`](deck/BlockNotice_pitch.pdf)는 에스크로·인박스 확장 이전 자료입니다.
+[`deck/BlockNotice_pitch_2026-09-14_superseded.pdf`](deck/BlockNotice_pitch_2026-09-14_superseded.pdf)는 에스크로·인박스 확장 이전 자료입니다.
 
 ---
 
