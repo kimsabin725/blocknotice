@@ -1,8 +1,9 @@
 # 구현·제출 자료 현황
 
-2026-09-17 · 원본 [kimsabin725/blocknotice](https://github.com/kimsabin725/blocknotice) `39139b9`에서 확장.
-새 공개 저장소: [tnwjd023-boop/BlockNotice_GoldRWA](https://github.com/tnwjd023-boop/BlockNotice_GoldRWA).
-최초 문서 정리 범위에서 사용자 요청에 따라 **에스크로·인박스 전체 개발과 새 저장소 푸시**로 확대했다.
+2026-09-17 · [kimsabin725/blocknotice](https://github.com/kimsabin725/blocknotice) `39139b9`에서 확장.
+개발은 포크 [tnwjd023-boop/BlockNotice_GoldRWA](https://github.com/tnwjd023-boop/BlockNotice_GoldRWA)에서 진행했고,
+**2026-09-18 원본 저장소 `main`에 병합했다**(`beb4c5d`). 제출 대상은 원본 저장소다.
+최초 문서 정리 범위에서 사용자 요청에 따라 **에스크로·인박스 전체 개발**로 확대했다.
 
 ## 구현
 
@@ -39,6 +40,8 @@
 
 ## 남은 운영·제출 단계
 
-실물 상환 운영 검증, 외부 보안 감사와 데모 영상 녹화는 수행하지 않았다.
+실물 상환 운영 검증과 외부 보안 감사는 수행하지 않았다.
+데모 영상은 2026-09-18 녹화했다(2분 48초). 뒷부분 78초는 대본 낭독이 아니라
+`forge test`·공개 RPC 대조·시나리오 리포트·Sepolia 익스플로러를 실제로 띄운 화면 녹화다.
 MockGold는 누구나 발행 가능한 데모 토큰이다. 세 서비스의 배포 도구는 한 지갑이 통제하는 구성임을 기록한다.
 실물 준비금·물리적 인도·거절 사유의 진실성은 보증하지 않는다. STALLED·DISPUTED에는 관리자 임의 해제 경로가 없다.
