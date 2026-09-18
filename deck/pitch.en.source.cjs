@@ -50,11 +50,11 @@ function band(y,message,dark=false) {
     const x=96+i*584;
     a.push(stack(x,385,530,390,[tx(530,d[0],74,C.gold,true),tx(530,d[1],36,C.ink,true),tx(530,d[2],29,C.slate)],{gap:24,name:d[1]}));
   });
-  a.push(band(846,'Implemented today: signed receipts + public log + redemption escrow + exchange inbox.'));
+  a.push(band(846,'Gold RWA redemption is the worked example, not the subject. The escrow takes any burnable ERC-20.'));
 }
 // 03 — evidence gap, not an assertion about a specific issuer.
 {
-  const a=slide('The problem','Approvals leave transactions.\nRefusals leave nothing.','Source: README.en.md §1. Illustrative structure; not a claim about any particular institution.');
+  const a=slide('The problem','Approvals leave transactions.\nRefusals leave nothing.','The gold redemption flow shown here is the worked example; RedemptionEscrow accepts any burnable ERC-20. Source: README.en.md §1. Not a claim about any particular institution.');
   a.push(text(96,334,1660,'The record sits in one internal database. It can be rewritten, or removed.',31,C.slate));
   a.push(rect(96,425,1728,352,C.light,'Process field'));
   const stages=[['Request','Exchange'],['Lock','Escrow'],['Decision','Operator'],['Handoff','Operator → provider'],['Delivery claim','Provider'],['Burn / return','Escrow']];
