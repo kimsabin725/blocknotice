@@ -2,7 +2,7 @@
   "width": 1920,
   "height": 1080,
   "font": "Arial",
-  "repo": "https://github.com/tnwjd023-boop/BlockNotice_GoldRWA",
+  "repo": "https://github.com/kimsabin725/blocknotice",
   "colors": {
     "navy": "#10283F",
     "ink": "#172D40",
@@ -18,7 +18,7 @@
   },
   "slides": [
     {
-      "name": "01 · Make every redemption delay attributable.",
+      "name": "01 · A refusal leaves no transaction.",
       "bg": "#10283F",
       "children": [
         {
@@ -27,7 +27,7 @@
           "x": 96,
           "y": 62,
           "w": 1650,
-          "text": "BLOCKNOTICE / GOLD RWA REDEMPTION",
+          "text": "BLOCKNOTICE / OFF-CHAIN REFUSAL RECORDS",
           "size": 20,
           "color": "#CFD9E2",
           "bold": true,
@@ -48,7 +48,7 @@
           "x": 96,
           "y": 146,
           "w": 1190,
-          "text": "Make every redemption\ndelay attributable.",
+          "text": "A refusal leaves\nno transaction.",
           "size": 90,
           "color": "#FFFFFF",
           "bold": true,
@@ -69,7 +69,7 @@
           "x": 96,
           "y": 1011,
           "w": 1620,
-          "text": "TRUST404 · Track 3  |  Prototype evidence as of 17 September 2026",
+          "text": "TRUST404 · Track 3  |  Prototype evidence as of 18 September 2026",
           "size": 18,
           "color": "#CFD9E2",
           "bold": false,
@@ -93,7 +93,7 @@
           "x": 100,
           "y": 450,
           "w": 1050,
-          "text": "Independent evidence for the journey\nfrom a token lock to a delivery claim.",
+          "text": "Signed receipts for decisions that\nnever reach the chain.",
           "size": 38,
           "color": "#FFFFFF",
           "bold": false,
@@ -105,7 +105,7 @@
           "x": 100,
           "y": 640,
           "w": 1030,
-          "text": "A commitment to record and prove each step.\nRedemption approval remains an institutional decision.",
+          "text": "Altering a record is detectable. So is deleting one.\nChecked without the institution’s server.",
           "size": 28,
           "color": "#CFD9E2",
           "bold": false,
@@ -312,7 +312,7 @@
       ]
     },
     {
-      "name": "02 · One redemption journey. Three accountable clocks.",
+      "name": "02 · Refusals become evidence. Deadlines become checkable.",
       "bg": "#FFFFFF",
       "children": [
         {
@@ -342,7 +342,7 @@
           "x": 96,
           "y": 146,
           "w": 1728,
-          "text": "One redemption journey.\nThree accountable clocks.",
+          "text": "Refusals become evidence.\nDeadlines become checkable.",
           "size": 56,
           "color": "#172D40",
           "bold": true,
@@ -383,7 +383,7 @@
         },
         {
           "type": "group",
-          "name": "Locate the delay",
+          "name": "Bind the decision",
           "x": 96,
           "y": 385,
           "w": 530,
@@ -407,7 +407,7 @@
               "x": 0,
               "y": 0,
               "w": 530,
-              "text": "Locate the delay",
+              "text": "Bind the decision",
               "size": 36,
               "color": "#172D40",
               "bold": true,
@@ -419,7 +419,7 @@
               "x": 0,
               "y": 0,
               "w": 530,
-              "text": "Separate exchange forwarding, operator\ndecision-making, and delivery-provider\nrecording into distinct obligations.",
+              "text": "Attach a signed receipt to every ruling,\nso a refusal that never reached the\nchain still leaves evidence.",
               "size": 29,
               "color": "#526477",
               "bold": false,
@@ -560,7 +560,7 @@
       ]
     },
     {
-      "name": "03 · A token lock reveals custody— not who is delaying redemption.",
+      "name": "03 · Approvals leave transactions. Refusals leave nothing.",
       "bg": "#FFFFFF",
       "children": [
         {
@@ -590,7 +590,7 @@
           "x": 96,
           "y": 146,
           "w": 1728,
-          "text": "A token lock reveals custody—\nnot who is delaying redemption.",
+          "text": "Approvals leave transactions.\nRefusals leave nothing.",
           "size": 56,
           "color": "#172D40",
           "bold": true,
@@ -611,7 +611,7 @@
           "x": 96,
           "y": 1011,
           "w": 1620,
-          "text": "Source: redemption proposal and README.en.md §1. Illustrative process; not a claim about any particular issuer.",
+          "text": "Source: README.en.md §1. Illustrative structure; not a claim about any particular institution.",
           "size": 18,
           "color": "#526477",
           "bold": false,
@@ -635,7 +635,7 @@
           "x": 96,
           "y": 334,
           "w": 1660,
-          "text": "Holders see one delay. Responsibility spans several institutions.",
+          "text": "The record sits in one internal database. It can be rewritten, or removed.",
           "size": 31,
           "color": "#526477",
           "bold": false,
@@ -3918,7 +3918,7 @@
           "x": 96,
           "y": 1011,
           "w": 1620,
-          "text": "Original: kimsabin725/blocknotice · Idea: SBK · Extension: tnwjd023-boop · AI-assisted implementation",
+          "text": "Repository: kimsabin725/blocknotice · Idea: SBK · Redemption extension: tnwjd023-boop · AI-assisted",
           "size": 18,
           "color": "#CFD9E2",
           "bold": false,
@@ -4075,7 +4075,7 @@
           "x": 96,
           "y": 879,
           "w": 1728,
-          "text": "github.com/tnwjd023-boop/BlockNotice_GoldRWA",
+          "text": "github.com/kimsabin725/blocknotice",
           "size": 30,
           "color": "#FFFFFF",
           "bold": true,

@@ -45,28 +45,28 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
 <section class="s">
   <p class="k">TRUST404 · TRACK 3 · BEFORE EXECUTION</p>
   <h1>BlockNotice</h1>
-  <p class="big"><span class="hl">금 RWA 상환, 누구의 시계에서 멈췄는가.</span><br>잠금은 체인에, 판단·기한·인도 주장은 기관 내부에.</p>
-  <p class="big dim" style="margin-top:6mm">판단 기록과 기한을 보유자가 <b>기관 서버 없이</b> 검증합니다.<br>구현: 로그·영수증 + 상환 에스크로 + 거래소 인박스</p>
-  <p class="foot">github.com/tnwjd023-boop/BlockNotice_GoldRWA · 에스크로·인박스 Sepolia 배포·소스 검증 완료</p>
+  <p class="big"><span class="hl">거절된 요청은 트랜잭션이 되지 못합니다.</span><br>승인만 체인에 남고, 막힌 요청은 기관 DB에만 남습니다.</p>
+  <p class="big dim" style="margin-top:6mm">그 판단에 서명 영수증을 붙이고, 서명한 기한이 지켜졌는지를<br><b>기관 서버에 한 번도 접속하지 않고</b> 확인합니다. 안 올린 사실까지 확정합니다.</p>
+  <p class="foot">github.com/kimsabin725/blocknotice · 공격 20/20 탐지 · 오탐 0 · Sepolia 배포·소스 검증 완료</p>
   <span class="n">1</span>
 </section>
 
 <!-- 2 문제 -->
 <section class="s">
   <p class="k">문제 정의</p>
-  <h2>금 토큰을 잠갔는데, 3주째 소식이 없다면</h2>
+  <h2>「그런 요청 받은 적 없는데요」</h2>
   <div class="cols">
     <div>
-      <p>상환 <b>요청·잠금·소각</b>은 체인에 남습니다.</p>
-      <p>그 사이 운영사의 <b>승인·제한 판단</b>, 인도 기관에 넘긴 시점과 <b>인도 주장</b>은 기관 내부에 남을 수 있습니다.</p>
-      <p>잠금 기록만으로는 <b>언제 판단했는지</b>, <b>언제 인계했는지</b>, 누가 인도를 주장했는지 확인할 수 없습니다.</p>
-      <p class="dim">일반화된 상환 흐름입니다. 특정 발행사가 실제로 기록하지 않는다는 주장은 아닙니다.</p>
+      <p>승인은 트랜잭션이 되어 체인에 남습니다. <b>거절은 아무 데도 남지 않습니다.</b></p>
+      <p>기록은 기관 내부 DB에만 있습니다. 사유를 <b>사후에 바꿔 적어도</b>, 행을 <b>지워도</b>, 요청자는 물론 밖의 누구도 알 수 없습니다.</p>
+      <p>영수증을 아예 <b>안 주는 것</b>이 기관에게 가장 이득인 구조입니다. 안 줬다는 사실조차 증거가 남지 않으니까요.</p>
+      <p class="dim">일반화된 구조입니다. 특정 기관이 실제로 그렇게 한다는 주장은 아닙니다.</p>
     </div>
     <div class="box">
-      <h3>잠금과 소각 사이의 책임 구간</h3>
-      <p>보유자에게는 하나의 지연이지만, 거래소·운영사·인도 기관의 시계는 서로 다릅니다.</p>
-      <p><b>증거 비대칭</b> 문제입니다. 이용자는 잠금을 증명할 수 있어도 기관 내부의 처리 경과를 독립적으로 검증하기 어렵습니다.</p>
-      <p style="margin-bottom:0"><b>BlockNotice가 하는 일</b>: 그 비대칭을 서명 영수증 + 공개 커밋으로 대칭에 가깝게 만듭니다.</p>
+      <h3>증거 비대칭</h3>
+      <p>기관은 기록을 갖고 있고 고칠 수도 있습니다. 요청자는 자기가 요청했다는 것 말고는 가진 게 없습니다.</p>
+      <p><b>BlockNotice가 하는 일</b>: 판단에 서명 영수증을 붙이고 공개 로그에 커밋해, 변조는 탐지되고 누락은 요청자가 스스로 확정하게 만듭니다.</p>
+      <p style="margin-bottom:0" class="dim">금 RWA 상환은 이 구조를 가장 두껍게 보여주는 <b>예시</b>입니다. 에스크로는 소각 가능한 임의의 ERC-20을 받습니다.</p>
     </div>
   </div>
   <span class="n">2</span>
@@ -270,7 +270,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92em;bac
       <p>에스크로·인박스 계약, 독립 검증기, 30개 데모, 배포·대조 도구를 구현했습니다.</p>
       <p style="margin-bottom:0">기존 구현은 Claude Code와, 상환·인박스 확장은 Codex와 작업했습니다. MockGold 로컬 검증이며 실물 운영 검증은 아닙니다.</p></div>
   </div>
-  <p class="foot">github.com/tnwjd023-boop/BlockNotice_GoldRWA · 원본: kimsabin725/blocknotice · Idea by SBK.</p>
+  <p class="foot">github.com/kimsabin725/blocknotice · 금 상환 확장은 포크에서 개발해 main에 병합 · Idea by SBK.</p>
   <span class="n">12</span>
 </section>
 

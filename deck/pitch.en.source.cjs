@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const C = {navy:'#10283F',ink:'#172D40',gold:'#AE812B',pale:'#F4EDDE',slate:'#526477',light:'#F1F4F6',rule:'#D7DEE4',white:'#FFFFFF',teal:'#21766B',rust:'#A24B35',soft:'#CFD9E2'};
 const slides = [];
-const repo = 'https://github.com/tnwjd023-boop/BlockNotice_GoldRWA';
+const repo = 'https://github.com/kimsabin725/blocknotice';
 function text(x,y,w,value,size=30,color=C.ink,bold=false,name='Text') { return {type:'text',name,x,y,w,text:value,size,color,bold,line:1.26}; }
 function rect(x,y,w,h,color,name='Rule') { return {type:'rect',name,x,y,w,h,color}; }
 function stack(x,y,w,h,items,{gap=16,pad=0,bg=null,name='Content group',direction='VERTICAL'}={}) {
@@ -32,10 +32,10 @@ function band(y,message,dark=false) {
 
 // 01 — opening position, with a visible three-clock signature.
 {
-  const a=slide('BlockNotice / Gold RWA redemption','Make every redemption\ndelay attributable.','TRUST404 · Track 3  |  Prototype evidence as of 17 September 2026',{dark:true});
+  const a=slide('BlockNotice / Off-chain refusal records','A refusal leaves\nno transaction.','TRUST404 · Track 3  |  Prototype evidence as of 18 September 2026',{dark:true});
   a.find(n=>n.name==='Conclusion').size=90; a.find(n=>n.name==='Conclusion').w=1190;
-  a.push(text(100,450,1050,'Independent evidence for the journey\nfrom a token lock to a delivery claim.',38,C.white));
-  a.push(text(100,640,1030,'A commitment to record and prove each step.\nRedemption approval remains an institutional decision.',28,C.soft));
+  a.push(text(100,450,1050,'Signed receipts for decisions that\nnever reach the chain.',38,C.white));
+  a.push(text(100,640,1030,'Altering a record is detectable. So is deleting one.\nChecked without the institution\u2019s server.',28,C.soft));
   a.push(text(100,861,1100,'ESCROW  /  EXCHANGE INBOX  /  PUBLIC VERIFIER',21,C.soft,true));
   a.push(rect(1370,230,3,528,C.gold,'Three-clock spine'));
   [['01','Exchange','Signed request'],['02','Operator','Token lock'],['03','Delivery provider','Handoff anchor']].forEach((d,i)=>{
@@ -45,8 +45,8 @@ function band(y,message,dark=false) {
 }
 // 02 — executive thesis.
 {
-  const a=slide('Executive perspective','One redemption journey.\nThree accountable clocks.','Source: README.en.md §§1, 4–5, 8–9. Adoption incentives remain a hypothesis.');
-  [['01','Locate the delay','Separate exchange forwarding, operator\ndecision-making, and delivery-provider\nrecording into distinct obligations.'],['02','Keep evidence portable','Let holders check signed records and\npublic commitments without relying\non the institution’s server.'],['03','Test before adoption','Use reproducible local scenarios and\nverified testnet deployments as the\nstarting point for a partner pilot.']].forEach((d,i)=>{
+  const a=slide('Executive perspective','Refusals become evidence.\nDeadlines become checkable.','Source: README.en.md §§1, 4–5, 8–9. Adoption incentives remain a hypothesis.');
+  [['01','Bind the decision','Attach a signed receipt to every ruling,\nso a refusal that never reached the\nchain still leaves evidence.'],['02','Keep evidence portable','Let holders check signed records and\npublic commitments without relying\non the institution’s server.'],['03','Test before adoption','Use reproducible local scenarios and\nverified testnet deployments as the\nstarting point for a partner pilot.']].forEach((d,i)=>{
     const x=96+i*584;
     a.push(stack(x,385,530,390,[tx(530,d[0],74,C.gold,true),tx(530,d[1],36,C.ink,true),tx(530,d[2],29,C.slate)],{gap:24,name:d[1]}));
   });
@@ -54,8 +54,8 @@ function band(y,message,dark=false) {
 }
 // 03 — evidence gap, not an assertion about a specific issuer.
 {
-  const a=slide('The problem','A token lock reveals custody—\nnot who is delaying redemption.','Source: redemption proposal and README.en.md §1. Illustrative process; not a claim about any particular issuer.');
-  a.push(text(96,334,1660,'Holders see one delay. Responsibility spans several institutions.',31,C.slate));
+  const a=slide('The problem','Approvals leave transactions.\nRefusals leave nothing.','Source: README.en.md §1. Illustrative structure; not a claim about any particular institution.');
+  a.push(text(96,334,1660,'The record sits in one internal database. It can be rewritten, or removed.',31,C.slate));
   a.push(rect(96,425,1728,352,C.light,'Process field'));
   const stages=[['Request','Exchange'],['Lock','Escrow'],['Decision','Operator'],['Handoff','Operator → provider'],['Delivery claim','Provider'],['Burn / return','Escrow']];
   stages.forEach((d,i)=>{
@@ -161,12 +161,12 @@ function band(y,message,dark=false) {
 }
 // 12 — executable close and source ownership.
 {
-  const a=slide('BlockNotice / next conversation','Verify the evidence.\nThen test the operating model.','Original: kimsabin725/blocknotice · Idea: SBK · Extension: tnwjd023-boop · AI-assisted implementation',{dark:true});
+  const a=slide('BlockNotice / next conversation','Verify the evidence.\nThen test the operating model.','Repository: kimsabin725/blocknotice · Idea: SBK · Redemption extension: tnwjd023-boop · AI-assisted',{dark:true});
   a.find(n=>n.name==='Conclusion').size=75;
   a.push(stack(96,412,1065,303,[tx(1065,'REPRODUCE THE LOCAL DEMO',20,C.soft,true),tx(1065,'npm run demo',52,C.white,true),tx(1065,'CHECK THE PUBLIC DEPLOYMENT',20,C.soft,true),tx(1065,'npm run check:escrow -- sepolia',40,C.white,true),tx(1065,'Setup and SEPOLIA_RPC_URL are documented in the README.',23,C.soft)],{gap:22,name:'Reproduction commands'}));
   a.push(stack(1280,414,540,354,[tx(540,'SEPOLIA / 11155111',21,C.soft,true),tx(540,'MockGold       0xb3a791…955b1a\nEscrow            0x8c8cbf…f7778c\nInbox               0x870238…bb5d',27,C.white),tx(540,'Three services, one demo wallet.\nMockGold has no physical-gold backing.\nSource verification is not a security audit.',25,C.soft)],{gap:30,name:'Deployment registry'}));
   a.push(rect(96,841,62,6,C.gold,'Closing milestone'));
-  a.push(text(96,879,1728,'github.com/tnwjd023-boop/BlockNotice_GoldRWA',30,C.white,true));
+  a.push(text(96,879,1728,'github.com/kimsabin725/blocknotice',30,C.white,true));
 }
 
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -176,7 +176,7 @@ function render(n,flow=false){
   if(n.type==='rect')return `<div data-name="${esc(n.name)}" style="${common}height:${n.h}px;background:${n.color}"></div>`;
   return `<div class="group" data-name="${esc(n.name)}" style="${common}height:${n.h}px;display:flex;flex-direction:${n.direction==='VERTICAL'?'column':'row'};gap:${n.gap}px;padding:${n.pad}px;${n.bg?'background:'+n.bg+';':''}">${n.items.map(c=>render(c,true)).join('')}</div>`;
 }
-const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>BlockNotice — Gold RWA Redemption</title><style>
+const html=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>BlockNotice — Verifiable Off-chain Refusals</title><style>
 *{box-sizing:border-box}html,body{margin:0;background:#DCE2E8;font-family:Arial,Helvetica,sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}.slide{position:relative;width:1920px;height:1080px;overflow:hidden;margin:32px auto;break-after:page}.slide:last-child{break-after:auto}.group{overflow:visible}.text{margin:0} @page{size:20in 11.25in;margin:0}@media print{html,body{background:white}.slide{margin:0}} </style></head><body>${slides.map((s,i)=>`<section class="slide" aria-label="${esc(s.name)}" data-page="${i+1}" style="background:${s.bg}">${s.children.map(n=>render(n)).join('')}</section>`).join('\n')}</body></html>`;
 fs.writeFileSync(path.join(__dirname,'pitch.en.html'),html);
 fs.writeFileSync(path.join(__dirname,'pitch.en.scene.json'),JSON.stringify({width:1920,height:1080,font:'Arial',repo,colors:C,slides},null,2)+'\n');
