@@ -19,6 +19,20 @@ jobs:
           version: v1.8.3
       - run: npm ci
       - run: forge install foundry-rs/forge-std@0d006dafa09d0b3722575acd29338b79c23e7c2f --no-git
+      # foundry.toml pins solc 0.8.28, but a fresh runner still downloads it, and that
+      # fetch has failed on us with a connection reset. Cache it and retry the compile.
+      - uses: actions/cache@v4
+        with:
+          path: ~/.svm
+          key: svm-solc-0.8.28
+      - name: Compile contracts, retrying transient compiler-download failures
+        run: |
+          for attempt in 1 2 3; do
+            forge build && exit 0
+            echo "forge build attempt $attempt failed; retrying in 20s"
+            sleep 20
+          done
+          exit 1
       - run: npm run test:all
       - run: npm run typecheck
       - run: npm run demo
