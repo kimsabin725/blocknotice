@@ -4,6 +4,11 @@
 전용 테스트넷 지갑: `0xD82DEbb00A73aC657eB9F56e2e2c861A29b0a7c6`.
 기존 BlockNoticeLog를 재사용하고 새 토큰·에스크로·인박스와 세 서비스를 배포·등록했다.
 
+> **세 역할은 이 배포에서 한 계정이다.** 운영사·인도 기관·거래소는 serviceId가 서로 다르지만
+> operator·signer 주소는 위 지갑 하나다(`escrow-deployments.json`의 `commonControl: true`,
+> `controlDisclosure`). 가스와 운영 편의 때문이며, **이 인스턴스만으로는 세 주체의 실제 분리를
+> 보인 것이 아니다.** 역할 분리는 로컬 시나리오에서 서로 다른 계정으로 재현한다(README 한계 17번).
+
 | 계약 | Sepolia 주소 | 배포 블록 |
 |---|---|---|
 | 기존 BlockNoticeLog | [0xa4d46da2bc8bd6c113e254424be1e78002af5504](https://sepolia.etherscan.io/address/0xa4d46da2bc8bd6c113e254424be1e78002af5504) | 11699494 |

@@ -35,6 +35,18 @@ and claims of physical delivery may remain inside institutional systems. Delays 
 can look like a single “redemption delay” to the holder.
 This is the proposal's generalized redemption model, not a claim about any particular issuer's actual operations.
 
+**Why gold RWA as the first scene.** For this structure to earn its keep, an asset has to meet six
+conditions: (1) an institution exercises discretion between request and delivery, (2) several parties are
+involved in sequence, (3) a processing deadline is stated, (4) delays actually occur, (5) the holder keeps
+their own key, and (6) redemption is not rare. Physical gold redemption is strongest on (2): operator
+decision, courier handoff, and delivery confirmation make three hops, so "whose clock stopped" separates
+most clearly. We judge it weakest on (6): we assume most gold-token holding is not for physical redemption.
+That is an assumption, not a measured figure. The trade-off is Limitation 16.
+
+**The escrow contract does not know the asset class.** `RedemptionEscrow` accepts any burnable ERC-20
+(`IBurnableERC20`); `MockGold` is a demo mock. Gold is the first scene chosen, not a premise of the
+contract, and moving to another asset requires no contract rewrite.
+
 | Audience | Scope |
 |---|---|
 | Self-custody holders and institutions | Primary users: lock directly in escrow to start the operator's clock |
@@ -598,6 +610,18 @@ Production use requires a separate finality policy.
     require separate implementation.
 15. **The chain does not check whether a private decision approves redemption.** It verifies the decision digest
     and handoff inclusion proof, not whether the plaintext says ALLOW or the request is eligible for handoff.
+16. **Gold is the better demo, not the first real-world choice.** Three hops make clock separation easy to
+    show, but redemption itself is rare. Our candidate for meeting the six conditions of §1 more evenly is an asset
+    **redeemed continuously with a documented processing deadline** (for example tokenised MMFs or
+    short-term government bond products). Two hops make the picture less dramatic, but we judge (3), (4)
+    and (6) to be stronger there. This is a judgement, not a measured market finding. Because the escrow
+    is asset-neutral, moving requires no contract rewrite.
+17. **The public deployment runs all three roles from one account.** In the Sepolia demo the operator,
+    courier and exchange have distinct service IDs but share one operator/signer address,
+    `0xD82DEbb00A73aC657eB9F56e2e2c861A29b0a7c6` (`commonControl: true` in `escrow-deployments.json`).
+    This was for gas and operational convenience, and **this instance alone does not demonstrate that the
+    three parties are actually separate.** Role separation is exercised in the local scenarios, where the
+    operator, holder and courier are distinct accounts.
 
 ---
 
