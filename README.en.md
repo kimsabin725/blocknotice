@@ -368,6 +368,13 @@ The original receipt flow's two-stage reason disclosure, taxonomy checks, and AC
 the redemption extension's private outcome commitments.
 The redemption extension does not publish ALLOW / DENY / DEFER or reason categories as plaintext onchain.
 
+**No pre-hackathon code lives in this repository.** The first commit is 2026-09-13 and the build window
+was 2026-09-07 to 09-20. Where the documents say "extended from `39139b9`", that points at an earlier
+stage inside the same window: the receipt path was built first, then gold RWA redemption
+(`RedemptionEscrow`, `RedemptionInbox`, inbox-linked verification, deployment cross-checks, and twelve
+more scenarios) was built on top. The only external library is `forge-std`; the contracts, verifier, and
+scenario harness were all written for this event.
+
 ---
 
 ## 8. Verification results and gas measurements
