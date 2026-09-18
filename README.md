@@ -55,10 +55,13 @@ ERC20(`IBurnableERC20`)이고 `MockGold`는 시연용 목업입니다. 다른 �
 
 ## 1. 문제 정의 — 누가 이걸 쓰는가
 
-**1차 장면: 자기 키로 금 RWA 토큰을 잠글 수 있는 고액 보유자·기관의 상환 요청.**
-잠금은 온체인이어도 운영사의 승인·제한 판단, 인도 기관에 넘긴 시점, 실물 인도 주장은 기관 내부에
-남을 수 있습니다. 세 주체의 지연이 보유자에게는 하나의 「상환 지연」으로 보이는 문제를 다룹니다.
-이는 특정 발행사의 실제 운영에 대한 주장이 아니라, 기획안의 일반화된 상환 구조입니다.
+**1차 대상: 자기 키로 서명할 수 있고, 기관에 증빙을 요구할 힘이 있는 요청자.**
+요청자가 키를 쥐고 있어야 영수증이 그 사람에게 묶이고, 계약에 기한이 있어야 「기한 내 증빙하지
+않았다」가 확정됩니다. 둘 중 하나라도 없으면 이 구조는 값을 못 합니다. 자산 종류는 조건이 아닙니다.
+
+**첫 장면으로 금 RWA 상환을 골랐습니다.** 잠금은 온체인이어도 운영사의 승인·제한 판단, 인도 기관에
+넘긴 시점, 실물 인도 주장은 기관 내부에 남을 수 있습니다. 세 주체의 지연이 보유자에게는 하나의
+지연으로 보입니다. 특정 발행사의 실제 운영에 대한 주장이 아니라 일반화된 구조입니다.
 
 **왜 금 RWA를 1차 예시로 골랐는가.** 이 구조가 값을 하려면 자산이 여섯 조건을 만족해야 합니다 —
 ① 요청과 인도 사이에 기관의 재량 판단이 낀다 ② 복수 주체가 순차로 관여한다 ③ 처리 기한이 명시돼 있다
@@ -89,8 +92,8 @@ Node.js 22와 Foundry(`forge`, `anvil`)가 PATH에 필요합니다. 검증 환�
 Foundry 1.8.3, Solidity 0.8.28입니다. Windows에서는 공식 Visual C++ x64 런타임도 필요할 수 있습니다.
 
 ```bash
-git clone https://github.com/tnwjd023-boop/BlockNotice_GoldRWA.git
-cd BlockNotice_GoldRWA
+git clone https://github.com/kimsabin725/blocknotice.git
+cd blocknotice
 npm ci
 forge install foundry-rs/forge-std@0d006dafa09d0b3722575acd29338b79c23e7c2f --no-git   # 최초 1회
 forge build
@@ -646,13 +649,20 @@ BlockNotice는 이용자가 보유한 영수증을 공개 커밋과 대조하는
 
 ## 13. 데모 · 피치덱
 
-제출 전 5분 발표 대본은 [`DEMO.md`](DEMO.md), 최신 피치덱은 [금 RWA 상환 PDF](deck/BlockNotice_GoldRWA_pitch.pdf),
-원본은 [`deck/pitch.html`](deck/pitch.html)입니다. 새 PDF는 12장입니다.
-기존 [`deck/BlockNotice_pitch.pdf`](deck/BlockNotice_pitch.pdf)는 상환 전환 이전 자료이므로 제출본으로 사용하지 않습니다.
-대본과 HTML은 가속한 로컬 시나리오와 실제 Sepolia 상환·인박스 배포를 구분합니다.
+제출 전 5분 발표 대본은 [`DEMO.md`](DEMO.md)입니다.
 
-영문 발표용으로 재구성한 [컨설팅 스타일 피치덱 PDF](deck/BlockNotice_GoldRWA_pitch.en.pdf)도 제공합니다.
-[영문 HTML](deck/pitch.en.html)과 [제작 원본·Figma 이관 상태](deck/README.en.md)를 함께 확인할 수 있습니다.
+피치덱은 12장짜리 두 벌이고 **같은 디자인 시스템**을 씁니다.
+
+| 덱 | 생성기 | HTML |
+|---|---|---|
+| [한글 PDF](deck/BlockNotice_GoldRWA_pitch.pdf) | [`pitch.ko.source.cjs`](deck/pitch.ko.source.cjs) | [`pitch.ko.html`](deck/pitch.ko.html) |
+| [영문 PDF](deck/BlockNotice_GoldRWA_pitch.en.pdf) | [`pitch.en.source.cjs`](deck/pitch.en.source.cjs) | [`pitch.en.html`](deck/pitch.en.html) |
+
+둘 다 체인에 남지 않는 거절 기록을 먼저 말하고, 금 RWA 상환은 그 구조를 보여주는 예시로 둡니다.
+가속한 로컬 시나리오와 실제 Sepolia 배포는 구분해 표기합니다.
+
+제출본이 아닌 것: [`deck/pitch.html`](deck/pitch.html)은 이전 디자인의 한글 덱이고,
+[`deck/BlockNotice_pitch.pdf`](deck/BlockNotice_pitch.pdf)는 에스크로·인박스 확장 이전 자료입니다.
 
 ---
 

@@ -57,11 +57,15 @@ this repository's `main`, inside the event's build window.
 
 ## 1. The problem — who uses this?
 
-**Primary use case: redemption by high-value holders and institutions that can lock gold RWA tokens with their own keys.**
-Even when the lock is onchain, the operator's approval or restriction decision, the handoff time,
-and claims of physical delivery may remain inside institutional systems. Delays across three parties
-can look like a single “redemption delay” to the holder.
-This is the proposal's generalized redemption model, not a claim about any particular issuer's actual operations.
+**Primary audience: requesters who can sign with their own key and have standing to demand evidence.**
+The requester has to hold the key for a receipt to bind to them, and the contract has to state a deadline
+for "no evidence within the deadline" to become established. Without either, this structure earns nothing.
+The asset class is not one of the conditions.
+
+**Gold RWA redemption is the first scene we chose.** Even when the lock is onchain, the operator's approval
+or restriction decision, the handoff time, and claims of physical delivery may remain inside institutional
+systems, and delays across three parties look like a single delay to the holder. This is a generalized
+structure, not a claim about any particular issuer's actual operations.
 
 **Why gold RWA as the first scene.** For this structure to earn its keep, an asset has to meet six
 conditions: (1) an institution exercises discretion between request and delivery, (2) several parties are
@@ -93,8 +97,8 @@ Node.js 22 and Foundry (`forge`, `anvil`) must be on PATH. The verified environm
 Node 22.23.2, Foundry 1.8.3, and Solidity 0.8.28. Windows may also require the official Visual C++ x64 runtime.
 
 ```bash
-git clone https://github.com/tnwjd023-boop/BlockNotice_GoldRWA.git
-cd BlockNotice_GoldRWA
+git clone https://github.com/kimsabin725/blocknotice.git
+cd blocknotice
 npm ci
 forge install foundry-rs/forge-std@0d006dafa09d0b3722575acd29338b79c23e7c2f --no-git   # Once
 forge build
@@ -705,16 +709,20 @@ It complements institutional audit logs with independent verification on the use
 ## 13. Demo and pitch deck
 
 The five-minute submission script is in [`DEMO.md`](DEMO.md).
-The current pitch deck is the [gold RWA redemption PDF](deck/BlockNotice_GoldRWA_pitch.pdf),
-with its source in [`deck/pitch.html`](deck/pitch.html). The new PDF has 12 slides.
-These presentation materials are in Korean.
-The older [`deck/BlockNotice_pitch.pdf`](deck/BlockNotice_pitch.pdf) predates the redemption extension
-and should not be used as the submission deck.
-The script and HTML distinguish accelerated local scenarios from the actual Sepolia escrow and inbox deployments.
+There are two 12-slide decks, built on the **same design system**.
 
-An English [consulting-style pitch deck](deck/BlockNotice_GoldRWA_pitch.en.pdf) is also available,
-with [HTML slides](deck/pitch.en.html) and [editable source and Figma transfer status](deck/README.en.md).
-It presents the same implementation with conclusion-led headlines and an updated evidence narrative.
+| Deck | Generator | HTML |
+|---|---|---|
+| [Korean PDF](deck/BlockNotice_GoldRWA_pitch.pdf) | [`pitch.ko.source.cjs`](deck/pitch.ko.source.cjs) | [`pitch.ko.html`](deck/pitch.ko.html) |
+| [English PDF](deck/BlockNotice_GoldRWA_pitch.en.pdf) | [`pitch.en.source.cjs`](deck/pitch.en.source.cjs) | [`pitch.en.html`](deck/pitch.en.html) |
+
+Both open on refusals that leave no onchain trace and keep gold RWA redemption as the worked example.
+Accelerated local scenarios and the actual Sepolia deployments are marked separately in each.
+See [deck/README.en.md](deck/README.en.md) for regeneration and Figma transfer status.
+
+Not submission material: [`deck/pitch.html`](deck/pitch.html) is the earlier Korean deck in a plainer
+design, and [`deck/BlockNotice_pitch.pdf`](deck/BlockNotice_pitch.pdf) predates the escrow and inbox
+extension.
 
 ---
 
