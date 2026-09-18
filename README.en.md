@@ -2,24 +2,52 @@
 
 [한국어](README.md) | [English](README.en.md)
 
-Gold RWA extension: [tnwjd023-boop/BlockNotice_GoldRWA](https://github.com/tnwjd023-boop/BlockNotice_GoldRWA).
-Based on commit `39139b9` of the [original BlockNotice](https://github.com/kimsabin725/blocknotice), with its history preserved.
+**A refused request never becomes a transaction.** Approvals land onchain; blocked requests live only in
+the institution's internal database. If the institution later says no such request arrived, or rewrites the
+reason, the requester has nothing to argue with. If the row is deleted, nobody outside can tell.
 
-**In gold RWA redemption, the token lock is already onchain. Decisions, deadlines, and delivery claims remain offchain.**
+BlockNotice attaches a **signed receipt** to that decision and lets anyone check whether the institution
+kept the deadline it signed — **without ever touching the institution's server**.
 
-Redemption request → token lock → operator decision → delivery provider → completion confirmation → burn.
-Along this path, holders need to know **whose clock the process has stalled on**.
-BlockNotice lets users verify decision records and deadlines using their own evidence and the public chain.
-The processing promise is a promise to **record and provide evidence**, not a promise to approve redemption.
+| What it guarantees | How |
+|---|---|
+| Altering a record is detectable | Signed receipts plus a public Merkle anchor; a later swap breaks the root |
+| A third party verifies without the institution's server | State transitions are reconstructed from public log events alone |
+| Neither requester nor institution can deny their part | An EIP-712 signed request and a signed receipt bind both sides |
 
-**Available now:** signed receipts, a public log, independent verifiers, **a redemption escrow and an exchange inbox**.
-Locking tokens starts the operator's clock; handoff starts the delivery provider's clock.
-Conditional returns, burns, and holder disputes run on a local chain, and public events reconstruct findings for each step.
-`RedemptionInbox` tracks exchange forwarding, rejection, and non-response from a holder-signed request.
-MockGold, the escrow, and the inbox are deployed on Sepolia and connected to the existing public log.
-See the [public deployment record](docs/public-deployment.md) for addresses and verification results,
-the [redemption specification](docs/redemption-design.md) for functions, deadlines, and design changes,
+**Records that were never posted are covered too.** A missing record is not itself a violation, but the
+requester can publicly establish "no evidence was provided within the deadline" from their own receipt and
+the signed deadline. Absence of evidence is never auto-promoted to proven breach — that boundary is stated
+in [section 4](#4-guarantees-and-non-guarantees).
+
+One command replays **30 situations** (20 attacks, 10 honest paths, zero false alarms). The two
+demonstrations Track 3 asks for are here.
+
+| Required demonstration | Scenarios |
+|---|---|
+| Detecting post-hoc record modification | `attack.tamperedNotice` · `attack.stretchedDeadline` · `attack.phantomAnchor` · `attack.lateRecordingStillFlagged` |
+| Detecting missing or deleted refusal records | `attack.omitRequestLeaf` · `attack.omitDecisionLeaf` · `attack.silentInstitution` |
+
+**Available now:** signed receipts, a public log, independent verifiers, a redemption escrow and an exchange
+inbox, deployed on Sepolia. See the [public deployment record](docs/public-deployment.md) for addresses and
+verification results, the [redemption specification](docs/redemption-design.md) for functions and deadlines,
 and the [submission status](docs/submission-status.md) for progress. These supporting documents are in Korean.
+
+### Gold RWA redemption is the example, not the subject
+
+Physical gold redemption was chosen as the scene that shows the structure most thickly. Redemption request →
+token lock → operator decision → handoff to the delivery provider → completion confirmation → burn gives
+**three hops**, so "whose clock did it stall on" separates most sharply. Locking tokens starts the operator's
+clock; handoff starts the delivery provider's clock. `RedemptionInbox` tracks exchange forwarding, rejection,
+and non-response from a holder-signed request.
+
+**The escrow does not know what the asset is.** `RedemptionEscrow` takes any burnable ERC-20
+(`IBurnableERC20`), and `MockGold` is a demo mock. Moving to another asset needs no contract rewrite. The
+reasoning behind gold and its trade-off are in [section 1](#1-the-problem--who-uses-this) and limitation 16.
+
+The redemption extension was developed in the fork
+[tnwjd023-boop/BlockNotice_GoldRWA](https://github.com/tnwjd023-boop/BlockNotice_GoldRWA) and merged into
+this repository's `main`, inside the event's build window.
 
 > This is a hackathon project (TRUST404, Track 3). The commands below reproduce the tests and scenarios.
 > Gas figures were measured in the stated environment. Public-chain activity covers deployment and registration;
