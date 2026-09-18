@@ -708,7 +708,7 @@ It complements institutional audit logs with independent verification on the use
 
 ## 13. Demo and pitch deck
 
-The five-minute submission script is in [`DEMO.md`](DEMO.md).
+The five-minute script for presenting live at Demo Day is in [`DEMO.md`](DEMO.md) (Korean). The submitted video runs 2:48 and is structured differently.
 There are two 12-slide decks, built on the **same design system**.
 
 | Deck | Generator | HTML |
