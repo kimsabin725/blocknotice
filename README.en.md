@@ -427,6 +427,22 @@ It is not a statistical measurement of a general detector's false-positive rate.
 Coverage includes exchange inbox non-response. Results are written to `out/scenarios.json`;
 redemption evidence is saved in files such as `out/attack.redeemSilent.json`.
 
+### Static analysis — all 35 `forge lint` warnings, accounted for
+
+`forge lint contracts/src` reports 35 warnings. They are listed rather than hidden. The code was not
+changed to reach zero: four of the five categories are structures the linter cannot follow, and one is a
+**deliberate defence**.
+
+| Warning | Count | Verdict |
+|---|---|---|
+| `incorrect-strict-equality` | 7 | **Deliberate.** Balances and allowances are checked for exact equality around every external call. Fee-on-transfer and rebasing tokens are rejected right there with `UnsupportedToken` (limitation 13). Loosening the comparison removes the defence. |
+| `unsafe-typecast` | 14 | All of them are `uint64(block.number)`. Overflowing uint64 needs a block number near 1.8x10^19. |
+| `reentrancy-events` | 7 | False positive, for the reason below. |
+| `reentrancy-no-eth` | 6 | False positive. Every flagged external call sits inside a `nonReentrant` function, and the modifier writes `_entered = 1` **before** the body runs (`contracts/src/RedemptionInbox.sol:43`). The linter does not follow custom modifiers. State is also written before external calls. |
+| `uninitialized-local` | 1 | False positive. `root` in `BlockNoticeLog.appendBatch` is assigned while walking the leaves, and an empty batch reverts with `EmptyBatch` before that point (`contracts/src/BlockNoticeLog.sol:218`). `test_rejectsEmptyAndOversizedBatch` pins it. |
+
+**Static analysis is not an audit.** No external security audit was performed.
+
 ### Existing log gas (Foundry measurements recorded by the original repository)
 
 The extension does not change the log contract. These are the original measurements;

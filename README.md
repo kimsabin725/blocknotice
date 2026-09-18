@@ -407,6 +407,21 @@ stateDiagram-v2
 하니스의 `falsePositives`는 정상 장면의 기대값 불일치 수입니다. 일반적인 탐지기의 오탐률을 측정한 통계는 아닙니다.
 인박스 무응답 시나리오를 포함합니다. 실행 결과는 `out/scenarios.json`, 상환별 공개 증거는 `out/attack.redeemSilent.json` 등으로 저장합니다.
 
+### 정적 분석 — `forge lint` 경고 35건을 전부 설명합니다
+
+`forge lint contracts/src`는 경고 35건을 냅니다. 숨기지 않고 분류해 둡니다. 경고를 0으로 만들려고
+코드를 바꾸지는 않았습니다 — 아래 다섯 중 넷은 린터가 못 읽는 구조이고, 하나는 **의도한 방어**입니다.
+
+| 경고 | 건수 | 판단 |
+|---|---|---|
+| `incorrect-strict-equality` | 7 | **의도한 방어입니다.** 외부 호출 전후로 잔액과 allowance가 정확히 일치하는지 봅니다. 수수료 차감·리베이스 토큰은 바로 이 지점에서 `UnsupportedToken`으로 거부됩니다(한계 13). 등호를 느슨하게 바꾸면 그 방어가 사라집니다. |
+| `unsafe-typecast` | 14 | 전부 `uint64(block.number)`입니다. uint64가 넘치려면 블록 번호가 1.8×10¹⁹에 닿아야 합니다. |
+| `reentrancy-events` | 7 | 오탐. 아래와 같은 이유입니다. |
+| `reentrancy-no-eth` | 6 | 오탐. 지적된 외부 호출은 전부 `nonReentrant` 함수 안에 있고, 모디파이어가 본문보다 **먼저** `_entered = 1`을 씁니다(`contracts/src/RedemptionInbox.sol:43`). 린터가 커스텀 모디파이어를 따라가지 못합니다. 상태 변경도 외부 호출보다 앞에 둡니다. |
+| `uninitialized-local` | 1 | 오탐. `BlockNoticeLog.appendBatch`의 `root`는 리프 순회에서 대입되고, 빈 배치는 그 앞에서 `EmptyBatch`로 되돌립니다(`contracts/src/BlockNoticeLog.sol:218`). `test_rejectsEmptyAndOversizedBatch`가 이를 고정합니다. |
+
+**정적 분석은 감사가 아닙니다.** 외부 보안 감사는 받지 않았습니다.
+
 ### 기존 로그 가스 (원본 저장소의 Foundry 실측 기록)
 
 이번 확장에서는 로그 컨트랙트를 변경하지 않았습니다. 아래는 원본 측정값이며 신규 에스크로 측정은 다음 표에 있습니다.
