@@ -500,7 +500,7 @@ Means may vary with fuzz seeds and the set of calls.
 
 ## 9. Public testnet deployments
 
-### Gold RWA redemption — Sepolia (11155111)
+### Redemption escrow and inbox — Sepolia (11155111)
 
 | Contract | Address | Verification |
 |---|---|---|
@@ -759,7 +759,7 @@ extension.
 Idea and committed by **SBK**. Review and feedback by [@tnwjd023-boop](https://github.com/tnwjd023-boop).
 
 The original implementation was developed with Claude Code. Thanks to Claude and Anthropic.
-The gold RWA escrow and inbox, verifiers, deployment tools, and submission-material extensions were developed with Codex.
+The redemption escrow and inbox, verifiers, deployment tools, and submission-material extensions were developed with Codex.
 AI was used to write contract, verifier, and scenario-harness code.
 Design decisions, the threat model, and the selection of limitations above were made by people.
 
