@@ -691,3 +691,15 @@ The original implementation was developed with Claude Code. Thanks to Claude and
 The gold RWA escrow and inbox, verifiers, deployment tools, and submission-material extensions were developed with Codex.
 AI was used to write contract, verifier, and scenario-harness code.
 Design decisions, the threat model, and the selection of limitations above were made by people.
+
+---
+
+## 15. License
+
+[Apache License 2.0](LICENSE), `Copyright 2026 kimsabin725`.
+
+Apache-2.0 rather than MIT because of the **patent grant**. This ledger handles
+promises that institutions sign, so the legal team reviewing adoption looks at patent
+risk first. Apache-2.0 states that contributors grant a patent license along with the
+copyright license, and terminates that grant for anyone who brings a patent suit. That
+is the shape enterprise review expects.
