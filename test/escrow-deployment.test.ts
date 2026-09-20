@@ -58,6 +58,19 @@ describe("escrow deployment safety", () => {
     expect(() => selectDeployerKey("hoodi", 560048, {})).toThrow(/DEPLOYER_KEY/);
   });
 
+  it("keeps a public deployer key out of the local chain", () => {
+    const publicKey = `0x${"ab".repeat(32)}`;
+    expect(selectDeployerKey("local", 31337, { DEPLOYER_KEY: publicKey })).toBe(DEFAULT_LOCAL_DEPLOYER_KEY);
+    expect(selectDeployerKey("hoodi", 560048, { DEPLOYER_KEY: publicKey })).toBe(publicKey);
+  });
+
+  it("uses LOCAL_DEPLOYER_KEY when a local run needs its own funded account", () => {
+    const localKey = `0x${"cd".repeat(32)}`;
+    expect(selectDeployerKey("local", 31337, { LOCAL_DEPLOYER_KEY: localKey })).toBe(localKey);
+    expect(() => selectDeployerKey("local", 31337, { LOCAL_DEPLOYER_KEY: "0x1234" }))
+      .toThrow(/LOCAL_DEPLOYER_KEY must be a 32-byte/);
+  });
+
   it("derives stable, role-distinct service IDs from the journal namespace", () => {
     const ids = deriveServiceIds(`0x${"11".repeat(32)}`);
     expect(ids.operator).toBe("0x5bafbd4a144d8d9d07c5434381d2e9be5e7e0d32d6e3881fa081d2425141859e");

@@ -64,14 +64,21 @@ export function selectDeployerKey(
   actualChainId: number,
   env: Record<string, string | undefined> = process.env,
 ): Hex {
+  // A local chain never borrows DEPLOYER_KEY: that key belongs to a public testnet, has no
+  // balance on a fresh Anvil, and a stray .env would otherwise break every local run.
+  if (network === "local") {
+    if (actualChainId !== 31337) throw new Error("refusing to use the development key before observing local chain ID 31337");
+    const localKey = env.LOCAL_DEPLOYER_KEY;
+    if (localKey) {
+      if (!/^0x[0-9a-fA-F]{64}$/.test(localKey)) throw new Error("LOCAL_DEPLOYER_KEY must be a 32-byte 0x-prefixed hex value");
+      return localKey as Hex;
+    }
+    return DEFAULT_LOCAL_DEPLOYER_KEY;
+  }
   const configured = env.DEPLOYER_KEY;
   if (configured) {
     if (!/^0x[0-9a-fA-F]{64}$/.test(configured)) throw new Error("DEPLOYER_KEY must be a 32-byte 0x-prefixed hex value");
     return configured as Hex;
-  }
-  if (network === "local") {
-    if (actualChainId !== 31337) throw new Error("refusing to use the development key before observing local chain ID 31337");
-    return DEFAULT_LOCAL_DEPLOYER_KEY;
   }
   throw new Error("set DEPLOYER_KEY in .env for a public deployment");
 }

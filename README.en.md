@@ -581,9 +581,10 @@ npm run deploy:escrow -- local --record out/escrow-local.json
 npm run check:escrow -- local --record out/escrow-local.json
 ```
 
-Override the endpoint with `LOCAL_RPC_URL`. The default Anvil key is used only when `DEPLOYER_KEY` is absent,
-and the tool first checks that the actual RPC chainId is 31337.
-If `.env` contains another key, local deployment uses that key too, so its address needs a local-chain balance.
+Override the endpoint with `LOCAL_RPC_URL`. A local deployment first checks that the actual RPC chainId is
+31337 and then uses the default Anvil key. The public-network `DEPLOYER_KEY` in `.env` is never used on a local
+chain: that address has no balance on a fresh Anvil, so a stray `.env` would break every local run.
+To deploy locally from a different account, set `LOCAL_DEPLOYER_KEY`; its address needs a local-chain balance.
 For public deployment, set `DEPLOYER_KEY` and `HOODI_RPC_URL` or `SEPOLIA_RPC_URL` in `.env`:
 
 ```bash
@@ -759,7 +760,7 @@ extension.
 Idea and committed by **SBK**. Review and feedback by [@tnwjd023-boop](https://github.com/tnwjd023-boop).
 
 The original implementation was developed with Claude Code. Thanks to Claude and Anthropic.
-The redemption escrow and inbox, verifiers, deployment tools, and submission-material extensions were developed with Codex.
+The redemption escrow and inbox, verifiers, deployment tools, and submission-material extensions were developed by [@tnwjd023-boop](https://github.com/tnwjd023-boop) with Codex.
 AI was used to write contract, verifier, and scenario-harness code.
 Design decisions, the threat model, and the selection of limitations above were made by people.
 
