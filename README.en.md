@@ -430,7 +430,7 @@ scenario harness were all written for this event.
 |---|---|---|
 | Scenarios (`npm run scenarios`) | **30** | 20 attack + 10 honest scenarios; 18 original + 12 redemption/inbox; expected findings checked on local Anvil |
 | Solidity unit tests | **107** | 32 original + 39 escrow + 36 inbox, including reference-tree fuzzing |
-| TypeScript tests | **84** | Original flow, Windows execution, escrow/inbox evidence and real-chain integration, deployment tooling |
+| TypeScript tests | **86** (as executed by vitest — 83 definitions, one `it.each` expanding to 4 cases; the submitted deck says 84) | Original flow, Windows execution, escrow/inbox evidence and real-chain integration, deployment tooling |
 
 **All 20 attack scenarios matched their expected findings; zero mismatches across the 10 honest scenarios.**
 An attack's expected result may be rejection, a lateness flag, `UNVERIFIABLE`, or `OUT_OF_SCOPE`;
