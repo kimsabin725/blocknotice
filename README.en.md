@@ -2,6 +2,8 @@
 
 [한국어](README.md) | [English](README.en.md)
 
+**Grand Prize, TRUST404 2026 Track 3 (2026-09-29) · team of two**
+
 **A refused request never becomes a transaction.** Approvals land onchain; blocked requests live only in
 the institution's internal database. If the institution later says no such request arrived, or rewrites the
 reason, the requester has nothing to argue with. If the row is deleted, nobody outside can tell.
