@@ -1,8 +1,7 @@
 {
   "name": "blocknotice",
   "version": "0.1.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Signed receipts for off-chain withdrawal decisions, verifiable without the institution's server. TRUST404 2026 Track 3, Grand Prize.",
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
@@ -19,8 +18,14 @@
     "report": "tsx src/report.ts",
     "demo": "npm run scenarios && npm run report"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "blockchain",
+    "solidity",
+    "eip-712",
+    "audit-trail",
+    "trust404"
+  ],
+  "author": "kimsabin725",
   "license": "Apache-2.0",
   "type": "module",
   "private": true,

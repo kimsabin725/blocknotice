@@ -10,7 +10,6 @@ The 12-slide English deck adapts the original presentation into a consulting-sty
 
 To regenerate HTML and scene data, run `node deck/pitch.en.source.cjs` from the repository root. Print the HTML to PDF with background graphics enabled and CSS page size respected (20 × 11.25 inches). The committed PDF was generated with Chrome and checked for 12 pages, text overflow, and text overlap.
 
-**Figma status:** pending. The Figma plugin was invoked, but its account lookup returned `Unknown tool: figma.whoami` after reconnection. No native Figma file or share link exists yet. The HTML/PDF are local deliverables, not Figma exports.
 
 The original Korean presentation remains available separately. No market-size, customer-traction, investment-return, physical-reserve, or security-audit claims were added.
 

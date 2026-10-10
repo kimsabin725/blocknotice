@@ -57,7 +57,8 @@ ERC20(`IBurnableERC20`)이고 `MockGold`는 시연용 목업입니다. 다른 �
 금 상환 확장은 포크 [tnwjd023-boop/BlockNotice_GoldRWA](https://github.com/tnwjd023-boop/BlockNotice_GoldRWA)에서
 개발해 이 저장소 `main`에 병합했습니다. 대회 기간 안의 작업입니다.
 
-> 해커톤 프로젝트입니다(TRUST404 트랙 3). 테스트·시나리오는 아래 명령으로 재현할 수 있습니다.
+> TRUST404 2026 트랙 3 출품작입니다(2인 팀). **2026년 9월 29일 데모데이에서 최우수상(Grand Prize)을 받았습니다.**
+> 테스트·시나리오는 아래 명령으로 재현할 수 있습니다.
 > 가스는 명시된 환경의 측정값이며, 공개망에서는 배포·등록을 수행했습니다. 30개 시나리오는 로컬 실행입니다.
 > 성능이나 고객 도입이 완료됐다는 보고가 아닙니다.
 
@@ -585,6 +586,7 @@ Sepolia 신규 배포는 [escrow-deployments.json](escrow-deployments.json)에 �
 > [Ethereum Foundation의 2025-03-18 공지](https://blog.ethereum.org/2025/03/18/hoodi-holesky)는
 > Sepolia의 예상 종료일을 2026-09-30으로 제시했습니다. 현재 [공식 네트워크 문서](https://ethereum.org/developers/docs/networks/)는
 > Sepolia와 Hoodi를 유지 중인 테스트넷으로 설명하므로, 종료를 확정된 사실로 발표하지 않습니다.
+> 2026-10-10에 다시 확인한 결과 Sepolia는 계속 가동 중이며, 배포한 컨트랙트도 그대로 조회됩니다.
 > 이후 추가 배포 전에는 최신 공지를 다시 확인합니다.
 
 판정은 블록 순서 하나에 걸려 있어 **인접 블록 재조직에 뒤집힐 수 있습니다.** 컨트랙트는 이걸 막지 못합니다.

@@ -61,7 +61,8 @@ The redemption extension was developed in the fork
 [tnwjd023-boop/BlockNotice_GoldRWA](https://github.com/tnwjd023-boop/BlockNotice_GoldRWA) and merged into
 this repository's `main`, inside the event's build window.
 
-> This is a hackathon project (TRUST404, Track 3). The commands below reproduce the tests and scenarios.
+> Built for TRUST404 2026, Track 3 (team of two). **Won the Grand Prize at Demo Day on 2026-09-29.**
+> The commands below reproduce the tests and scenarios.
 > Gas figures were measured in the stated environment. Public-chain activity covers deployment and registration;
 > the 30 scenarios run locally. These results do not establish production performance or customer adoption.
 
@@ -627,6 +628,7 @@ Deadlines count blocks on the specific chain, not elapsed time, so migrating cha
 > listed 2026-09-30 as Sepolia's expected end-of-life date.
 > The current [official network documentation](https://ethereum.org/developers/docs/networks/) describes
 > Sepolia and Hoodi as maintained testnets, so this README does not present that shutdown as confirmed.
+> Rechecked on 2026-10-10: Sepolia is still running and the deployed contracts still read back.
 > Check the latest announcements before any further deployment.
 
 Findings depend on block order and **can change under a reorganization of nearby blocks**.
